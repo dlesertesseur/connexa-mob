@@ -1,0 +1,75 @@
+{
+  "es-US": {
+    "label": {
+      "email": "Email",
+      "password": "Clave",
+      "checkPassword": "Validar clave",
+      "confirmPassword": "Confirmar clave",
+      "forgotPassword": "¿Olvido su contraseña?",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "code": "Codigo",
+      "title": "Titulo",
+      "description": "Descripción",
+      "location": "Ubicacion",
+      "phoneNumber": "Numero de telefono"
+    },
+
+    "button": {
+      "login": "Ingrear",
+      "signUp": "Registrarse",
+      "alreadyHaveUser": "¿Ya tiene un usuario?",
+      "notAccount": "¿No tiene una cuenta? Registrese",
+      "accept": "Aceptar",
+      "cancel": "Cancelar",
+      "scan": "Escanear",
+      "addPicture": "Adjuntar imagen",
+      "takePicture": "Tomar foto",
+      "send": "Enviar",
+      "profileImage": "Foto de perfil",
+      "close": "Cerrar",
+      "welcome-signIn": "Ya tengo una cuenta",
+      "welcome-signUp": "Crear una cuenta"
+    },
+
+    "validation": {
+      "required": "Campo reuquerido",
+      "email": {
+        "invalid": "Email invalido"
+      },
+      "password": {
+        "minLength": "La clave es demasiado corta",
+        "distinct": "Las claves son distintas"
+      }
+    },
+
+    "title": {
+      "screen": {
+        "login": "Bienvenido",
+        "login-desc": "Estamos muy felices de verlo, continue con el ingreso y administre sus aplicaciones",
+        "signUp": "Registracion",
+        "signUp-desc": "Crea una cuenta y empieza a gestionar todos tus recursos de forma centralizada y organizada",
+        "alert": "Alerta",
+        "alert-desc": "Crea una alert para notificar algun problema documentando el detalle y agregar fotos si es necesario.",
+        "welcome": "Bienvenido",
+        "welcome-desc": "Conectate - Busca trabajo - Reservalo para vos - Administra tu tiempo - Gana dinero !!!"
+      },
+      "error": "ERROR"
+    },
+
+    "tab": {
+      "task": "Tareas",
+      "timeAndAttendance": "Productividad",
+      "user": "Perfil",
+      "alert": "Alertas"
+    },
+
+    "message": {
+      "camera": {
+        "noAccess": "Sin acceso a la cámara",
+        "permission": "Solicitando permiso de acceso a la cámara",
+        "grantPermission": "Conceder permiso."
+      }
+    }
+  }
+}
