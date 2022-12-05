@@ -56,8 +56,7 @@ const SelectCountryScreen = ({ navigation }) => {
       <CustomActionList
         data={filteredCountries}
         onSelect={(country) => {
-          const obj = { name: country.name, id: country.numeric_code };
-          dispatch(setSelectedCountry(obj));
+          dispatch(setSelectedCountry(country.name));
           navigation.navigate("SelectCity", country);
         }}
         formatText={formatText}

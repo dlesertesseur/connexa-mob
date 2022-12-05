@@ -4,18 +4,24 @@ import CustomButton from "../Components/CustomButton";
 import CustomLabel from "../Components/CustomLabel";
 import CustomImage from "../Components/CustomImage";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
+import CustomSecurityCodeInput from "../Components/CustomSecurityCodeInput";
 import { useForm } from "react-hook-form";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../Features/Auth";
-import CustomSecurityCodeInput from "../Components/CustomSecurityCodeInput";
+import { signUp } from "../Features/Auth";
+import { useEffect } from "react";
 
 const CheckCodeScreen = ({ navigation }) => {
+  const { signupData, user } = useSelector((state) => state.auth.value);
+  const { creating, created, error, errorMessage } = useSelector((state) => state.auth.value);
   const dispatch = useDispatch();
-  const { error, errorMessage, authenticating } = useSelector(
-    (state) => state.auth.value
-  );
+
+  useEffect(() => {
+    if (created && !creating) {
+      navigation.navigate("AccountCreatedSuccessfully");
+    }
+  }, [created, creating]);
 
   const {
     control,
@@ -28,7 +34,10 @@ const CheckCodeScreen = ({ navigation }) => {
   });
 
   const onSubmit = (data) => {
-    navigation.navigate("AccountCreatedSuccessfully");
+    const send = { ...signupData };
+    send.country = user.country;
+    send.city = user.city;
+    dispatch(signUp(send));
   };
 
   const logo = require("../../assets/images/logo-banner.png");
@@ -45,6 +54,7 @@ const CheckCodeScreen = ({ navigation }) => {
       <HorizontalSeparator height={64} />
       <View style={styles.panel}>
         <CustomSecurityCodeInput
+          disabled={creating}
           control={control}
           name="code"
           rules={{
@@ -53,12 +63,9 @@ const CheckCodeScreen = ({ navigation }) => {
         />
       </View>
       <View style={{ justifyContent: "flex-end", margin: 15 }}>
-        <CustomButton
-          text={i18n.t("button.continue")}
-          onPress={handleSubmit(onSubmit)}
-        />
+        <CustomButton text={i18n.t("button.continue")} onPress={handleSubmit(onSubmit)} />
       </View>
-      {authenticating ? (
+      {creating ? (
         <View style={styles.loading}>
           <ActivityIndicator size="large" color="#0000ff" />
         </View>

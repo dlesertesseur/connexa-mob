@@ -4,36 +4,48 @@ import CustomButton from "../Components/CustomButton";
 import CustomLabel from "../Components/CustomLabel";
 import CustomImage from "../Components/CustomImage";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
+import { ui } from "../Config/Constants";
+import { useDispatch, useSelector } from "react-redux";
+import { saveDocument } from "../Features/Auth";
 
 const ShowImageScreen = ({ navigation }) => {
-  // const onSubmit = (data) => {
-  //   navigation.navigate("AccountCreatedSuccessfully");
-  // };
-
   const logo = require("../../assets/images/logo-banner.png");
+  const noData = require("../../assets/images/noData.png");
+
+  const dispatch = useDispatch();
+
+  const { document } = useSelector((state) => state.auth.value);
 
   return (
     <View style={styles.container}>
       <CustomImage source={logo} style={styles.logo} />
-      <CustomLabel
-        title={i18n.t("title.screen.checkCode")}
-        text={i18n.t("title.screen.checkCode-desc")}
-        fontSize={30}
-        color={colors.primary}
-      />
-      <HorizontalSeparator height={64} />
+      <CustomLabel title={document.name} text={document.desc} fontSize={30} color={colors.primary} />
+      <HorizontalSeparator />
+
       <View style={styles.panel}>
-        <Text> ShowImageScreen </Text>
+        <Image source={document.url ? { uri: document.url } : noData} resizeMode={"cover"} style={styles.image} />
       </View>
+
       <View style={{ justifyContent: "flex-end", margin: 15 }}>
         <CustomButton
-          text={i18n.t("button.continue")}
-          onPress={()=>{console.log("ShowImageScreen")}}
+          text={i18n.t("button.takePicture")}
+          onPress={() => {
+            navigation.navigate("TakePhoto");
+          }}
+        />
+
+        <HorizontalSeparator/>
+        
+        <CustomButton
+          text={i18n.t("button.save")}
+          onPress={() => {
+            dispatch(saveDocument(document));
+            navigation.navigate("DocumentsList");
+          }}
         />
       </View>
-      
     </View>
   );
 };
@@ -49,6 +61,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
+    borderRadius: ui.borderRadius,
   },
 
   logo: {
@@ -58,32 +71,14 @@ const styles = StyleSheet.create({
   panel: {
     flex: 1,
     marginHorizontal: 15,
-  },
-
-  forgotPassword: {
-    height: 40,
-    alignItems: "flex-end",
-    marginBottom: 30,
-    color: colors.secondary,
-  },
-
-  signup: {
-    height: 40,
-    alignItems: "center",
-  },
-
-  fieldLabel: {
-    padding: 15,
-  },
-
-  loading: {
-    flex: 1,
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.primary,
+    padding: 0,
+    borderRadius: ui.borderRadius,
+    borderWidth: ui.borderWidth,
+    borderColor: colors.primary,
     justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.primaryLighter,
   },
 });

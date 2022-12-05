@@ -1,7 +1,42 @@
 [
-    {"id":1, "name": "Foto de perfil", "status":"expired", "validity":12},
-    {"id":2, "name": "DNI (frente)", "status":"active", "validity":36},
-    {"id":3, "name": "DNI (reverso)", "status":"active", "validity":36},
-    {"id":4, "name": "Cert. de estudios", "status":"active", "validity":-1},
-    {"id":5, "name": "Cert. de vacunacion", "status":"pending", "validity":12}
+  {
+    "id": 1,
+    "name": "Foto de perfil",
+    "desc": "Foto de frente, esta imagen es la utilizada para identificar al usuario.",
+    "status": "expired",
+    "validity": 12,
+    "url":null
+  },
+  {
+    "id": 2,
+    "name": "DNI (frente)",
+    "desc": "Esta imagen es la utilizada para validar la identidad del usuario.",
+    "status": "active",
+    "validity": 36,
+    "url":null
+  },
+  {
+    "id": 3,
+    "name": "DNI (reverso)",
+    "desc": "Esta imagen es la utilizada para validar la identidad del usuario.",
+    "status": "active",
+    "validity": 36,
+    "url":null
+  },
+  {
+    "id": 4,
+    "name": "Cert. de estudios",
+    "desc": "Esta imagen es la utilizada para validar el estado academico del usuario.",
+    "status": "active",
+    "validity": -1,
+    "url":null
+  },
+  {
+    "id": 5,
+    "name": "Cert. de vacunacion",
+    "desc": "Esta imagen es la utilizada para validar las condiciones sanitarias del usuario.",
+    "status": "pending",
+    "validity": 12,
+    "url":null
+  }
 ]

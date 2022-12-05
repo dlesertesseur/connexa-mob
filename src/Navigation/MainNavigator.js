@@ -27,11 +27,11 @@ export default MainNavigator = () => {
   }, [user]);
 
   const determinateStack = () => {
-    if(user.status === status.PENDING_DOCUMENTS){
-      return(<DocumentsStack />);
-    }else{
+    // if(user.status === status.PENDING_DOCUMENTS){
+    //   return(<DocumentsStack />);
+    // }else{
       return(<AppNavigator />);
-    }
+    // }
   }
 
 

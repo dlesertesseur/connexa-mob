@@ -35,7 +35,8 @@
       "welcome-signIn": "Ya tengo una cuenta",
       "welcome-signUp": "Crear una cuenta",
       "continue": "Continuar",
-      "months": "Meses"
+      "months": "Meses",
+      "save":"Guardar"
     },
 
     "validation": {
@@ -64,7 +65,8 @@
         "personalData": "Datos personales",
         "personalData-desc": "Ingresa tus datos personales (tal y como figuran en tu documento)",
         "documents": "Documentos requeridos",
-        "documents-desc": "Completa la siguiente lista de documentos requeridos para poder empezar a trabajar."
+        "documents-desc": "Completa la siguiente lista de documentos requeridos para poder empezar a trabajar.",
+        "account":"Mi cuenta"
       },
       "error": "ERROR"
     },

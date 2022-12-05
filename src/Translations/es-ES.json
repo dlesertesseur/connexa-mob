@@ -17,7 +17,8 @@
       "dateOfBirth":"Fecha de nacimiento",
       "chooseOne":"Seleccione uno, por favor",
       "search": "Buscar",
-      "months": "Meses"
+      "months": "Meses",
+      "save":"Guardar"
     },
 
     "button": {
@@ -68,7 +69,8 @@
         "accountCreatedSuccessfully":"Felicitaciones",
         "accountCreatedSuccessfully-desc":"Tu cuenta ha sido creada con éxito.\nPor favor ingresa a la aplicación para terminar de configurar tu perfil.",
         "documents":"Documentos requeridos",
-        "documents-desc":"Completa la siguiente lista de documentos requeridos para poder empezar a trabajar."
+        "documents-desc":"Completa la siguiente lista de documentos requeridos para poder empezar a trabajar.",
+        "account":"Mi cuenta"
       },
       "error":"ERROR"
     },

@@ -9,22 +9,24 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { documentStatus, ui } from "../Config/Constants";
+import { setDocument } from "../Features/Auth";
 
 const DocumentsListScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-
-  const [documents, setDocuments] = useState(
-    require("../DataAccess/documents.json")
-  );
+  const { documents } = useSelector((state) => state.auth.value);
 
   const [searchText, setSearchText] = useState(null);
-  const [filteredDocuments, setFilteredDocuments] = useState(documents);
+  const [filteredDocuments, setFilteredDocuments] = useState([]);
 
   const logo = require("../../assets/images/logo-banner.png");
   const noDocument = require("../../assets/images/noPhoto.png");
+
+  useEffect(() => {
+    setFilteredDocuments(documents);
+  }, [documents]);
 
   useEffect(() => {
     if (searchText) {
@@ -80,7 +82,8 @@ const DocumentsListScreen = ({ navigation }) => {
           width: "50%",
           height: 260,
         }}
-        onPress={(item) => {
+        onPress={() => {
+          dispatch(setDocument(item));
           navigation.navigate("ShowImage");
         }}
       >
@@ -90,7 +93,7 @@ const DocumentsListScreen = ({ navigation }) => {
             marginLeft: index % 2 > 0 ? 5 : 0,
             marginBottom: 10,
             flex: 1,
-            padding: 1,
+            padding: 0,
             borderRadius: ui.borderRadius,
             borderWidth: ui.borderWidth,
             borderColor: colors.primary,
@@ -99,11 +102,7 @@ const DocumentsListScreen = ({ navigation }) => {
             backgroundColor: colors.primaryLighter,
           }}
         >
-          <Image
-            source={noDocument}
-            resizeMode={"cover"}
-            style={styles.image}
-          />
+          <Image source={item.url ? { uri: item.url } : noDocument} resizeMode={"cover"} style={styles.image} />
           <View style={styles.dataView}>
             <View style={styles.panel}>
               <View
@@ -122,14 +121,8 @@ const DocumentsListScreen = ({ navigation }) => {
               >
                 {item.validity > 0 ? (
                   <>
-                    <FontAwesome
-                      name="calendar"
-                      size={18}
-                      color={colors.primary}
-                    />
-                    <Text style={styles.textSub}>
-                      {item.validity + " " + i18n.t("label.months")}
-                    </Text>
+                    <FontAwesome name="calendar" size={18} color={colors.primary} />
+                    <Text style={styles.textSub}>{item.validity + " " + i18n.t("label.months")}</Text>
                   </>
                 ) : null}
               </View>
@@ -160,16 +153,9 @@ const DocumentsListScreen = ({ navigation }) => {
         textAlign="flex-start"
       />
 
-      <CustomSearchInput
-        placeholder={i18n.t("label.search")}
-        value={searchText}
-        setValue={setSearchText}
-      />
+      <CustomSearchInput placeholder={i18n.t("label.search")} value={searchText} setValue={setSearchText} />
 
-      <DocumentsList
-        data={filteredDocuments}
-        renderItem={renderItem}
-      />
+      <DocumentsList data={filteredDocuments} renderItem={renderItem} />
       <HorizontalSeparator />
     </View>
   );

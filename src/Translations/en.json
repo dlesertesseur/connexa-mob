@@ -29,7 +29,8 @@
       "close":"Close",
       "welcome-signIn":"I already have an account",
       "welcome-signUp":"Create a new account",
-      "continue":"Continue"
+      "continue":"Continue",
+      "save":"Save"
     },
 
     "validation": {
@@ -60,7 +61,8 @@
         "accountCreatedSuccessfully":"Congratulations",
         "accountCreatedSuccessfully-desc":"Your account has been created successfully.\nPlease enter the application to finish configuring your profile.",
         "documents":"Required documents",
-        "documents-desc":"Complete the following list of required documents in order to start working."
+        "documents-desc":"Complete the following list of required documents in order to start working.",
+        "account":"My account"
       },
       "error":"ERROR"
     },

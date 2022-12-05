@@ -35,7 +35,8 @@
       "close":"Cerrar",
       "welcome-signIn":"Ya tengo una cuenta",
       "welcome-signUp":"Crear una cuenta",
-      "continue":"Continuar"
+      "continue":"Continuar",
+      "save":"Guardar"
     },
 
     "validation": {
@@ -68,7 +69,8 @@
         "accountCreatedSuccessfully":"Felicitaciones",
         "accountCreatedSuccessfully-desc":"Tu cuenta ha sido creada con éxito.\nPor favor ingresa a la aplicación para terminar de configurar tu perfil.",
         "documents":"Documentos requeridos",
-        "documents-desc":"Completa la siguiente lista de documentos requeridos para poder empezar a trabajar."
+        "documents-desc":"Completa la siguiente lista de documentos requeridos para poder empezar a trabajar.",
+        "account":"Mi cuenta"
       },
       "error":"ERROR"
     },

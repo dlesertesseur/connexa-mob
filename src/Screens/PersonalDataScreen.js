@@ -24,13 +24,11 @@ import { Entypo } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { signUp } from "../DataAccess/SignUpDao";
 import { showAlert } from "../Util";
-import { signIn } from "../Features/Auth";
+import { setSignupData, signIn } from "../Features/Auth";
 
 const PersonalDataScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-
-  const [creating, setCreating] = useState(null);
-
+  
   const {
     control,
     handleSubmit,
@@ -63,6 +61,8 @@ const PersonalDataScreen = ({ navigation }) => {
     //       console.log("signUp ERROR CLOSE");
     //     });
     //   });
+
+    dispatch(setSignupData(data));
     navigation.navigate("CheckCode");
   };
 
@@ -124,7 +124,6 @@ const PersonalDataScreen = ({ navigation }) => {
             <HorizontalSeparator />
 
             <CustomTextInput
-              disabled={creating}
               control={control}
               name="email"
               placeholder={i18n.t("label.email")}
@@ -247,11 +246,11 @@ const PersonalDataScreen = ({ navigation }) => {
           onPress={handleSubmit(onSubmit)}
         />
       </View>
-      {creating ? (
+      {/* {creating ? (
         <View style={styles.loading}>
           <ActivityIndicator size="large" color="#0000ff" />
         </View>
-      ) : null}
+      ) : null} */}
     </View>
   );
 };
