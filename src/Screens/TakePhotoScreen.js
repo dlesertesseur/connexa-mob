@@ -3,15 +3,12 @@ import CameraFullScreen from "../Components/CameraFullScreen";
 import ActionButton from "../Components/ActionButton";
 import { Text, View } from "react-native";
 import { Camera } from "expo-camera";
-import { useDispatch } from "react-redux";
-import { setUserPhoto } from "../Features/Auth";
 
 export default function TakePhotoScreen({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const [camera, setCamera] = useState(null);
   const [image, setImage] = useState(null);
-  const dispatch = useDispatch();
 
   if (hasCameraPermission === false) {
     return <Text>No access to camera</Text>;
@@ -26,7 +23,6 @@ export default function TakePhotoScreen({ navigation }) {
 
   useEffect(() => {
     if (image) {
-      dispatch(setUserPhoto(image));
       navigation.navigate("SignUp");
     }
   }, [image]);

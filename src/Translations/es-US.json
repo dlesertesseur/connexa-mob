@@ -6,13 +6,17 @@
       "checkPassword": "Validar clave",
       "confirmPassword": "Confirmar clave",
       "forgotPassword": "¿Olvido su contraseña?",
-      "firstName": "Nombre",
-      "lastName": "Apellido",
+      "names": "Nombres",
+      "surnames": "Apellidos",
       "code": "Codigo",
       "title": "Titulo",
       "description": "Descripción",
       "location": "Ubicacion",
-      "phoneNumber": "Numero de telefono"
+      "phoneNumber": "Numero de telefono (99) 9 99 9999-9999",
+      "address": "Dirección",
+      "dateOfBirth": "Fecha de nacimiento",
+      "chooseOne": "Seleccione uno, por favor",
+      "search": "Buscar"
     },
 
     "button": {
@@ -29,7 +33,9 @@
       "profileImage": "Foto de perfil",
       "close": "Cerrar",
       "welcome-signIn": "Ya tengo una cuenta",
-      "welcome-signUp": "Crear una cuenta"
+      "welcome-signUp": "Crear una cuenta",
+      "continue": "Continuar",
+      "months": "Meses"
     },
 
     "validation": {
@@ -52,7 +58,13 @@
         "alert": "Alerta",
         "alert-desc": "Crea una alert para notificar algun problema documentando el detalle y agregar fotos si es necesario.",
         "welcome": "Bienvenido",
-        "welcome-desc": "Conectate - Busca trabajo - Reservalo para vos - Administra tu tiempo - Gana dinero !!!"
+        "welcome-desc": "Conectate - Busca trabajo - Reservalo para vos - Administra tu tiempo - Gana dinero !!!",
+        "selectCountry": "¿En que pais vas a trabajar?",
+        "selectCity": "¿En que ciudad vas a trabajar?",
+        "personalData": "Datos personales",
+        "personalData-desc": "Ingresa tus datos personales (tal y como figuran en tu documento)",
+        "documents": "Documentos requeridos",
+        "documents-desc": "Completa la siguiente lista de documentos requeridos para poder empezar a trabajar."
       },
       "error": "ERROR"
     },
@@ -69,6 +81,13 @@
         "noAccess": "Sin acceso a la cámara",
         "permission": "Solicitando permiso de acceso a la cámara",
         "grantPermission": "Conceder permiso."
+      }
+    },
+    "documents": {
+      "status": {
+        "active": "Activo",
+        "expired": "Expirado",
+        "pending":"Pendiente"
       }
     }
   }

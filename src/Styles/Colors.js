@@ -4,7 +4,9 @@ export const colors = {
     primaryLighter: "#e7f5ff",
     secondary: "#ffffff",
     error: "#ff0000",
+    ok: "#00ff00",
     font: "#000000",
+    pending: "#c5c5c5",
     errorText: "#ffffff",
     background:"#ffffff",
     panel:"rgba(221, 219, 255, 0.4)"

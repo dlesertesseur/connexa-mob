@@ -6,6 +6,8 @@ import CustomLabel from "../Components/CustomLabel";
 import CustomImage from "../Components/CustomImage";
 import CustomLink from "../Components/CustomLink";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
 import { useForm } from "react-hook-form";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
@@ -14,7 +16,9 @@ import { signIn } from "../Features/Auth";
 
 const SignInScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { error, errorMessage, authenticating } = useSelector((state) => state.auth.value);
+  const { error, errorMessage, authenticating } = useSelector(
+    (state) => state.auth.value
+  );
 
   const {
     control,
@@ -33,9 +37,6 @@ const SignInScreen = ({ navigation }) => {
 
   const focusRef = useRef(null);
 
-  const onSingIn = () => {
-    navigation.navigate("SignUp");
-  };
 
   useEffect(() => {
     if (focusRef) {
@@ -67,6 +68,15 @@ const SignInScreen = ({ navigation }) => {
               message: i18n.t("validation.email.invalid"),
             },
           }}
+          getIcon={(error) => {
+            return (
+              <MaterialIcons
+                name="email"
+                size={24}
+                color={error ? colors.error : colors.primary}
+              />
+            );
+          }}
         />
         <HorizontalSeparator />
         <CustomTextInput
@@ -80,14 +90,26 @@ const SignInScreen = ({ navigation }) => {
               message: i18n.t("validation.password.minLength"),
             },
           }}
+          getIcon={(error) => {
+            return (
+              <Octicons
+                name="key-asterisk"
+                size={24}
+                color={error ? colors.error : colors.primary}
+              />
+            );
+          }}
           password={true}
         />
 
-        <CustomLink text={i18n.t("label.forgotPassword")} style={styles.forgotPassword} />
-        <CustomButton text={i18n.t("button.login")} onPress={handleSubmit(onSubmit)} />
+        <CustomLink
+          text={i18n.t("label.forgotPassword")}
+          style={styles.forgotPassword}
+        />
       </View>
+
       <HorizontalSeparator />
-      <CustomLink text={i18n.t("button.notAccount")} style={styles.signup} onPress={onSingIn} />
+
       {authenticating ? (
         <View style={styles.loading}>
           <ActivityIndicator size="large" color="#0000ff" />
@@ -101,6 +123,13 @@ const SignInScreen = ({ navigation }) => {
             },
           ])
         : null}
+
+      <View style={{ flex: 1, margin: 15, justifyContent: "flex-end" }}>
+        <CustomButton
+          text={i18n.t("button.login")}
+          onPress={handleSubmit(onSubmit)}
+        />
+      </View>
     </View>
   );
 };
@@ -142,9 +171,9 @@ const styles = StyleSheet.create({
   fieldLabel: {
     padding: 15,
   },
-  
+
   loading: {
-    flex:1,
+    flex: 1,
     position: "absolute",
     left: 0,
     right: 0,

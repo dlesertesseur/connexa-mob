@@ -7,11 +7,15 @@
       "confirmPassword": "Confirmar clave",
       "forgotPassword": "¿Olvido su contraseña?",
       "notAccount": "¿No tiene una cuenta? Registrese",
-      "firstName": "Nombre",
-      "lastName": "Apellido",
+      "names": "Nombres",
+      "surnames": "Apellidos",
       "code": "Codigo",
-      "phoneNumber":"Numero de telefono",
-      "profileImage":"Foto de perfil"
+      "phoneNumber":"Numero de telefono (99) 9 99 9999-9999",
+      "profileImage":"Foto de perfil",
+      "address":"Dirección",
+      "dateOfBirth":"Fecha de nacimiento",
+      "chooseOne":"Seleccione uno, por favor",
+      "months": "Meses"
     },
 
     "button": {
@@ -40,7 +44,13 @@
         "login": "Bienvenido",
         "login-desc": "Estamos muy felices de verlo, continue con el ingreso y administre sus aplicaciones",
         "signUp": "Registracion",
-        "signUp-desc": "Crea una cuenta y empieza a gestionar todos tus recursos de forma centralizada y organizada"
+        "signUp-desc": "Crea una cuenta y empieza a gestionar todos tus recursos de forma centralizada y organizada",
+        "selectCountry":"¿En que pais vas a trabajar?",
+        "selectCity":"¿En que ciudad vas a trabajar?",
+        "personalData": "Datos personales",
+        "personalData-desc": "Ingresa tus datos personales (tal y como figuran en tu documento)",
+        "documents":"Documentos requeridos",
+        "documents-desc":"Completa la siguiente lista de documentos requeridos para poder empezar a trabajar."
       }
     },
 
@@ -54,6 +64,14 @@
       "camera": {
         "noAccess": "Sin acceso a la cámara",
         "permission": "Solicitando permiso de acceso a la cámara"
+      }
+    },
+
+    "documents": {
+      "status": {
+        "active":"Activo",
+        "expired":"Expirado",
+        "pending":"Pendiente"
       }
     }
   }

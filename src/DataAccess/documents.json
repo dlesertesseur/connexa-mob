@@ -1,0 +1,7 @@
+[
+    {"id":1, "name": "Foto de perfil", "status":"expired", "validity":12},
+    {"id":2, "name": "DNI (frente)", "status":"active", "validity":36},
+    {"id":3, "name": "DNI (reverso)", "status":"active", "validity":36},
+    {"id":4, "name": "Cert. de estudios", "status":"active", "validity":-1},
+    {"id":5, "name": "Cert. de vacunacion", "status":"pending", "validity":12}
+]

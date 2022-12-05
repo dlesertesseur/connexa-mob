@@ -1,20 +1,21 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import i18n from "../Config/i18n";
-import CustomTextInput from "../Components/CustomTextInput";
 import CustomButton from "../Components/CustomButton";
 import CustomLabel from "../Components/CustomLabel";
 import CustomImage from "../Components/CustomImage";
-import CustomLink from "../Components/CustomLink";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
 import { useForm } from "react-hook-form";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../Features/Auth";
+import CustomSecurityCodeInput from "../Components/CustomSecurityCodeInput";
 
 const CheckCodeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { error, errorMessage, authenticating } = useSelector((state) => state.auth.value);
+  const { error, errorMessage, authenticating } = useSelector(
+    (state) => state.auth.value
+  );
 
   const {
     control,
@@ -22,26 +23,13 @@ const CheckCodeScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      code: "",
     },
   });
 
   const onSubmit = (data) => {
-    dispatch(signIn(data));
+    navigation.navigate("AccountCreatedSuccessfully");
   };
-
-  const focusRef = useRef(null);
-
-  const onSingIn = () => {
-    navigation.navigate("SignUp");
-  };
-
-  useEffect(() => {
-    if (focusRef) {
-      focusRef.current?.focus();
-    }
-  }, []);
 
   const logo = require("../../assets/images/logo-banner.png");
 
@@ -49,45 +37,27 @@ const CheckCodeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <CustomImage source={logo} style={styles.logo} />
       <CustomLabel
-        title={i18n.t("title.screen.login")}
-        text={i18n.t("title.screen.login-desc")}
+        title={i18n.t("title.screen.checkCode")}
+        text={i18n.t("title.screen.checkCode-desc")}
         fontSize={30}
         color={colors.primary}
       />
       <HorizontalSeparator height={64} />
       <View style={styles.panel}>
-        <CustomTextInput
+        <CustomSecurityCodeInput
           control={control}
-          name="email"
-          placeholder={i18n.t("label.email")}
+          name="code"
           rules={{
             required: i18n.t("validation.required"),
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: i18n.t("validation.email.invalid"),
-            },
           }}
         />
-        <HorizontalSeparator />
-        <CustomTextInput
-          control={control}
-          name="password"
-          placeholder={i18n.t("label.password")}
-          rules={{
-            required: i18n.t("validation.required"),
-            minLength: {
-              value: 8,
-              message: i18n.t("validation.password.minLength"),
-            },
-          }}
-          password={true}
-        />
-
-        <CustomLink text={i18n.t("label.forgotPassword")} style={styles.forgotPassword} />
-        <CustomButton text={i18n.t("button.login")} onPress={handleSubmit(onSubmit)} />
       </View>
-      <HorizontalSeparator />
-      <CustomLink text={i18n.t("button.notAccount")} style={styles.signup} onPress={onSingIn} />
+      <View style={{ justifyContent: "flex-end", margin: 15 }}>
+        <CustomButton
+          text={i18n.t("button.continue")}
+          onPress={handleSubmit(onSubmit)}
+        />
+      </View>
       {authenticating ? (
         <View style={styles.loading}>
           <ActivityIndicator size="large" color="#0000ff" />
@@ -120,10 +90,10 @@ const styles = StyleSheet.create({
 
   logo: {
     marginTop: 30,
-    //marginBottom: 30,
   },
 
   panel: {
+    flex: 1,
     marginHorizontal: 15,
   },
 
@@ -142,9 +112,9 @@ const styles = StyleSheet.create({
   fieldLabel: {
     padding: 15,
   },
-  
+
   loading: {
-    flex:1,
+    flex: 1,
     position: "absolute",
     left: 0,
     right: 0,

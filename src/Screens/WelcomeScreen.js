@@ -3,21 +3,24 @@ import i18n from "../Config/i18n";
 import CustomButton from "../Components/CustomButton";
 import CustomImage from "../Components/CustomImage";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
+import CustomText from "../Components/CustomText";
 import { Image, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
-import CustomText from "../Components/CustomText";
 
 const WelcomeScreen = ({ navigation }) => {
   const logo = require("../../assets/images/logo-banner.png");
-  const jobsOferts = require("../../assets/images/joboffers.jpg");
+  const jobsOferts = require("../../assets/images/jobOffers.png");
 
   return (
     <View style={styles.container}>
       <CustomImage source={logo} style={styles.logo} />
       <CustomText title={i18n.t("title.screen.welcome")} fontSize={28} color={colors.primary} />
       <HorizontalSeparator />
-      <CustomText text={i18n.t("title.screen.welcome-desc")} fontSize={18} color={colors.primary} />
-      <Image source={jobsOferts} style={styles.joboffers} resizeMode="contain" />
+      <CustomText text={i18n.t("title.screen.welcome-desc")} fontSize={18} color={colors.primary} textAlign={"center"}/>
+     
+      <View style={styles.imgPanel}>
+        <Image source={jobsOferts} style={styles.picture} />
+      </View>
 
       <View style={styles.panel}>
         <CustomButton
@@ -30,7 +33,7 @@ const WelcomeScreen = ({ navigation }) => {
         <CustomButton
           text={i18n.t("button.welcome-signUp")}
           onPress={() => {
-            navigation.navigate("SignUp");
+            navigation.navigate("SelectCountry");
           }}
         />
       </View>
@@ -46,20 +49,22 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
 
-  image: {
-    width: "100%",
-    height: "100%",
-  },
-
   logo: {
     marginTop: 30,
   },
 
-  joboffers: {
-    width: "100%",
+  picture: {
+    resizeMode: "center",
   },
 
   panel: {
-    marginHorizontal: 15,
+    margin: 15,
+    justifyContent: "flex-end",
+  },
+
+  imgPanel: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

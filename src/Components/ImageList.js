@@ -1,13 +1,13 @@
 import React from "react";
-import Swiper from "react-native-swiper";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useState } from "react";
+// import Swiper from "react-native-swiper";
 
 const ImageList = ({ pictures }) => {
   return (
     <View style={styles.container_card}>
-      <Swiper
+      {/* <Swiper
         style={styles.swipe}
         pagingEnabled={true}
         loop={false}
@@ -31,7 +31,7 @@ const ImageList = ({ pictures }) => {
             />
           );
         })}
-      </Swiper>
+      </Swiper> */}
     </View>
   );
 };

@@ -5,10 +5,15 @@
       "password": "Password",
       "checkPassword": "Check password",
       "confirmPassword": "Confirm password",
-      "firstName": "First Name",
-      "lastName": "Last Name",
+      "names": "Names",
+      "surnames": "Surnames",
       "code": "Code",
-      "phoneNumber":"Phone number"
+      "phoneNumber":"Phone number (99) 9 99 9999-9999",
+      "address":"Address",
+      "dateOfBirth":"Date of Birth",
+      "chooseOne":"Choose one",
+      "search": "Search",
+      "months": "Months"
     },
 
     "button": {
@@ -23,7 +28,8 @@
       "profileImage":"Profile photo",
       "close":"Close",
       "welcome-signIn":"I already have an account",
-      "welcome-signUp":"Create a new account"
+      "welcome-signUp":"Create a new account",
+      "continue":"Continue"
     },
 
     "validation": {
@@ -44,7 +50,17 @@
         "signUp": "Registration",
         "signUp-desc": "Create an account and start managing all your resources in a centralized and organized way",
         "welcome": "Welcome",
-        "welcome-desc": "Get connected - Look for a job - Book it for yourself - Manage your time - Earn money !!!"
+        "welcome-desc": "Get connected - Look for a job - Book it for yourself - Manage your time - Earn money !!!",
+        "selectCountry":"which country are you going to work?",
+        "selectCity":"which city are you going to work?",
+        "personalData": "Personal information",
+        "personalData-desc": "Enter your personal data (as they appear on your document)",
+        "checkCode":"Security code",
+        "checkCode-desc":"Please enter the security code that we sent you by e-mail",
+        "accountCreatedSuccessfully":"Congratulations",
+        "accountCreatedSuccessfully-desc":"Your account has been created successfully.\nPlease enter the application to finish configuring your profile.",
+        "documents":"Required documents",
+        "documents-desc":"Complete the following list of required documents in order to start working."
       },
       "error":"ERROR"
     },
@@ -59,6 +75,14 @@
       "camera": {
         "noAccess": "No access to camera",
         "permission": "Requesting for camera permission"
+      }
+    },
+
+    "documents": {
+      "status": {
+        "active":"Active",
+        "expired":"Expired",
+        "pending":"Pending"
       }
     }
   }

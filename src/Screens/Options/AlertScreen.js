@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import CustomTextInput from "../../Components/CustomTextInput";
 import CustomButton from "../../Components/CustomButton";
-import * as ImagePicker from "expo-image-picker";
 import CustomLabel from "../../Components/CustomLabel";
 import CustomTextAreaInput from "../../Components/CustomTextAreaInput";
 import ImageList from "../../Components/ImageList";
@@ -28,13 +27,13 @@ const AlertScreen = ({ route, navigation }) => {
     },
   });
 
-  const getPermission = async () => {
-    const { status } = await ImagePicker.getMediaLibraryPermissionsAsync;
-    {
-      return false;
-    }
-    return true;
-  };
+  // const getPermission = async () => {
+  //   const { status } = await ImagePicker.getMediaLibraryPermissionsAsync;
+  //   {
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
   const onTakePhoto = async () => {
     // // const isVerified = getPermission();
@@ -54,16 +53,16 @@ const AlertScreen = ({ route, navigation }) => {
   };
 
   const onSelectPhoto = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+    // let result = await ImagePicker.launchImageLibraryAsync({
+    //   mediaTypes: ImagePicker.MediaTypeOptions.All,
+    //   allowsEditing: true,
+    //   aspect: [4, 3],
+    //   quality: 1,
+    // });
 
-    if (!result.cancelled) {
-      setPictures([...pictures, result.uri]);
-    }
+    // if (!result.cancelled) {
+    //   setPictures([...pictures, result.uri]);
+    // }
   };
 
   const onSubmit = (data) => console.log(data);

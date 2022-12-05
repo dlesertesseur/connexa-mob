@@ -3,15 +3,21 @@
     "label": {
       "email": "Email",
       "password": "Clave",
+      "checkPassword": "Validar clave",
       "confirmPassword": "Confirmar clave",
       "forgotPassword": "¿Olvido su contraseña?",
-      "notAccount": "¿No tiene una cuenta? Registrese",
-      "firstName": "Nombre",
-      "lastName": "Apellido",
+      "names": "Nombres",
+      "surnames": "Apellidos",
       "code": "Codigo",
       "title":"Titulo",
       "description": "Descripción",
-      "location":"Ubicacion"
+      "location":"Ubicacion",
+      "phoneNumber":"Numero de telefono (99) 9 99 9999-9999",
+      "address":"Dirección",
+      "dateOfBirth":"Fecha de nacimiento",
+      "chooseOne":"Seleccione uno, por favor",
+      "search": "Buscar",
+      "months": "Meses"
     },
 
     "button": {
@@ -21,7 +27,15 @@
       "notAccount": "¿No tiene una cuenta? Registrese",
       "accept": "Aceptar",
       "cancel": "Cancelar",
-      "scan":"Escanear"
+      "scan": "Escanear",
+      "addPicture": "Adjuntar imagen",
+      "takePicture": "Tomar foto",
+      "send":"Enviar",
+      "profileImage":"Foto de perfil",
+      "close":"Cerrar",
+      "welcome-signIn":"Ya tengo una cuenta",
+      "welcome-signUp":"Crear una cuenta",
+      "continue":"Continuar"
     },
 
     "validation": {
@@ -30,31 +44,55 @@
         "invalid": "Email invalido"
       },
       "password": {
-        "minLength": "La clave es demasiado corta"
+        "minLength": "La clave es demasiado corta",
+        "distinct": "Las claves son distintas"
       }
     },
 
     "title": {
       "screen": {
-        "login": "Bienvenido",
+        "login": "Ingresar",
         "login-desc": "Estamos muy felices de verlo, continue con el ingreso y administre sus aplicaciones",
         "signUp": "Registracion",
         "signUp-desc": "Crea una cuenta y empieza a gestionar todos tus recursos de forma centralizada y organizada",
         "alert": "Alerta",
-        "alert-desc": "Crea una alert para notificar algun problema documentando el detalle y agregar fotos si es necesario."
-      }
+        "alert-desc": "Crea una alert para notificar algun problema documentando el detalle y agregar fotos si es necesario.",
+        "welcome": "Bienvenido",
+        "welcome-desc": "- Conectate.\n- Busca trabajo.\n- Reservalo para vos.\n- Administra tu tiempo.\n- Gana dinero !!!",
+        "selectCountry":"¿En que pais vas a trabajar?",
+        "selectCity":"¿En que ciudad vas a trabajar?",
+        "personalData": "Datos personales",
+        "personalData-desc": "Ingresa tus datos personales (tal y como figuran en tu documento)",
+        "checkCode":"Código de seguridad",
+        "checkCode-desc":"Por favor, ingrese el código de seguridad que le enviamos por e-mail",
+        "accountCreatedSuccessfully":"Felicitaciones",
+        "accountCreatedSuccessfully-desc":"Tu cuenta ha sido creada con éxito.\nPor favor ingresa a la aplicación para terminar de configurar tu perfil.",
+        "documents":"Documentos requeridos",
+        "documents-desc":"Completa la siguiente lista de documentos requeridos para poder empezar a trabajar."
+      },
+      "error":"ERROR"
     },
 
     "tab": {
       "task": "Tareas",
       "timeAndAttendance": "Productividad",
-      "user": "Perfil"
+      "user": "Perfil",
+      "alert": "Alertas"
     },
-    
+
     "message": {
       "camera": {
         "noAccess": "Sin acceso a la cámara",
-        "permission": "Solicitando permiso de acceso a la cámara"
+        "permission": "Solicitando permiso de acceso a la cámara",
+        "grantPermission": "Conceder permiso."
+      }
+    },
+
+    "documents": {
+      "status": {
+        "active":"Activo",
+        "expired":"Expirado",
+        "pending":"Pendiente"
       }
     }
   }

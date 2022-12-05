@@ -6,6 +6,8 @@ import { StyleSheet } from "react-native";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { status } from "../Config/Constants";
+import DocumentsStack from "./Stacks/DocumentsStack";
 
 export default MainNavigator = () => {
   const { user } = useSelector((state) => state.auth.value);
@@ -24,9 +26,18 @@ export default MainNavigator = () => {
     }
   }, [user]);
 
+  const determinateStack = () => {
+    if(user.status === status.PENDING_DOCUMENTS){
+      return(<DocumentsStack />);
+    }else{
+      return(<AppNavigator />);
+    }
+  }
+
+
   return (
     <NavigationContainer>
-      <SafeAreaView style={styles.container}>{!userLogged ? <AuthStack /> : <AppNavigator />}</SafeAreaView>
+      <SafeAreaView style={styles.container}>{!userLogged ? <AuthStack /> : determinateStack()}</SafeAreaView>
     </NavigationContainer>
   );
 };
