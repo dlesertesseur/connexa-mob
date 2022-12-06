@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { ui } from "../Config/Constants";
 import { colors } from "../Styles/Colors";
 
 const CustomError = ({ title, text, fontSize = 18 }) => {
@@ -31,7 +32,7 @@ export default CustomError;
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius:10,
+    borderRadius:ui.borderRadius,
     margin: 15,
     justifyContent: "center",
     alignItems: "center",

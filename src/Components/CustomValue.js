@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { ui } from "../Config/Constants";
 import { colors } from "../Styles/Colors";
 
 const CustomValue = ({value, style}) => {
@@ -25,8 +26,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    //margin:15,
-    borderRadius: 8,
+    borderRadius: ui.borderRadius,
     borderWidth: 1,
     borderColor: colors.primary,
     backgroundColor: colors.secondary

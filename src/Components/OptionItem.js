@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { colors } from "../Styles/Colors";
 import { FontAwesome } from "@expo/vector-icons";
+import { ui } from "../Config/Constants";
 
 const OptionItem = ({screenName, label, iconName, onPress}) => {;
 
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     height: 164,
     //width: 164,
     //borderWidth: 1,
-    borderRadius: 4,
+    borderRadius: ui.borderRadius,
     margin: 10,
     //borderColor:colors.primaryDarker,
     backgroundColor: colors.primary,

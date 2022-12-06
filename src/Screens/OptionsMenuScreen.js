@@ -3,6 +3,7 @@ import i18n from "../Config/i18n";
 import { FlatList, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import AlertOptionItem from "../Components/OptionItem";
+import { ui } from "../Config/Constants";
 
 const OptionsMenuScreen = ({ navigation }) => {
   const optionsList = () => {
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
   list: {
     height: "100%",
     marginBottom: 10,
-    borderRadius: 4,
+    borderRadius: ui.borderRadius,
     backgroundColor: colors.secondary,
     //padding: 10,
   },
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
     marginBottom: 80,
-    borderRadius: 4,
+    borderRadius: ui.borderRadius,
   },
 
   item: {

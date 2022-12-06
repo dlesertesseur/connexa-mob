@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import { colors } from "../Styles/Colors";
+import { ui } from "../Config/Constants";
 
 const CustomActionList = ({ data = [], onSelect, formatText }) => {
   const renderItem = ({ item }) => {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
     padding: 5,
-    borderRadius: 4,
+    borderRadius: ui.borderRadius,
     marginBottom: 10,
     marginHorizontal: 15,
     borderColor: colors.primary,

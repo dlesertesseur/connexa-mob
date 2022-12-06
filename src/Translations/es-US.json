@@ -37,7 +37,8 @@
       "continue": "Continuar",
       "months": "Meses",
       "save":"Guardar",
-      "logout":"Cerrar sesión"
+      "logout":"Cerrar sesión",
+      "startValidationProcess":"Iniciar proceso de validación"
     },
 
     "validation": {
@@ -67,7 +68,9 @@
         "personalData-desc": "Ingresa tus datos personales (tal y como figuran en tu documento)",
         "documents": "Documentos requeridos",
         "documents-desc": "Completa la siguiente lista de documentos requeridos para poder empezar a trabajar.",
-        "account":"Mi cuenta"
+        "account":"Mi cuenta",
+        "verifyingData":"Verificando datos",
+        "verifyingData-desc":"Estamos verificando tus documentos."
       },
       "error": "ERROR"
     },
@@ -87,11 +90,24 @@
       }
     },
     "documents": {
+      "ids": {
+        "PROFILE_IMAGE": "Foto de perfil",
+        "NDI_FRONT_IMAGE": "DNI (Frente)",
+        "NDI_REVERSE_IMAGE": "DNI (Reverso)"
+      },
+      "desc":{
+        "PROFILE_IMAGE":"Esta imagen debe mostrar tu cara nítidamente.",
+        "NDI_FRONT_IMAGE":"Esta imagen corresponde al frente de tu documento de identidad.",
+        "NDI_REVERSE_IMAGE":"Esta imagen corresponde al frente de tu documento de identidad."
+      },
       "status": {
         "active": "Activo",
         "expired": "Expirado",
         "pending":"Pendiente"
       }
+    },
+    "errors":{
+      "savePhoto":"Error guardando foto"
     }
   }
 }

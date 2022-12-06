@@ -2,6 +2,7 @@ import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { colors } from "../Styles/Colors";
+import { ui } from "../Config/Constants";
 
 const ActionButton = ({iconName, onPress}) => {
   return (
@@ -11,7 +12,7 @@ const ActionButton = ({iconName, onPress}) => {
         backgroundColor: colors.primary,
         margin: 12,
         padding:6,
-        borderRadius: 6,
+        borderRadius: ui.borderRadius,
       }}
       onPress={onPress}
     >

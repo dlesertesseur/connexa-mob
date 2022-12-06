@@ -8,6 +8,7 @@ import { Audio } from "expo-av";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { setLocation } from "../Features/Alert";
+import { ui } from "../Config/Constants";
 
 const ScanLocationScreen = ({ route, navigation }) => {
   const { barCode, qrCode, back } = route.params;
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
 
   panel: {
     flex: 1,
-    borderRadius: 4,
+    borderRadius: ui.borderRadius,
     backgroundColor: "#000000",
     alignItems: "center",
     justifyContent: "flex-end",
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
   },
 
   control: {
-    borderRadius: 4,
+    borderRadius:ui.borderRadius,
     alignItems: "center",
     justifyContent: "flex-end",
     height: 90,
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "space-evenly",
-    borderRadius: 4,
+    borderRadius: ui.borderRadius,
   },
 
   scanButtonActived: {

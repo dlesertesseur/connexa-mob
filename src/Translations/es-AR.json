@@ -9,13 +9,13 @@
       "names": "Nombres",
       "surnames": "Apellidos",
       "code": "Codigo",
-      "title":"Titulo",
+      "title": "Titulo",
       "description": "Descripción",
-      "location":"Ubicacion",
-      "phoneNumber":"Numero de telefono (99) 9 99 9999-9999",
-      "address":"Dirección",
-      "dateOfBirth":"Fecha de nacimiento",
-      "chooseOne":"Seleccione uno, por favor",
+      "location": "Ubicacion",
+      "phoneNumber": "Numero de telefono (99) 9 99 9999-9999",
+      "address": "Dirección",
+      "dateOfBirth": "Fecha de nacimiento",
+      "chooseOne": "Seleccione uno, por favor",
       "search": "Buscar",
       "months": "Meses"
     },
@@ -30,14 +30,15 @@
       "scan": "Escanear",
       "addPicture": "Adjuntar imagen",
       "takePicture": "Tomar foto",
-      "send":"Enviar",
-      "profileImage":"Foto de perfil",
-      "close":"Cerrar",
-      "welcome-signIn":"Ya tengo una cuenta",
-      "welcome-signUp":"Crear una cuenta",
-      "continue":"Continuar",
-      "save":"Guardar",
-      "logout":"Cerrar sesión"
+      "send": "Enviar",
+      "profileImage": "Foto de perfil",
+      "close": "Cerrar",
+      "welcome-signIn": "Ya tengo una cuenta",
+      "welcome-signUp": "Crear una cuenta",
+      "continue": "Continuar",
+      "save": "Guardar",
+      "logout": "Cerrar sesión",
+      "startValidationProcess":"Iniciar proceso de validación"
     },
 
     "validation": {
@@ -61,19 +62,21 @@
         "alert-desc": "Crea una alert para notificar algun problema documentando el detalle y agregar fotos si es necesario.",
         "welcome": "Bienvenido",
         "welcome-desc": "- Conectate.\n- Busca trabajo.\n- Reservalo para vos.\n- Administra tu tiempo.\n- Gana dinero !!!",
-        "selectCountry":"¿En que pais vas a trabajar?",
-        "selectCity":"¿En que ciudad vas a trabajar?",
+        "selectCountry": "¿En que pais vas a trabajar?",
+        "selectCity": "¿En que ciudad vas a trabajar?",
         "personalData": "Datos personales",
         "personalData-desc": "Ingresa tus datos personales (tal y como figuran en tu documento)",
-        "checkCode":"Código de seguridad",
-        "checkCode-desc":"Por favor, ingrese el código de seguridad que le enviamos por e-mail",
-        "accountCreatedSuccessfully":"Felicitaciones",
-        "accountCreatedSuccessfully-desc":"Tu cuenta ha sido creada con éxito.\nPor favor ingresa a la aplicación para terminar de configurar tu perfil.",
-        "documents":"Documentos requeridos",
-        "documents-desc":"Completa la siguiente lista de documentos requeridos para poder empezar a trabajar.",
-        "account":"Mi cuenta"
+        "checkCode": "Código de seguridad",
+        "checkCode-desc": "Por favor, ingrese el código de seguridad que le enviamos por e-mail",
+        "accountCreatedSuccessfully": "Felicitaciones",
+        "accountCreatedSuccessfully-desc": "Tu cuenta ha sido creada con éxito.\nPor favor ingresa a la aplicación para terminar de configurar tu perfil.",
+        "documents": "Documentos requeridos",
+        "documents-desc": "Completa la siguiente lista de documentos requeridos para poder empezar a trabajar.",
+        "account": "Mi cuenta",
+        "verifyingData":"Verificando datos",
+        "verifyingData-desc":"Estamos verificando tus documentos."
       },
-      "error":"ERROR"
+      "error": "ERROR"
     },
 
     "tab": {
@@ -91,11 +94,25 @@
       }
     },
     "documents": {
+      "ids": {
+        "PROFILE_IMAGE": "Foto de perfil",
+        "NDI_FRONT_IMAGE": "DNI (Frente)",
+        "NDI_REVERSE_IMAGE": "DNI (Reverso)"
+      },
+      "desc":{
+        "PROFILE_IMAGE":"Esta imagen debe mostrar tu cara nítidamente.",
+        "NDI_FRONT_IMAGE":"Esta imagen corresponde al frente de tu documento de identidad.",
+        "NDI_REVERSE_IMAGE":"Esta imagen corresponde al frente de tu documento de identidad."
+      },
       "status": {
-        "active":"Activo",
-        "expired":"Expirado",
-        "pending":"Pendiente"
+        "active": "Activo",
+        "expired": "Expirado",
+        "pending": "Pendiente"
       }
+    },
+    "errors":{
+      "savePhoto":"Error guardando foto"
     }
+
   }
 }

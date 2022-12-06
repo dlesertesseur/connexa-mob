@@ -1,10 +1,9 @@
 import React from "react";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
-import CustomText from "../Components/CustomText";
+import CustomAvatar from "../Components/CustomAvatar";
 import { StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { ui } from "../Config/Constants";
-import CustomAvatar from "../Components/CustomAvatar";
 
 const UserCard = () => {
   return (

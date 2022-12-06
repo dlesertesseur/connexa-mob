@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity} from "react-native";
 import React from "react";
 import { colors } from "../Styles/Colors";
+import { ui } from "../Config/Constants";
 
 const CustomItemList = (props) => {
   const { item, onPress=()=>console.log("onPress") } = props;
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
     padding: 5,
-    borderRadius: 4,
+    borderRadius: ui.borderRadius,
     marginBottom:10,
     borderColor:colors.primaryDarker,
   },

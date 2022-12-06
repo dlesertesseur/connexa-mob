@@ -31,7 +31,8 @@
       "welcome-signUp":"Create a new account",
       "continue":"Continue",
       "save":"Save",
-      "logout":"Logout"
+      "logout":"Logout",
+      "startValidationProcess":"Start validation process"
     },
 
     "validation": {
@@ -63,7 +64,9 @@
         "accountCreatedSuccessfully-desc":"Your account has been created successfully.\nPlease enter the application to finish configuring your profile.",
         "documents":"Required documents",
         "documents-desc":"Complete the following list of required documents in order to start working.",
-        "account":"My account"
+        "account":"My account",
+        "verifyingData":"Verifying data",
+        "verifyingData-desc":"We are verifying your documents."
       },
       "error":"ERROR"
     },
@@ -82,11 +85,25 @@
     },
 
     "documents": {
+      "ids":{
+        "PROFILE_IMAGE":"Profile image",
+        "NDI_FRONT_IMAGE":"NDI (Front)",
+        "NDI_REVERSE_IMAGE":"NDI (Reverse)"
+      },
+      "desc":{
+        "PROFILE_IMAGE":"This image should clearly show your face.",
+        "NDI_FRONT_IMAGE":"This image corresponds to the back of your identity document.",
+        "NDI_REVERSE_IMAGE":"This image corresponds to the back of your identity document."
+      },
       "status": {
         "active":"Active",
         "expired":"Expired",
         "pending":"Pending"
       }
+    },
+
+    "errors":{
+      "savePhoto":"Error saving photo"
     }
   }
 }

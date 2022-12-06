@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import { colors } from "../Styles/Colors";
 import { Controller } from "react-hook-form";
+import { ui } from "../Config/Constants";
 
 const CustomTextAreaInput = ({
   control,
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
 
   inputText: {
     width: "100%",
-    borderRadius: 8,
+    borderRadius: ui.borderRadius,
     padding: 10,
     color: colors.primary,
     fontSize: 18,

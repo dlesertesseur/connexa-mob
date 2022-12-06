@@ -2,6 +2,7 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useState } from "react";
+import { ui } from "../Config/Constants";
 // import Swiper from "react-native-swiper";
 
 const ImageList = ({ pictures }) => {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   slide: {
     paddingHorizontal: 5,
     height: 200,
-    borderRadius: 6,
+    borderRadius: ui.borderRadius,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: colors.primaryLighter,

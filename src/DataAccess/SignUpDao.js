@@ -50,30 +50,4 @@ const findAllImagesByWorkerById = async (parameters) => {
   }
 };
 
-const uploadWorkerImage = async (parameters) => {
-  const formData = new FormData();
-  formData.append("file", parameters.file);
-  formData.append("type", "multipart/form-data");
-
-  try {
-    const requestOptions = {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        token: parameters.token,
-      },
-      body: formData,
-    };
-
-    const url = API.auth.uploadImage + "/" + parameters.userId + "/images";
-
-    const res = await fetch(url, requestOptions);
-    const data = await res.json();
-
-    return data;
-  } catch (error) {
-    return error;
-  }
-};
-
-export { signUp, findAllImagesByWorkerById, uploadWorkerImage };
+export { signUp, findAllImagesByWorkerById };

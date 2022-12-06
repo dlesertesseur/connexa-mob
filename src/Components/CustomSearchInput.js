@@ -1,6 +1,7 @@
 import { StyleSheet, View, TextInput } from "react-native";
 import { colors } from "../Styles/Colors";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { ui } from "../Config/Constants";
 
 const CustomSearchInput = ({ placeholder, style, value, setValue }) => {
 
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     margin:15,
     borderWidth: 1,
     borderColor: colors.primary,
-    borderRadius: 6,
+    borderRadius: ui.borderRadius,
     padding: 5,
   },
 
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
 
   button: {
     padding: 5,
-    borderRadius: 6,
+    borderRadius: ui.borderRadius,
     justifyContent: "center",
     alignItems: "center"
   },

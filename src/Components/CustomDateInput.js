@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { Controller } from "react-hook-form";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { ui } from "../Config/Constants";
 
 const CustomDateInput = ({
   control,
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
 
   inputText: {
     width: "100%",
-    borderRadius: 8,
+    borderRadius: ui.borderRadius,
     padding: 10,
     color: colors.font,
     fontSize: 18,

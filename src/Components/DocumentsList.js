@@ -5,9 +5,10 @@ import {
   StyleSheet,
   View,
 } from "react-native";
+import { ui } from "../Config/Constants";
 import { colors } from "../Styles/Colors";
 
-const DocumentsList = ({ data = [], onSelect, formatText, numColumns=2, renderItem }) => {
+const DocumentsList = ({ data = [], numColumns=2, renderItem }) => {
 
   return (
     <View style={styles.container}>
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
     padding: 5,
-    borderRadius: 4,
+    borderRadius: ui.borderRadius,
     marginBottom: 10,
     marginHorizontal: 15,
     borderColor: colors.primary,

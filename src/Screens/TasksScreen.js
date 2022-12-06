@@ -8,6 +8,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useForm } from "react-hook-form";
 import { useFocusEffect } from "@react-navigation/native";
+import { ui } from "../Config/Constants";
 
 const TasksScreen = () => {
   const [scanning, setScanning] = useState(false);
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   },
 
   panel: {
-    borderRadius: 12,
+    borderRadius: ui.borderRadius,
     backgroundColor: colors.secondary,
     padding: 15,
     margin: 15,

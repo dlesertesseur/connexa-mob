@@ -1,5 +1,7 @@
 import AuthStack from "./Stacks/AuthStack";
 import AppNavigator from "./AppNavigator";
+import DocumentsStack from "./Stacks/DocumentsStack";
+import VerifyingStack from "./Stacks/VerifyingStack";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet } from "react-native";
@@ -7,7 +9,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { status } from "../Config/Constants";
-import DocumentsStack from "./Stacks/DocumentsStack";
 
 export default MainNavigator = () => {
   const { user } = useSelector((state) => state.auth.value);
@@ -27,13 +28,26 @@ export default MainNavigator = () => {
   }, [user]);
 
   const determinateStack = () => {
-    // if(user.status === status.PENDING_DOCUMENTS){
-    //   return(<DocumentsStack />);
-    // }else{
-      return(<AppNavigator />);
-    // }
-  }
+    let ret = null;
 
+    switch (user.status) {
+      case status.PENDING_DOCUMENTS:
+        ret = <DocumentsStack />;
+        break;
+
+      case status.VERIFYING_IDENTITY:
+        ret = <VerifyingStack />;
+        break;
+
+      case status.ACTIVED:
+        ret = <AppNavigator />;
+        break;
+
+      default:
+        break;
+    }
+    return(ret);
+  };
 
   return (
     <NavigationContainer>

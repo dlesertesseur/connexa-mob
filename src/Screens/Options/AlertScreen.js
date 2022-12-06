@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   },
 
   panel: {
-    // borderRadius: 12,
+    // borderRadius: ui.borderRadius,
     //backgroundColor: colors.secondary,
     paddingHorizontal: 5,
     marginHorizontal: 5,

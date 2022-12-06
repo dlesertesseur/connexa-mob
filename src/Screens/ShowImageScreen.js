@@ -4,24 +4,47 @@ import CustomButton from "../Components/CustomButton";
 import CustomLabel from "../Components/CustomLabel";
 import CustomImage from "../Components/CustomImage";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
-import { Image, StyleSheet, View } from "react-native";
+import { Alert, Image, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { ui } from "../Config/Constants";
+import { uploadWorkerImage } from "../DataAccess/DocumentsDao";
 import { useDispatch, useSelector } from "react-redux";
-import { saveDocument } from "../Features/Auth";
+import { updatedDocument } from "../Features/Auth";
 
 const ShowImageScreen = ({ navigation }) => {
   const logo = require("../../assets/images/logo-banner.png");
   const noData = require("../../assets/images/noData.png");
-
   const dispatch = useDispatch();
+  const { user, document } = useSelector((state) => state.auth.value);
 
-  const { document } = useSelector((state) => state.auth.value);
+  const saveDocument = () => {
+    const params = {
+      id: user.id,
+      token: user.token,
+      type: document.name,
+      file: document.url,
+    };
+
+    uploadWorkerImage(params).then((ret) => {
+      if (ret.error) {
+        Alert.alert(i18n.t("title.error"), i18n.t("errors.savePhoto"), [
+          {
+            text: i18n.t("button.close"),
+            style: "cancel",
+          },
+        ]);
+      } else {
+
+        dispatch(updatedDocument());
+        navigation.navigate("DocumentsList");
+      }
+    });
+  };
 
   return (
     <View style={styles.container}>
       <CustomImage source={logo} style={styles.logo} />
-      <CustomLabel title={document.name} text={document.desc} fontSize={30} color={colors.primary} />
+      <CustomLabel title={document.labelText} text={document.description} fontSize={30} color={colors.primary} />
       <HorizontalSeparator />
 
       <View style={styles.panel}>
@@ -36,15 +59,9 @@ const ShowImageScreen = ({ navigation }) => {
           }}
         />
 
-        <HorizontalSeparator/>
-        
-        <CustomButton
-          text={i18n.t("button.save")}
-          onPress={() => {
-            dispatch(saveDocument(document));
-            navigation.navigate("DocumentsList");
-          }}
-        />
+        <HorizontalSeparator />
+
+        <CustomButton text={i18n.t("button.save")} onPress={saveDocument} />
       </View>
     </View>
   );

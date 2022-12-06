@@ -1,5 +1,6 @@
 import React from "react";
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ui } from "../Config/Constants";
 import { colors } from "../Styles/Colors";
 
 const CustomScanButton = ({ text, onPress, style, scanning }) => {
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
   button: {
     width: "100%",
     height: 50,
-    borderRadius: 8,
+    borderRadius: ui.borderRadius,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import i18n from "../Config/i18n";
 import CustomTextInput from "../Components/CustomTextInput";
 import CustomButton from "../Components/CustomButton";
@@ -34,15 +34,6 @@ const SignInScreen = ({ navigation }) => {
   const onSubmit = (data) => {
     dispatch(signIn(data));
   };
-
-  const focusRef = useRef(null);
-
-
-  useEffect(() => {
-    if (focusRef) {
-      focusRef.current?.focus();
-    }
-  }, []);
 
   const logo = require("../../assets/images/logo-banner.png");
 

@@ -8,6 +8,7 @@ import { Audio } from "expo-av";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { addScannedProduct } from "../Features/Products";
 import { useDispatch } from "react-redux";
+import { ui } from "../Config/Constants";
 
 const ScanScreen = ({ barCode = true, qrCode = false }) => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
 
   panel: {
     flex: 1,
-    borderRadius: 4,
+    borderRadius: ui.borderRadius,
     backgroundColor: "#000000",
     alignItems: "center",
     justifyContent: "center",
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
   },
 
   control: {
-    borderRadius: 4,
+    borderRadius: ui.borderRadius,
     alignItems: "center",
     justifyContent: "center",
     height: 90,
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "space-evenly",
-    borderRadius: 4,
+    borderRadius: ui.borderRadius,
   },
 
   scanButtonActived: {

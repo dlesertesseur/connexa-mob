@@ -5,6 +5,7 @@ import EanItemList from "../Components/EanItemList";
 import { FlatList, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useSelector } from "react-redux";
+import { ui } from "../Config/Constants";
 
 const TaskListScreen = ({ navigation }) => {
 
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
   list: {
     height: "100%",
     marginBottom: 10,
-    borderRadius:8,
+    borderRadius: ui.borderRadius,
     backgroundColor: colors.secondary,
     padding: 10,
   },
