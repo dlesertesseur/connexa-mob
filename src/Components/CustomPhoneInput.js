@@ -12,6 +12,7 @@ const CustomPhoneInput = ({
   password = false,
   style,
   focusRef,
+  editable = true,
 }) => {
   return (
     <Controller
@@ -27,11 +28,13 @@ const CustomPhoneInput = ({
               styles.inputText,
               {
                 borderColor: error ? colors.error : colors.primary,
-                flexDirection: "row", justifyContent:"space-between",
+                flexDirection: "row",
+                justifyContent: "space-between",
               },
             ]}
           >
             <MaskInput
+              editable={editable}
               onBlur={onBlur}
               onChangeText={(masked, unmasked) => {
                 onChange(masked);
@@ -64,7 +67,11 @@ const CustomPhoneInput = ({
               ]}
               placeholderFillCharacter={"9"}
             />
-            <FontAwesome5 name="phone" size={24} color={error ? colors.error : colors.primary} />
+            <FontAwesome5
+              name="phone"
+              size={24}
+              color={error ? colors.error : colors.primary}
+            />
           </View>
           {error ? <Text style={styles.error}>{error.message}</Text> : null}
         </View>

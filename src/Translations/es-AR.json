@@ -36,7 +36,8 @@
       "welcome-signIn":"Ya tengo una cuenta",
       "welcome-signUp":"Crear una cuenta",
       "continue":"Continuar",
-      "save":"Guardar"
+      "save":"Guardar",
+      "logout":"Cerrar sesión"
     },
 
     "validation": {

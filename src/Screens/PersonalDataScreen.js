@@ -9,7 +9,6 @@ import CustomPhoneInput from "../Components/CustomPhoneInput";
 import CustomDateInput from "../Components/CustomDateInput";
 import { useForm } from "react-hook-form";
 import {
-  ActivityIndicator,
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet,

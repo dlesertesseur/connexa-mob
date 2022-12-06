@@ -16,7 +16,8 @@
       "dateOfBirth":"Fecha de nacimiento",
       "chooseOne":"Seleccione uno, por favor",
       "months": "Meses",
-      "save":"Guardar"
+      "save":"Guardar",
+      "logout":"Cerrar sesión"
     },
 
     "button": {

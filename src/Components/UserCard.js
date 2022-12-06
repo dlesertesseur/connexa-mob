@@ -22,7 +22,6 @@ export default UserCard;
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
     backgroundColor: colors.background,
   },
 

@@ -36,7 +36,8 @@
       "welcome-signUp": "Crear una cuenta",
       "continue": "Continuar",
       "months": "Meses",
-      "save":"Guardar"
+      "save":"Guardar",
+      "logout":"Cerrar sesión"
     },
 
     "validation": {

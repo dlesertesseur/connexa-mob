@@ -11,6 +11,7 @@ const CustomDateInput = ({
   password = false,
   style,
   focusRef,
+  editable = true,
 }) => {
   return (
     <Controller
@@ -26,11 +27,13 @@ const CustomDateInput = ({
               styles.inputText,
               {
                 borderColor: error ? colors.error : colors.primary,
-                flexDirection: "row", justifyContent:"space-between",
+                flexDirection: "row",
+                justifyContent: "space-between",
               },
             ]}
           >
             <MaskInput
+              editable={editable}
               onBlur={onBlur}
               onChangeText={(masked, unmasked) => {
                 onChange(masked);
@@ -39,21 +42,14 @@ const CustomDateInput = ({
               secureTextEntry={password}
               ref={focusRef}
               fontSize={18}
-              mask={[
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-                "/",
-                /\d/,
-                /\d/,
-                "/",
-                /\d/,
-                /\d/,
-              ]}
+              mask={[/\d/, /\d/, /\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/]}
               placeholderFillCharacter={"-"}
             />
-            <FontAwesome5 name="birthday-cake" size={24} color={error ? colors.error : colors.primary} />
+            <FontAwesome5
+              name="birthday-cake"
+              size={24}
+              color={error ? colors.error : colors.primary}
+            />
           </View>
           {error ? <Text style={styles.error}>{error.message}</Text> : null}
         </View>

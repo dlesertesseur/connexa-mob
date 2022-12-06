@@ -30,7 +30,8 @@
       "welcome-signIn":"I already have an account",
       "welcome-signUp":"Create a new account",
       "continue":"Continue",
-      "save":"Save"
+      "save":"Save",
+      "logout":"Logout"
     },
 
     "validation": {

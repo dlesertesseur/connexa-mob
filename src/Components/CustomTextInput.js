@@ -8,9 +8,9 @@ const CustomTextInput = ({
   placeholder,
   rules,
   password = false,
-  style,
   focusRef,
   getIcon = null,
+  editable = true,
 }) => {
   return (
     <Controller
@@ -38,6 +38,7 @@ const CustomTextInput = ({
               }}
             >
               <TextInput
+                editable={editable}
                 style={styles.inputText}
                 onBlur={onBlur}
                 onChangeText={onChange}

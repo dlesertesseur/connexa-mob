@@ -1,6 +1,7 @@
 export const status = {
   PENDING_DOCUMENTS: "PENDING DOCUMENTS",
   VERIFYING_IDENTITY: "VERIFYING IDENTITY",
+  ACTIVED: "ACTIVED",
 };
 
 export const ui = {
