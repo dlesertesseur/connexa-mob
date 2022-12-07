@@ -24,16 +24,9 @@ const VerifyingDataScreen = ({ navigation }) => {
 
       <View style={styles.panel}>
         <CustomButton
-          text={i18n.t("button.welcome-signIn")}
+          text={i18n.t("button.close")}
           onPress={() => {
-            navigation.navigate("SignIn");
-          }}
-        />
-        <HorizontalSeparator />
-        <CustomButton
-          text={i18n.t("button.welcome-signUp")}
-          onPress={() => {
-            navigation.navigate("SelectCountry");
+            navigation.navigate("si");
           }}
         />
       </View>

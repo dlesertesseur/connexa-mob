@@ -87,6 +87,7 @@ const DocumentsListScreen = ({ navigation }) => {
   const startValidationProcess = () => {
     const u = {...user}
     u.status = status.VERIFYING_IDENTITY;
+    u.toke = "";
 
     const params = {
       id:user.id,
@@ -95,7 +96,7 @@ const DocumentsListScreen = ({ navigation }) => {
     }
 
     dispatch(updateWorker(params)).then((ret) => {
-      // console.log("updateWorker -> ", user);
+      navigation.navigate("VerifyingData");
     });
   };
 
