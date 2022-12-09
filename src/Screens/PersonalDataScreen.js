@@ -15,15 +15,12 @@ import {
   View,
 } from "react-native";
 import { colors } from "../Styles/Colors";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
-import { signUp } from "../DataAccess/SignUpDao";
-import { showAlert } from "../Util";
-import { setSignupData, signIn } from "../Features/Auth";
+import { setSignupData } from "../Features/Auth";
 
 const PersonalDataScreen = ({ navigation }) => {
   const dispatch = useDispatch();

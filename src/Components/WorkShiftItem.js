@@ -9,11 +9,16 @@ import HorizontalSeparator from "./HorizontalSeparator";
 const WorkShiftItem = ({ item, onPress }) => {
   return (
     <TouchableOpacity
+      disabled={!onPress}
       style={{
         width: "100%",
-        height:180
+        height: 180,
       }}
-      onPress={() => {onPress(item)}}
+      onPress={() => {
+        if (onPress) {
+          onPress(item);
+        }
+      }}
     >
       <View style={styles.baseView}>
         <View style={styles.dataView}>
@@ -31,31 +36,13 @@ const WorkShiftItem = ({ item, onPress }) => {
               fullWidth={true}
             />
             <HorizontalSeparator height={5} />
-            <CustomText
-              text={item.branch + " - " + item.address}
-              marginHorizontal={0}
-              fontSize={16}
-            />
+            <CustomText text={item.branch + " - " + item.address} marginHorizontal={0} fontSize={16} />
             <HorizontalSeparator height={10} />
-            <CustomText
-              title={item.workType}
-              marginHorizontal={0}
-              fontSize={18}
-            />
+            <CustomText title={item.workType} marginHorizontal={0} fontSize={18} />
             <HorizontalSeparator />
-            <CustomTextTime
-              icon={"clock"}
-              start={item.entryTime}
-              end={item.exitTime}
-              marginHorizontal={0}
-            />
+            <CustomTextTime icon={"clock"} start={item.entryTime} end={item.exitTime} marginHorizontal={0} />
             <HorizontalSeparator height={5} />
-            <CustomTextTime
-              icon={"lunch"}
-              start={item.lunchStartTime}
-              end={item.lunchEndTime}
-              marginHorizontal={0}
-            />
+            <CustomTextTime icon={"lunch"} start={item.lunchStartTime} end={item.lunchEndTime} marginHorizontal={0} />
 
             <HorizontalSeparator height={5} />
           </View>

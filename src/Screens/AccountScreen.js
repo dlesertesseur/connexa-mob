@@ -9,22 +9,19 @@ import { colors } from "../Styles/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, ScrollView, StyleSheet, View } from "react-native";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import CustomButton from "../Components/CustomButton";
 import { resetAuthData } from "../Features/Auth";
 import { useState } from "react";
+import { API } from "../Config/Api";
 
 const AccountScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const [editData, setEditData] = useState(false);
   const { user } = useSelector((state) => state.auth.value);
+
   const {
     control,
     handleSubmit,
@@ -32,31 +29,25 @@ const AccountScreen = ({ navigation }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      names: user.names,
-      surnames: user.surnames,
+      names: user.firstname,
+      surnames: user.lastname,
       email: user.email,
       address: user.address,
-      dateOfBirth: user.dateOfBirth,
-      phoneNumber: user.phoneNumber,
+      dateOfBirth: user.birthDate,
+      phoneNumber: user.phone,
     },
   });
 
   return (
     <View style={styles.container}>
       <HorizontalSeparator />
-      <CustomText
-        title={i18n.t("title.screen.account")}
-        fontSize={28}
-        color={colors.primary}
-      />
+      <CustomText title={i18n.t("title.screen.account")} fontSize={28} color={colors.primary} />
       <HorizontalSeparator />
 
-      <CustomAvatar size={150} />
+      <CustomAvatar size={150} image={API.document.baseImageUrl + user.image} />
 
       <ScrollView>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "position"}
-        >
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "position"}>
           <HorizontalSeparator height={30} />
           <View style={styles.panel}>
             <CustomTextInput
@@ -68,13 +59,7 @@ const AccountScreen = ({ navigation }) => {
                 required: i18n.t("validation.required"),
               }}
               getIcon={(error) => {
-                return (
-                  <FontAwesome5
-                    name="user-alt"
-                    size={24}
-                    color={error ? colors.error : colors.primary}
-                  />
-                );
+                return <FontAwesome5 name="user-alt" size={24} color={error ? colors.error : colors.primary} />;
               }}
             />
             <HorizontalSeparator />
@@ -88,13 +73,7 @@ const AccountScreen = ({ navigation }) => {
                 required: i18n.t("validation.required"),
               }}
               getIcon={(error) => {
-                return (
-                  <FontAwesome5
-                    name="user-alt"
-                    size={24}
-                    color={error ? colors.error : colors.primary}
-                  />
-                );
+                return <FontAwesome5 name="user-alt" size={24} color={error ? colors.error : colors.primary} />;
               }}
             />
             <HorizontalSeparator />
@@ -112,13 +91,7 @@ const AccountScreen = ({ navigation }) => {
                 },
               }}
               getIcon={(error) => {
-                return (
-                  <MaterialIcons
-                    name="email"
-                    size={24}
-                    color={error ? colors.error : colors.primary}
-                  />
-                );
+                return <MaterialIcons name="email" size={24} color={error ? colors.error : colors.primary} />;
               }}
             />
 
@@ -143,13 +116,7 @@ const AccountScreen = ({ navigation }) => {
                 required: i18n.t("validation.required"),
               }}
               getIcon={(error) => {
-                return (
-                  <Entypo
-                    name="address"
-                    size={24}
-                    color={error ? colors.error : colors.primary}
-                  />
-                );
+                return <Entypo name="address" size={24} color={error ? colors.error : colors.primary} />;
               }}
             />
             <HorizontalSeparator />

@@ -5,31 +5,31 @@ import { status } from "../../Config/Constants";
 const initialState = {
   value: {
     user: {
-      userId: "10001",
-      email: "jfuentes@gmail.com",
-      token: "###TOKEN###",
-      photo: "",
-      country: "Argentina",
-      city: "Buenos Aires",
-      dateOfBirth: "10/10/1968",
-      phoneNumber: "(54) 9 11 4444-44444",
-      names: "Jose",
-      surnames: "Fuentes",
-      address: "San Martin 1235",
-      status: status.ACTIVED,
+      // userId: "10001",
+      // email: "jfuentes@gmail.com",
+      // token: "###TOKEN###",
+      // photo: "",
+      // country: "Argentina",
+      // city: "Buenos Aires",
+      // dateOfBirth: "10/10/1968",
+      // phoneNumber: "(54) 9 11 4444-44444",
+      // names: "Jose",
+      // surnames: "Fuentes",
+      // address: "San Martin 1235",
+      // status: status.ACTIVED,
 
-      // userId: null,
-      // email: null,
-      // token: null,
-      // photo: null,
-      // country: null,
-      // city: null,
-      // dateOfBirth:null,
-      // phoneNumber:null,
-      // names:null,
-      // surnames:null,
-      // address: null,
-      // status: null,
+      userId: null,
+      email: null,
+      token: null,
+      photo: null,
+      country: null,
+      city: null,
+      dateOfBirth:null,
+      phoneNumber:null,
+      names:null,
+      surnames:null,
+      address: null,
+      status: null,
     },
 
     loading: false,
@@ -85,6 +85,8 @@ export const signUp = createAsyncThunk("auth/signUp", async (parameters) => {
       password: parameters.password,
     };
 
+    console.log("signUp -> body", body);
+
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -97,6 +99,8 @@ export const signUp = createAsyncThunk("auth/signUp", async (parameters) => {
 
     return data;
   } catch (error) {
+
+    console.log("signUp -> " + error);
     return rejectWithValue(error);
   }
 });
@@ -160,7 +164,7 @@ export const authSlice = createSlice({
       state.value.errorMessage = null;
     },
     [signIn.fulfilled]: (state, { payload }) => {
-      //console.log("[signIn.fulfilled]", payload);
+      console.log("[signIn.fulfilled]", payload.worker);
 
       if (payload.error) {
         state.value.error = payload.error.message;

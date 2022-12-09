@@ -157,9 +157,9 @@ const DocumentsListScreen = ({ navigation }) => {
             marginBottom: 10,
             flex: 1,
             padding: 0,
-            borderRadius: ui.borderRadius,
+            // borderRadius: ui.borderRadius,
             // borderWidth: ui.borderWidth,
-            // borderColor: colors.primary,
+            borderColor: colors.primary,
             justifyContent: "flex-start",
             alignItems: "center",
             backgroundColor: colors.background,
@@ -273,7 +273,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "flex-start",
     justifyContent: "space-between",
+    backgroundColor:colors.primaryLighter
   },
+
   image: {
     width: "100%",
     height: 150,

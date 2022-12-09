@@ -1,4 +1,5 @@
-const SERVER = "http://192.168.0.15";
+//const SERVER = "http://192.168.0.15";
+const SERVER = "http://192.168.0.10";
 const PORT = "8080";
 const API_BASE = "/workers/api/v1";
 
