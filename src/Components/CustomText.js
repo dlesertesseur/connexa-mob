@@ -2,15 +2,16 @@ import React from "react";
 import { Text, View } from "react-native";
 import { colors } from "../Styles/Colors";
 
-const CustomText = ({ title, text, fontSize = 16, textAlign = "center" }) => {
+const CustomText = ({ title, text, fontSize = 16, textAlign = "center", marginHorizontal=15, fullWidth }) => {
   return (
     <View
       style={{
         justifyContent: "center",
         alignItems: textAlign,
+        width: fullWidth ? "100%" : null,
       }}
     >
-      <View style={{ marginHorizontal: 15 }}>
+      <View style={{ marginHorizontal: marginHorizontal }}>
         {title ? (
           <Text
             style={{

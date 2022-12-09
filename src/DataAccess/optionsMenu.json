@@ -1,0 +1,8 @@
+[
+  {"id": 1,"option": "INICIAR CORTE POR ALMUERZO"},
+  {"id": 2,"option": "INICIAR ORDEN DE TRABAJO"},
+  {"id": 3,"option": "INICIAR PICKING EN DEPOSITO"},
+  {"id": 4,"option": "INICIAR FRENTEO"},
+  {"id": 5,"option": "INICIAR REPOSICION"},
+  {"id": 6,"option": "FINALIZAR TURNO"}
+]

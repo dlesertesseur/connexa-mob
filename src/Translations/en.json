@@ -32,7 +32,8 @@
       "continue":"Continue",
       "save":"Save",
       "logout":"Logout",
-      "startValidationProcess":"Start validation process"
+      "startValidationProcess":"Start validation process",
+      "startWorkShift":"Start"
     },
 
     "validation": {
@@ -66,7 +67,12 @@
         "documents-desc":"Complete the following list of required documents in order to start working.",
         "account":"My account",
         "verifyingData":"Verifying data",
-        "verifyingData-desc":"We are verifying your documents."
+        "verifyingData-desc":"We are verifying your documents.",
+        "workshiftList":"Work shifts",
+        "startWorkShift": "Start work shift",
+        "startWorkShift-desc":"Remember that when you start the turn you must finish it, otherwise you will be negatively qualified",
+        "optionsMenu":"Options menu",
+        "activityLog":"Activity log"
       },
       "error":"ERROR"
     },

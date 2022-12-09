@@ -14,7 +14,6 @@ const DocumentsList = ({ data = [], numColumns=2, renderItem }) => {
     <View style={styles.container}>
       <FlatList
         numColumns={numColumns}
-        style={styles.list}
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginHorizontal: 15,
     borderColor: colors.primary,
-    backgroundColor: colors.primaryLighter
+    backgroundColor: colors.background
   },
 
   text: {

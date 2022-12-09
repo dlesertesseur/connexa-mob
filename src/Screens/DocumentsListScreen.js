@@ -162,7 +162,7 @@ const DocumentsListScreen = ({ navigation }) => {
             // borderColor: colors.primary,
             justifyContent: "flex-start",
             alignItems: "center",
-            backgroundColor: colors.primaryLighter,
+            backgroundColor: colors.background,
           }}
         >
           {/* <Image source={item.url ? { uri: item.url } : noDocument} resizeMode={"cover"} style={styles.image} /> */}

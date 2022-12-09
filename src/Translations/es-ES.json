@@ -38,7 +38,8 @@
       "welcome-signUp":"Crear una cuenta",
       "continue":"Continuar",
       "logout":"Cerrar sesión",
-      "startValidationProcess":"Iniciar proceso de validación"
+      "startValidationProcess":"Iniciar proceso de validación",
+      "startWorkShift":"Iniciar"
     },
 
     "validation": {
@@ -74,7 +75,12 @@
         "documents-desc":"Completa la siguiente lista de documentos requeridos para poder empezar a trabajar.",
         "account":"Mi cuenta",
         "verifyingData":"Verificando datos",
-        "verifyingData-desc":"Estamos verificando tus documentos."
+        "verifyingData-desc":"Estamos verificando tus documentos.",
+        "workshiftList":"Turnos de trabajo",
+        "startWorkShift": "Iniciar turno",
+        "startWorkShift-desc":"Recuerda que cuando inicias el turno debes terminarlo, de lo contrario quedarás calificado negativamente.",
+        "optionsMenu":"Menu de opciones",
+        "activityLog":"Registro de actividades"
       },
       "error":"ERROR"
     },

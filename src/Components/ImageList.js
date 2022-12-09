@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     borderRadius: ui.borderRadius,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.primaryLighter,
+    backgroundColor: colors.background,
   },
 
   slideFinal: {

@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginHorizontal: 15,
     borderColor: colors.primary,
-    backgroundColor: colors.primaryLighter
+    backgroundColor: colors.background
   },
 
   text: {

@@ -96,6 +96,6 @@ const styles = StyleSheet.create({
     borderColor: colors.primary,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.primaryLighter,
+    backgroundColor: colors.background,
   },
 });

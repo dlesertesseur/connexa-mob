@@ -6,10 +6,13 @@ import HorizontalSeparator from "../Components/HorizontalSeparator";
 import CustomText from "../Components/CustomText";
 import { Image, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
+import { useDispatch } from "react-redux";
+import { resetAuthData } from "../Features/Auth";
 
 const VerifyingDataScreen = ({ navigation }) => {
   const logo = require("../../assets/images/logo-banner.png");
   const checkingImg = require("../../assets/images/checking.png");
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>
@@ -26,7 +29,7 @@ const VerifyingDataScreen = ({ navigation }) => {
         <CustomButton
           text={i18n.t("button.close")}
           onPress={() => {
-            navigation.navigate("si");
+            dispatch(resetAuthData());
           }}
         />
       </View>

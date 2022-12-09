@@ -1,37 +1,105 @@
-import React, { useEffect, useState } from "react";
 import i18n from "../Config/i18n";
-import { FlatList, StyleSheet, View } from "react-native";
+import CustomImage from "../Components/CustomImage";
+import React from "react";
+import CustomText from "../Components/CustomText";
+import HorizontalSeparator from "../Components/HorizontalSeparator";
+import CustomSearchInput from "../Components/CustomSearchInput";
+import WorkShiftItem from "../Components/WorkShiftItem";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { colors } from "../Styles/Colors";
-import AlertOptionItem from "../Components/OptionItem";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useState } from "react";
 import { ui } from "../Config/Constants";
+import { MaterialIcons } from "@expo/vector-icons";
 
-const OptionsMenuScreen = ({ navigation }) => {
-  const optionsList = () => {
-    const ret = [];
-    ret.push({ screenName: "alertScreen", label: "Alert", iconName: "bell" });
+const OptionsMenuScreen = ({ navigation, route }) => {
+  const dispatch = useDispatch();
 
-    return ret;
+  const workShift = route.params;
+  const [options, setOptions] = useState(
+    require("../DataAccess/optionsMenu.json")
+  );
+  const [searchText, setSearchText] = useState(null);
+  const [filteredOptions, setFilteredOptions] = useState(options);
+
+  const onSelect = (item) => {
+    console.log("onSelect", item);
   };
 
-  const onPress = (screenName) => {
-    navigation.navigate(screenName);
-  };
+  useEffect(() => {
+    if (searchText) {
+      const filtered = options.filter((c) => c.option.startsWith(searchText));
+      setFilteredOptions(filtered);
+    } else {
+      setFilteredOptions(options);
+    }
+  }, [searchText]);
 
-  const renderItem = ({ item }) => {
-    return <AlertOptionItem screenName={item.screenName} label={item.label} iconName={item.iconName}  onPress={onPress} />;
+  const renderOption = ({ item }) => {
+    return (
+      <TouchableOpacity style={styles.row} onPress={() => onSelect(item)}>
+        <Text style={styles.text}>{item.option}</Text>
+        <MaterialIcons
+          name="navigate-next"
+          size={24}
+          color={colors.secondary}
+        />
+      </TouchableOpacity>
+    );
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.panel}>
+      <CustomText
+        title={i18n.t("title.screen.activityLog")}
+        fontSize={28}
+        color={colors.primary}
+      />
+      <HorizontalSeparator />
+
+      <View style={styles.centralPanel}>
+        <View style={{ width: "100%" }}>
+          <WorkShiftItem item={workShift} />
+        </View>
+      </View>
+
+      <HorizontalSeparator />
+
+      <CustomText
+        title={i18n.t("title.screen.optionsMenu")}
+        fontSize={24}
+        color={colors.primary}
+        textAlign="flex-start"
+      />
+
+      <CustomSearchInput
+        placeholder={i18n.t("label.search")}
+        value={searchText}
+        setValue={setSearchText}
+      />
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: colors.background,
+          marginHorizontal: 15,
+          marginBottom: 80,
+        }}
+      >
         <FlatList
-          numColumns={2}
-          style={styles.list}
-          data={optionsList()}
-          renderItem={renderItem}
+          data={filteredOptions}
+          renderItem={renderOption}
           keyExtractor={(item) => item.id}
         />
       </View>
+
+      <HorizontalSeparator />
     </View>
   );
 };
@@ -44,28 +112,34 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
 
-  list: {
+  image: {
+    width: "100%",
     height: "100%",
+  },
+
+  centralPanel: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 15,
+  },
+
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: 46,
+    borderWidth: 1,
+    padding: 5,
+    borderRadius: ui.borderRadius,
     marginBottom: 10,
-    borderRadius: ui.borderRadius,
-    backgroundColor: colors.secondary,
-    //padding: 10,
+    borderColor: colors.primary,
+    backgroundColor: colors.primary,
   },
 
-  panel: {
-    flex: 1,
-    paddingHorizontal: 10,
-    marginBottom: 80,
-    borderRadius: ui.borderRadius,
-  },
-
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 20,
+  text: {
+    marginLeft: 5,
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors.secondary,
   },
 });
