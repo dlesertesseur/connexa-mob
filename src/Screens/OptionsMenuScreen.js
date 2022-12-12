@@ -4,28 +4,20 @@ import CustomText from "../Components/CustomText";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
 import CustomSearchInput from "../Components/CustomSearchInput";
 import WorkShiftItem from "../Components/WorkShiftItem";
-import {
-  BackHandler,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { BackHandler, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../Styles/Colors";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import { ui } from "../Config/Constants";
 import { MaterialIcons } from "@expo/vector-icons";
+import CustomTitleBar from "../Components/CustomTitleBar";
 
 const OptionsMenuScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
+  const { selectedShift } = useSelector((state) => state.shifts.value);
 
-  const workShift = route.params;
-  const [options, setOptions] = useState(
-    require("../DataAccess/optionsMenu.json")
-  );
+  const [options, setOptions] = useState(require("../DataAccess/optionsMenu.json"));
   const [searchText, setSearchText] = useState(null);
   const [filteredOptions, setFilteredOptions] = useState(options);
 
@@ -51,27 +43,18 @@ const OptionsMenuScreen = ({ navigation, route }) => {
     return (
       <TouchableOpacity style={styles.row} onPress={() => onSelect(item)}>
         <Text style={styles.text}>{item.option}</Text>
-        <MaterialIcons
-          name="navigate-next"
-          size={24}
-          color={colors.secondary}
-        />
+        <MaterialIcons name="navigate-next" size={24} color={colors.secondary} />
       </TouchableOpacity>
     );
   };
 
   return (
     <View style={styles.container}>
-      <CustomText
-        title={i18n.t("title.screen.activityLog")}
-        fontSize={28}
-        color={colors.primary}
-      />
-      <HorizontalSeparator />
+      <CustomTitleBar title={i18n.t("title.screen.activityLog")} />
 
       <View style={styles.centralPanel}>
         <View style={{ width: "100%" }}>
-          <WorkShiftItem item={workShift} />
+          <WorkShiftItem item={selectedShift} />
         </View>
       </View>
 
@@ -84,11 +67,7 @@ const OptionsMenuScreen = ({ navigation, route }) => {
         textAlign="flex-start"
       />
 
-      <CustomSearchInput
-        placeholder={i18n.t("label.search")}
-        value={searchText}
-        setValue={setSearchText}
-      />
+      <CustomSearchInput placeholder={i18n.t("label.search")} value={searchText} setValue={setSearchText} />
       <View
         style={{
           flex: 1,
@@ -97,11 +76,7 @@ const OptionsMenuScreen = ({ navigation, route }) => {
           marginBottom: 15,
         }}
       >
-        <FlatList
-          data={filteredOptions}
-          renderItem={renderOption}
-          keyExtractor={(item) => item.id}
-        />
+        <FlatList data={filteredOptions} renderItem={renderOption} keyExtractor={(item) => item.id} />
       </View>
 
       <HorizontalSeparator />

@@ -14,9 +14,10 @@ import Speedometer, {
   DangerPath,
   Indicator,
 } from "react-native-cool-speedometer";
+import CustomTitleBar from "../../Components/CustomTitleBar";
 
 const NonWorkingTimeScreen = ({ navigation, route }) => {
-  const item = route.params;
+  const option = route.params;
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [totalTime, setTotalTime] = useState(30);
 
@@ -42,6 +43,7 @@ const NonWorkingTimeScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
+      <CustomTitleBar title={option.title} />
       <CustomText
         title={i18n.t("title.screen.nonWorkingTime")}
         fontSize={28}
@@ -55,7 +57,7 @@ const NonWorkingTimeScreen = ({ navigation, route }) => {
       />
       <HorizontalSeparator height={30}/>
       <CustomText
-        title={item.title}
+        title={option.title}
         fontSize={28}
         
       />

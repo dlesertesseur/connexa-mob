@@ -11,22 +11,28 @@ import CustomLabel from "../../../Components/CustomLabel";
 import ProductItem from "../../../Components/ProductItem";
 import CustomButton from "../../../Components/CustomButton";
 import CustomFloatingButton from "../../../Components/CustomFloatingButton";
+import CustomTitleBar from "../../../Components/CustomTitleBar";
 
-const ProductsListScreen = ({ navigation }) => {
+const ProductsListScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
+  const option = route.params;
+  const { scannedList } = useSelector((state) => state.products.value);
 
-  const [itemsList, setItemsList] = useState([]);
   const [searchText, setSearchText] = useState(null);
-  const [filteredProducts, setFilteredProducts] = useState(itemsList);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
-  const windowHeight = Dimensions.get('window').height;
+  const windowHeight = Dimensions.get("window").height;
+
+  useEffect(() => {
+    setFilteredProducts(scannedList);
+  }, [scannedList]);
 
   useEffect(() => {
     if (searchText) {
-      const filtered = itemsList.filter((c) => c.name.startsWith(searchText));
+      const filtered = scannedList.filter((c) => c.name.startsWith(searchText));
       setFilteredProducts(filtered);
     } else {
-      setFilteredProducts(itemsList);
+      setFilteredProducts(scannedList);
     }
   }, [searchText]);
 
@@ -36,7 +42,8 @@ const ProductsListScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <HorizontalSeparator />
+      <CustomTitleBar title={option.title} />
+
       <CustomLabel
         title={i18n.t("title.screen.productsList")}
         text={i18n.t("title.screen.productsList-desc")}
@@ -45,17 +52,9 @@ const ProductsListScreen = ({ navigation }) => {
         textAlign="flex-start"
       />
 
-      <CustomSearchInput
-        placeholder={i18n.t("label.search")}
-        value={searchText}
-        setValue={setSearchText}
-      />
+      <CustomSearchInput placeholder={i18n.t("label.search")} value={searchText} setValue={setSearchText} />
       <View style={{ flex: 1 }}>
-        <FlatList
-          data={itemsList}
-          renderItem={renderProduct}
-          keyExtractor={(item) => item.id}
-        />
+        <FlatList data={filteredProducts} renderItem={renderProduct} keyExtractor={(item) => item.id} />
       </View>
 
       <HorizontalSeparator />
@@ -74,12 +73,13 @@ const ProductsListScreen = ({ navigation }) => {
           position: "absolute",
           alignItems: "flex-end",
           justifyContent: "flex-end",
-          padding:15
+          padding: 15,
         }}
       >
-        <CustomFloatingButton diameter={64}
+        <CustomFloatingButton
+          diameter={64}
           onPress={() => {
-            navigation.goBack();
+            navigation.navigate("ScanProduct");
           }}
         />
       </View>

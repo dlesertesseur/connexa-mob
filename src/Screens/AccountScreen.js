@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetAuthData } from "../Features/Auth";
 import { useState } from "react";
 import { API } from "../Config/Api";
+import CustomTitleBar from "../Components/CustomTitleBar";
 
 const AccountScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -40,9 +41,11 @@ const AccountScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <HorizontalSeparator />
+      <CustomTitleBar title={i18n.t("title.screen.account")} avatar={false} />
+
+      {/* <HorizontalSeparator />
       <CustomText title={i18n.t("title.screen.account")} fontSize={28} color={colors.primary} />
-      <HorizontalSeparator />
+      <HorizontalSeparator /> */}
 
       <CustomAvatar size={150} image={API.document.baseImageUrl + user.image} />
 

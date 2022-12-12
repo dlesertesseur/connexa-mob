@@ -21,7 +21,8 @@
       "save":"Guardar",
       "hours": "Horas",
       "minutes": "Minutos",
-      "seconds": "Segundos"
+      "seconds": "Segundos",
+      "packages": "Bultos"
     },
 
     "button": {
@@ -90,7 +91,9 @@
         "nonWorkingTime":"Tiempo no trabajado",
         "nonWorkingTime-desc":"Registra el tiempo no trabajado por el operador a cargo de la empresa.",
         "productsList":"Lista de productos",
-        "productsList-desc":"Crea la lista de productos que necesitas suministrar."
+        "productsList-desc":"Crea la lista de productos que necesitas suministrar.",
+        "numberOfUnits":"Cantidad de unidades",
+        "numberOfUnits-desc":"Indique la cantidad de unidades (en bultos) que necesita abastecer"
       },
       "error":"ERROR"
     },
@@ -129,6 +132,21 @@
     },
     "errors":{
       "savePhoto":"Error guardando foto"
+    },
+
+    "month": {
+      "1": "Enero",
+      "2": "Febrero",
+      "3": "Marzo",
+      "4": "Abril",
+      "5": "Mayo",
+      "6": "Junio",
+      "7": "Julio",
+      "8": "Agosto",
+      "9": "Septiembre",
+      "10": "Octubre",
+      "11": "Noviembre",
+      "12": "Diciembre"
     }
   }
 }

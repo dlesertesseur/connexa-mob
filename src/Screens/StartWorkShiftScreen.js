@@ -1,30 +1,25 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import i18n from "../Config/i18n";
 import CustomButton from "../Components/CustomButton";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
-import CustomText from "../Components/CustomText";
 import WorkShiftItem from "../Components/WorkShiftItem";
+import CustomLabel from "../Components/CustomLabel";
+import CustomTitleBar from "../Components/CustomTitleBar";
 import { StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
+import { useDispatch } from "react-redux";
+import { setSelectedShift } from "../Features/Shifts";
 
 const StartWorkShiftScreen = ({ navigation, route }) => {
   const workShift = route.params;
-
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
-      <CustomText
-        title={i18n.t("title.screen.startWorkShift")}
-        fontSize={28}
-        color={colors.primary}
-      />
+      <CustomTitleBar title={i18n.t("title.screen.workshiftList")} />
+      <CustomLabel title={i18n.t("title.screen.startWorkShift")} text={i18n.t("title.screen.startWorkShift-desc")}/>
       <HorizontalSeparator />
-      <CustomText
-        text={i18n.t("title.screen.startWorkShift-desc")}
-        fontSize={18}
-        color={colors.primary}
-      />
       <View style={styles.centralPanel}>
-        <View style={{height:300, width:"100%"}}>
+        <View style={{ height: 300, width: "100%" }}>
           <WorkShiftItem item={workShift} />
         </View>
       </View>
@@ -33,7 +28,8 @@ const StartWorkShiftScreen = ({ navigation, route }) => {
         <CustomButton
           text={i18n.t("button.startWorkShift")}
           onPress={() => {
-            navigation.navigate("OptionsMenu", workShift);
+            dispatch(setSelectedShift(workShift));
+            navigation.navigate("OptionsMenu");
           }}
         />
       </View>
@@ -67,6 +63,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal:15
+    marginHorizontal: 15,
   },
 });

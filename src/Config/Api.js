@@ -1,5 +1,5 @@
 //const SERVER = "http://192.168.0.15";
-const SERVER = "http://192.168.0.10";
+const SERVER = "http://192.168.0.12";
 const PORT = "8080";
 const API_BASE = "/workers/api/v1";
 
@@ -26,6 +26,10 @@ export const API = {
       imagefindTemplates: SERVER + ":" + PORT + API_BASE + "/ImageTemplates",
       findAllImagesByWorkerId: SERVER + ":" + PORT + API_BASE + "/workers",
       baseImageUrl: SERVER + ":" + PORT,
-      
-    }
+    },
+
+    shift: {
+      findAllByWorkerId: SERVER + ":" + PORT + API_BASE + "/workershifts/",
+    },
+
 }  

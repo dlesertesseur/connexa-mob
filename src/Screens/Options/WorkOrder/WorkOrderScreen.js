@@ -1,14 +1,14 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-//import ProductsListScreen from "./ProductsListScreen";
-
+import ScanProducScreen from "../../ScanProducScreen";
+import ProductsListScreen from "./ProductsListScreen";
+import NumberOfUnitsScreen from "./NumberOfUnitsScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet, View } from "react-native";
 import { colors } from "../../../Styles/Colors";
-import ScanScreen from "../../ScanScreen";
-import ProductsListScreen from "./ProductsListScreen";
 
 const Stack = createNativeStackNavigator();
-const WorkOrderScreen = () => {
+const WorkOrderScreen = ({ route }) => {
+  const param = route.params;
   return (
     <Stack.Navigator
       initialRouteName="ProductsList"
@@ -16,11 +16,9 @@ const WorkOrderScreen = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="ProductsList" component={ProductsListScreen} />
-      <Stack.Screen
-        name="ScanProduct"
-        component={ScanScreen}
-      />
+      <Stack.Screen name="ProductsList" component={ProductsListScreen} initialParams={param} />
+      <Stack.Screen name="ScanProduct" component={ScanProducScreen} />
+      <Stack.Screen name="NumberOfUnits" component={NumberOfUnitsScreen} initialParams={param} />
     </Stack.Navigator>
   );
 };

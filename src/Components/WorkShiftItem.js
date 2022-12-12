@@ -1,12 +1,36 @@
 import React from "react";
-import { TouchableOpacity, View, StyleSheet } from "react-native";
-import { ui } from "../Config/Constants";
-import { colors } from "../Styles/Colors";
+import i18n from "../Config/i18n";
 import CustomText from "./CustomText";
 import CustomTextTime from "./CustomTextTime";
 import HorizontalSeparator from "./HorizontalSeparator";
+import { TouchableOpacity, View, StyleSheet } from "react-native";
+import { ui } from "../Config/Constants";
+import { colors } from "../Styles/Colors";
+import CustomTextRequirement from "./CustomTextRequirement";
 
 const WorkShiftItem = ({ item, onPress }) => {
+  const getMonth = (yyyyMMdd) => {
+    const mm = yyyyMMdd.substring(4, 6);
+    const ret = i18n.t("month." + mm);
+    return ret;
+  };
+
+  const getDay = (yyyyMMdd) => {
+    const dd = yyyyMMdd.substring(6, 8);
+    return dd;
+  };
+
+  const getWeekDay = (yyyyMMdd) => {
+    const y = yyyyMMdd.substring(0, 4);
+    const m = yyyyMMdd.substring(4, 6);
+    const d = yyyyMMdd.substring(6, 8);
+
+    const date = new Date(y, m - 1, d);
+
+    const ret = i18n.t("day." + date.getDay());
+    return ret;
+  };
+
   return (
     <TouchableOpacity
       disabled={!onPress}
@@ -23,27 +47,48 @@ const WorkShiftItem = ({ item, onPress }) => {
       <View style={styles.baseView}>
         <View style={styles.dataView}>
           <View style={styles.leftPart}>
-            <CustomText title={item.month} marginHorizontal={0} fullWidth />
-            <CustomText title={item.date} marginHorizontal={0} fontSize={48} />
-            <CustomText title={item.weekDay} marginHorizontal={0} />
+            <CustomText title={getMonth(item.startDate)} marginHorizontal={0} fullWidth />
+            <CustomText title={getDay(item.startDate)} marginHorizontal={0} fontSize={48} />
+            <CustomText title={getWeekDay(item.startDate)} marginHorizontal={0} />
           </View>
           <View style={styles.rightPart}>
-            <CustomText
+            {/* <CustomText
               title={item.organization}
               marginHorizontal={0}
               fontSize={24}
               textAlign="center"
               fullWidth={true}
-            />
+            /> */}
             <HorizontalSeparator height={5} />
-            <CustomText text={item.branch + " - " + item.address} marginHorizontal={0} fontSize={16} />
-            <HorizontalSeparator height={10} />
-            <CustomText title={item.workType} marginHorizontal={0} fontSize={18} />
-            <HorizontalSeparator />
-            <CustomTextTime icon={"clock"} start={item.entryTime} end={item.exitTime} marginHorizontal={0} />
-            <HorizontalSeparator height={5} />
-            <CustomTextTime icon={"lunch"} start={item.lunchStartTime} end={item.lunchEndTime} marginHorizontal={0} />
+            {/* <CustomText text={item.branch + " - " + item.address} marginHorizontal={0} fontSize={16} /> */}
+            <CustomText text={item.address} marginHorizontal={0} fontSize={16} />
 
+            <HorizontalSeparator height={10} />
+            <CustomText title={item.job} marginHorizontal={0} fontSize={18} />
+            <HorizontalSeparator />
+            <CustomTextTime icon={"clock"} start={item.startTime} end={item.endTime} marginHorizontal={0} />
+            {item.pause ? (
+              <>
+                <HorizontalSeparator height={5} />
+                <CustomTextTime
+                  icon={"lunch"}
+                  start={item.pauseStartTime}
+                  end={item.pauseEndTime}
+                  //text={item.pauseName}
+                  marginHorizontal={0}
+                />
+              </>
+            ) : null}
+
+            {/* {item.requirements ? (
+              <>
+                <HorizontalSeparator height={5} />
+                <CustomTextRequirement
+                  text={item.requirements}
+                  marginHorizontal={0}
+                />
+              </>
+            ) : null} */}
             <HorizontalSeparator height={5} />
           </View>
         </View>

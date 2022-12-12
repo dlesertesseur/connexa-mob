@@ -16,7 +16,8 @@
       "months": "Months",
       "hours": "Hours",
       "minutes": "Minutes",
-      "seconds": "Seconds"
+      "seconds": "Seconds",
+      "packages": "Packages"
     },
 
     "button": {
@@ -82,7 +83,9 @@
         "nonWorkingTime":"Not worked time",
         "nonWorkingTime-desc":"Records the time not worked by the operator in charge of the company.",
         "productsList":"Products list",
-        "productsList-desc":"Create the list of products you need to supply."
+        "productsList-desc":"Create the list of products you need to supply.",
+        "numberOfUnits":"Number of units",
+        "numberOfUnits-desc":"Indicate the number of units (in packages) that you need to supply"
       },
       "error":"ERROR"
     },
@@ -120,6 +123,21 @@
 
     "errors":{
       "savePhoto":"Error saving photo"
+    },
+
+    "month":{
+      "1":"January", 
+      "2":"February", 
+      "3":"March", 
+      "4":"April", 
+      "5":"May", 
+      "6":"June", 
+      "7":"July", 
+      "8":"August", 
+      "9":"September", 
+      "10":"October", 
+      "11":"November", 
+      "12":"December"
     }
   }
 }

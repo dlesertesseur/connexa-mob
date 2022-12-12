@@ -11,8 +11,8 @@ const CustomTextTime = ({
   start = "00:00",
   end = "00:00",
   icon = "clock" | "lunch",
+  text = null,
 }) => {
-  
   const determinateIcon = (icon) => {
     let ret = null;
     switch (icon) {
@@ -21,15 +21,14 @@ const CustomTextTime = ({
         break;
 
       case "lunch":
-        ret = <MaterialCommunityIcons name="silverware-fork-knife" size={18} color={colors.primary}/>;
+        ret = <MaterialCommunityIcons name="silverware-fork-knife" size={18} color={colors.primary} />;
         break;
 
       default:
         break;
     }
 
-
-    return(ret);
+    return ret;
   };
 
   return (
@@ -82,6 +81,23 @@ const CustomTextTime = ({
         >
           {end}
         </Text>
+
+        {text ? (
+          <Text
+            style={{
+              fontSize: 14,
+              borderRadius: 50,
+              color: colors.secondary,
+              fontWeight: "bold",
+              backgroundColor: colors.primary,
+              marginStart: 20,
+              paddingHorizontal: 8,
+              justifyContent: "center",
+            }}
+          >
+            {text}
+          </Text>
+        ) : null}
       </View>
     </View>
   );

@@ -1,17 +1,33 @@
 import React from "react";
-import CustomText from "./CustomText";
 import HorizontalSeparator from "./HorizontalSeparator";
-import { TouchableOpacity, View, StyleSheet } from "react-native";
+import i18n from "../Config/i18n";
+import { TouchableOpacity, View, StyleSheet, Image, Text } from "react-native";
 import { ui } from "../Config/Constants";
 import { colors } from "../Styles/Colors";
+import { Octicons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { useState } from "react";
+
 
 const ProductItem = ({ item, onPress }) => {
+  const [quantity, setQuantity] = useState(1);
+
+  const increasePackages = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const decreasesPackages = () => {
+    if (quantity - 1 > 0) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   return (
     <TouchableOpacity
       disabled={!onPress}
       style={{
         width: "100%",
-        height: 180,
+        height: 120,
       }}
       onPress={() => {
         if (onPress) {
@@ -21,24 +37,92 @@ const ProductItem = ({ item, onPress }) => {
     >
       <View style={styles.baseView}>
         <View style={styles.dataView}>
-          <View style={styles.leftPart}></View>
+          <View style={styles.leftPart}>
+            <Image
+              source={{ uri: item.image }}
+              style={{
+                width: "100%",
+                height: "100%",
+                borderTopLeftRadius: ui.borderRadius,
+                borderBottomLeftRadius: ui.borderRadius,
+              }}
+              resizeMode="cover"
+            />
+          </View>
           <View style={styles.rightPart}>
-            <CustomText
-              title={item.name}
-              marginHorizontal={0}
-              fontSize={24}
-              textAlign="center"
-              fullWidth={true}
-            />
-            <HorizontalSeparator height={5} />
-            <CustomText
-              title={item.ean}
-              marginHorizontal={0}
-              fontSize={24}
-              textAlign="center"
-              fullWidth={true}
-            />
-            <HorizontalSeparator height={5} />
+            <Text
+              style={{
+                fontSize: 24,
+                color: colors.primary,
+                fontWeight: "bold",
+              }}
+            >
+              {item.name}
+            </Text>
+
+            <Text
+              style={{
+                fontSize: 16,
+                color: colors.primary,
+              }}
+            >
+              {item.ean}
+            </Text>
+            <HorizontalSeparator height={10} />
+
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <Octicons name="package" size={22} color={colors.primary} />
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: colors.primary,
+                    marginLeft: 5,
+                    fontWeight: "bold",
+                  }}
+                >
+                  {i18n.t("label.packages")}
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: colors.primary,
+                    marginLeft: 5,
+                    fontWeight: "bold",
+                  }}
+                >
+                  {quantity}
+                </Text>
+              </View>
+
+              <View style={{ flexDirection: "row" }}>
+                <TouchableOpacity
+                  style={{ marginLeft: 15 }}
+                  onPress={() => {
+                    increasePackages();
+                  }}
+                >
+                  <FontAwesome5 name="plus-circle" size={22} color={colors.primary} />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={{ marginHorizontal: 15 }}
+                  onPress={() => {
+                    decreasesPackages();
+                  }}
+                >
+                  <FontAwesome5 name="minus-circle" size={22} color={colors.primary} />
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </View>
       </View>
@@ -49,6 +133,7 @@ const ProductItem = ({ item, onPress }) => {
 const styles = StyleSheet.create({
   baseView: {
     marginBottom: 10,
+    marginHorizontal: 15,
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
@@ -59,7 +144,6 @@ const styles = StyleSheet.create({
     width: 100,
     height: "100%",
     backgroundColor: "#e5e5e5",
-    padding: 5,
     borderTopLeftRadius: ui.borderRadius,
     borderBottomLeftRadius: ui.borderRadius,
     justifyContent: "center",

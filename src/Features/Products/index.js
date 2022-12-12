@@ -27,7 +27,6 @@ export const productsSlice = createSlice({
   initialState: initialState,
   reducers: {
     addScannedProduct: (state, action) => {
-      console.log("addScannedProduct", action);
       state.value.scannedList.push(action.payload);
     },
   },

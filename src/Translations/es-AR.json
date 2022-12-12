@@ -20,7 +20,8 @@
       "months": "Meses",
       "hours": "Horas",
       "minutes": "Minutos",
-      "seconds": "Segundos"
+      "seconds": "Segundos",
+      "packages": "Bultos"
     },
 
     "button": {
@@ -41,9 +42,9 @@
       "continue": "Continuar",
       "save": "Guardar",
       "logout": "Cerrar sesión",
-      "startValidationProcess":"Iniciar proceso de validación",
-      "startWorkShift":"Iniciar",
-      "finish":"Terminar"
+      "startValidationProcess": "Iniciar proceso de validación",
+      "startWorkShift": "Iniciar",
+      "finish": "Terminar"
     },
 
     "validation": {
@@ -78,19 +79,21 @@
         "documents": "Documentos requeridos",
         "documents-desc": "Completa la siguiente lista de documentos requeridos para poder empezar a trabajar.",
         "account": "Mi cuenta",
-        "verifyingData":"Verificando datos",
-        "verifyingData-desc":"Estamos verificando tus documentos.",
-        "workshiftList":"Turnos de trabajo",
+        "verifyingData": "Verificando datos",
+        "verifyingData-desc": "Estamos verificando tus documentos.",
+        "workshiftList": "Turnos de trabajo",
         "startWorkShift": "Iniciar turno",
-        "startWorkShift-desc":"Recuerda que cuando inicias el turno debes terminarlo, de lo contrario quedarás calificado negativamente.",
-        "optionsMenu":"Menu de opciones",
-        "activityLog":"Registro de actividades",
+        "startWorkShift-desc": "Recuerda que cuando inicias el turno debes terminarlo, de lo contrario quedarás calificado negativamente.",
+        "optionsMenu": "Menu de opciones",
+        "activityLog": "Registro de actividades",
         "notFound": "Opción no encontrada",
-        "notFound-desc":"la opción del menú aún no fue implementada.",
-        "nonWorkingTime":"Tiempo no trabajado",
-        "nonWorkingTime-desc":"Registra el tiempo no trabajado por el operador a cargo de la empresa.",
-        "productsList":"Lista de productos",
-        "productsList-desc":"Crea la lista de productos que necesitas suministrar."
+        "notFound-desc": "la opción del menú aún no fue implementada.",
+        "nonWorkingTime": "Tiempo no trabajado",
+        "nonWorkingTime-desc": "Registra el tiempo no trabajado por el operador a cargo de la empresa.",
+        "productsList": "Lista de productos",
+        "productsList-desc": "Crea la lista de productos que necesitas suministrar.",
+        "numberOfUnits":"Cantidad de unidades",
+        "numberOfUnits-desc":"Indique la cantidad de unidades (en bultos) que necesita abastecer"
       },
       "error": "ERROR"
     },
@@ -115,10 +118,10 @@
         "NDI_FRONT_IMAGE": "DNI (Frente)",
         "NDI_REVERSE_IMAGE": "DNI (Reverso)"
       },
-      "desc":{
-        "PROFILE_IMAGE":"Esta imagen debe mostrar tu cara nítidamente.",
-        "NDI_FRONT_IMAGE":"Esta imagen corresponde al frente de tu documento de identidad.",
-        "NDI_REVERSE_IMAGE":"Esta imagen corresponde al frente de tu documento de identidad."
+      "desc": {
+        "PROFILE_IMAGE": "Esta imagen debe mostrar tu cara nítidamente.",
+        "NDI_FRONT_IMAGE": "Esta imagen corresponde al frente de tu documento de identidad.",
+        "NDI_REVERSE_IMAGE": "Esta imagen corresponde al frente de tu documento de identidad."
       },
       "status": {
         "active": "Activo",
@@ -126,9 +129,33 @@
         "pending": "Pendiente"
       }
     },
-    "errors":{
-      "savePhoto":"Error guardando foto"
-    }
+    "errors": {
+      "savePhoto": "Error guardando foto"
+    },
 
+    "month": {
+      "1": "Enero",
+      "2": "Febrero",
+      "3": "Marzo",
+      "4": "Abril",
+      "5": "Mayo",
+      "6": "Junio",
+      "7": "Julio",
+      "8": "Agosto",
+      "9": "Septiembre",
+      "10": "Octubre",
+      "11": "Noviembre",
+      "12": "Diciembre"
+    },
+
+    "day": {
+      "0": "Domingo",
+      "1": "Lunes",
+      "2": "Martes",
+      "3": "Miércoles",
+      "4": "Jueves",
+      "5": "Viernes",
+      "6": "Sábado"
+    }
   }
 }

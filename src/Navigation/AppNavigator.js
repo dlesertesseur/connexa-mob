@@ -53,7 +53,7 @@ const AppNavigator = () => {
         }}
       />
 
-      <BottomTabs.Screen
+      {/* <BottomTabs.Screen
         name="alert"
         component={AlertStack}
         options={{
@@ -67,7 +67,7 @@ const AppNavigator = () => {
             );
           },
         }}
-      />
+      /> */}
       <BottomTabs.Screen
         name="timeAndAttendanceScreen"
         component={TimeAndAttendanceScreen}

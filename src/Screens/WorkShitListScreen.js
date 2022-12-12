@@ -7,53 +7,42 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { ui } from "../Config/Constants";
-
 import WorkShiftItem from "../Components/WorkShiftItem";
-import HorizontalSeparator from "../Components/HorizontalSeparator";
-import CustomText from "../Components/CustomText";
-import CustomButton from "../Components/CustomButton";
+import CustomTitleBar from "../Components/CustomTitleBar";
+import { findAllShiftsByWorkerId } from "../Features/Shifts";
 
 const WorkShitListScreen = ({ navigation }) => {
-
   const { user } = useSelector((state) => state.auth.value);
+  const { shifts } = useSelector((state) => state.shifts.value);
+  const dispatch = useDispatch();
 
-  const [workShift, setWorkShift] = useState(require("../DataAccess/workShift.json"));
-
-  useEffect(() => {}, [user]);
+  useEffect(() => {
+    const params = { id: user.id, token: user.token };
+    dispatch(findAllShiftsByWorkerId(params));
+  }, [user]);
 
   const onPressShitf = (item) => {
     navigation.navigate("StartWorkShift", item);
   };
 
-  const renderShit = (props) =>{
-    return (<WorkShiftItem item={props.item} onPress={onPressShitf}/>)
-  }
+  const renderShit = (props) => {
+    return <WorkShiftItem item={props.item} onPress={onPressShitf} />;
+  };
 
   return (
     <View style={styles.container}>
-      <HorizontalSeparator />
-      <CustomText
-        title={i18n.t("title.screen.workshiftList")}
-        fontSize={28}
-        color={colors.primary}
-      />
-      <HorizontalSeparator />
+      <CustomTitleBar title={i18n.t("title.screen.workshiftList")} />
 
       <View
         style={{
           flex: 1,
           backgroundColor: colors.background,
           marginHorizontal: 15,
-          marginBottom: 15
+          marginBottom: 15,
         }}
       >
-        <FlatList
-          data={workShift}
-          renderItem={renderShit}
-          keyExtractor={(item) => item.id}
-        />
+        <FlatList data={shifts} renderItem={renderShit} keyExtractor={(item) => item.id} />
       </View>
-
     </View>
   );
 };
