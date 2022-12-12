@@ -1,11 +1,11 @@
 import i18n from "../Config/i18n";
-import CustomImage from "../Components/CustomImage";
 import React from "react";
 import CustomText from "../Components/CustomText";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
 import CustomSearchInput from "../Components/CustomSearchInput";
 import WorkShiftItem from "../Components/WorkShiftItem";
 import {
+  BackHandler,
   FlatList,
   StyleSheet,
   Text,
@@ -30,8 +30,13 @@ const OptionsMenuScreen = ({ navigation, route }) => {
   const [filteredOptions, setFilteredOptions] = useState(options);
 
   const onSelect = (item) => {
-    console.log("onSelect", item);
+    navigation.navigate(item.type, item);
   };
+
+  // useEffect(() => {
+  //   const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
+  //   return () => backHandler.remove()
+  // }, [])
 
   useEffect(() => {
     if (searchText) {
@@ -89,7 +94,7 @@ const OptionsMenuScreen = ({ navigation, route }) => {
           flex: 1,
           backgroundColor: colors.background,
           marginHorizontal: 15,
-          marginBottom: 80,
+          marginBottom: 15,
         }}
       >
         <FlatList

@@ -44,7 +44,7 @@ const WorkShitListScreen = ({ navigation }) => {
           flex: 1,
           backgroundColor: colors.background,
           marginHorizontal: 15,
-          marginBottom: 80
+          marginBottom: 15
         }}
       >
         <FlatList

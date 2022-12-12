@@ -6,7 +6,7 @@ import AccountScreen from "../Screens/AccountScreen";
 import CustomTabBarIcon from "../Components/CustomTabBarIcon";
 import AlertStack from "./Stacks/AlertStack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { colors } from "../Styles/Colors";
 
 const BottomTabs = createBottomTabNavigator();
@@ -49,6 +49,7 @@ const AppNavigator = () => {
               />
             );
           },
+          tabBarStyle: { display: "none" },
         }}
       />
 

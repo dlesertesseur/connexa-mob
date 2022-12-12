@@ -18,7 +18,10 @@
       "chooseOne":"Seleccione uno, por favor",
       "search": "Buscar",
       "months": "Meses",
-      "save":"Guardar"
+      "save":"Guardar",
+      "hours": "Horas",
+      "minutes": "Minutos",
+      "seconds": "Segundos"
     },
 
     "button": {
@@ -39,7 +42,8 @@
       "continue":"Continuar",
       "logout":"Cerrar sesión",
       "startValidationProcess":"Iniciar proceso de validación",
-      "startWorkShift":"Iniciar"
+      "startWorkShift":"Iniciar",
+      "finish":"Terminar"
     },
 
     "validation": {
@@ -80,7 +84,13 @@
         "startWorkShift": "Iniciar turno",
         "startWorkShift-desc":"Recuerda que cuando inicias el turno debes terminarlo, de lo contrario quedarás calificado negativamente.",
         "optionsMenu":"Menu de opciones",
-        "activityLog":"Registro de actividades"
+        "activityLog":"Registro de actividades",
+        "notFound": "Opción no encontrada",
+        "notFound-desc":"la opción del menú aún no fue implementada.",
+        "nonWorkingTime":"Tiempo no trabajado",
+        "nonWorkingTime-desc":"Registra el tiempo no trabajado por el operador a cargo de la empresa.",
+        "productsList":"Lista de productos",
+        "productsList-desc":"Crea la lista de productos que necesitas suministrar."
       },
       "error":"ERROR"
     },

@@ -3,6 +3,9 @@ import ScanScreen from "../../Screens/ScanScreen";
 import WorkShitListScreen from "../../Screens/WorkShitListScreen";
 import StartWorkShiftScreen from "../../Screens/StartWorkShiftScreen";
 import OptionsMenuScreen from "../../Screens/OptionsMenuScreen";
+import NonWorkingTimeScreen from "../../Screens/Options/NonWorkingTimeScreen";
+import NotFoundScreen from "../../Screens/NotFoundScreen";
+import WorkOrderScreen from "../../Screens/Options/WorkOrder/WorkOrderScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 
@@ -20,6 +23,10 @@ const TaskStack = () => {
       <Stack.Screen name="scanScreen" component={ScanScreen}></Stack.Screen>
       <Stack.Screen name="StartWorkShift" component={StartWorkShiftScreen}></Stack.Screen>
       <Stack.Screen name="OptionsMenu" component={OptionsMenuScreen}></Stack.Screen>
+      <Stack.Screen name="NonWorkingTime" component={NonWorkingTimeScreen}></Stack.Screen>
+      <Stack.Screen name="WorkOrder" component={WorkOrderScreen}></Stack.Screen>
+      <Stack.Screen name="NotFound" component={NotFoundScreen}></Stack.Screen>
+      
       
     </Stack.Navigator>
   );

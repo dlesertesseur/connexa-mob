@@ -15,3 +15,9 @@ export const documentStatus = {
   "EXPIRED": "expired",
   "PENDING":"pending"
 }
+
+export const optionsType = {
+  "NON_WORKING": "NON-WORKING",
+  "WORKING": "WORKING",
+  "FINALIZE":"FINALIZE"
+}

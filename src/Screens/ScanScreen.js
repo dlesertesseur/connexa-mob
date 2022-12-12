@@ -40,7 +40,7 @@ const ScanScreen = ({ barCode = true, qrCode = false }) => {
     playSound();
 
     const obj = {
-      id:Date.now(),
+      id: Date.now(),
       type: type,
       ean: data,
     };
@@ -73,6 +73,27 @@ const ScanScreen = ({ barCode = true, qrCode = false }) => {
   //   );
   // }
 
+  const actionButton = () => {
+    return (
+      <TouchableOpacity
+        style={[
+          styles.scanButton,
+          scanActived ? styles.scanButtonActived : styles.scanButtoninactived,
+        ]}
+        onPressIn={activeScan}
+        onPressOut={deactiveScan}
+      >
+        {barCode ? (
+          <MaterialCommunityIcons name="barcode-scan" size={48} color="white" />
+        ) : null}
+
+        {qrCode ? (
+          <MaterialCommunityIcons name="qrcode-scan" size={48} color="white" />
+        ) : null}
+      </TouchableOpacity>
+    );
+  };
+
   const activeScan = () => {
     setScanActived(true);
   };
@@ -96,32 +117,7 @@ const ScanScreen = ({ barCode = true, qrCode = false }) => {
           <CustomError title={i18n.t("title.error")} text={error} />
         )}
       </View>
-      <View style={styles.control}>
-        <TouchableOpacity
-          style={[
-            styles.scanButton,
-            scanActived ? styles.scanButtonActived : styles.scanButtoninactived,
-          ]}
-          onPressIn={activeScan}
-          onPressOut={deactiveScan}
-        >
-          {barCode ? (
-            <MaterialCommunityIcons
-              name="barcode-scan"
-              size={48}
-              color="white"
-            />
-          ) : null}
-
-          {qrCode ? (
-            <MaterialCommunityIcons
-              name="qrcode-scan"
-              size={48}
-              color="white"
-            />
-          ) : null}
-        </TouchableOpacity>
-      </View>
+      <View style={styles.control}>{actionButton()}</View>
     </View>
   );
 };
@@ -131,42 +127,41 @@ export default ScanScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // marginHorizontal: 10,
-    // marginBottom: 90,
     backgroundColor: colors.background,
   },
 
   panel: {
     flex: 1,
-    borderRadius: ui.borderRadius,
     backgroundColor: "#000000",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 10,
   },
 
   control: {
-    borderRadius: ui.borderRadius,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "transparent",
+    position: "absolute",
     alignItems: "center",
-    justifyContent: "center",
-    height: 90,
+    justifyContent: "flex-end",
+    padding: 15,
   },
 
   text: {
     color: "#ffffff",
     alignItems: "center",
     justifyContent: "center",
-    //fontWeight: "bold",
+
     fontSize: 36,
   },
 
   scanButton: {
-    flexDirection: "row",
     width: "100%",
-    height: "100%",
+    height: 90,
     alignItems: "center",
     justifyContent: "space-evenly",
     borderRadius: ui.borderRadius,
+    margin: 15,
   },
 
   scanButtonActived: {

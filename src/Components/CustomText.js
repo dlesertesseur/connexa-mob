@@ -2,7 +2,15 @@ import React from "react";
 import { Text, View } from "react-native";
 import { colors } from "../Styles/Colors";
 
-const CustomText = ({ title, text, fontSize = 16, textAlign = "center", marginHorizontal=15, fullWidth }) => {
+const CustomText = ({
+  title,
+  text,
+  fontSize = 16,
+  textAlign = "center",
+  marginHorizontal = 15,
+  fullWidth,
+  color = colors.primary,
+}) => {
   return (
     <View
       style={{
@@ -16,7 +24,7 @@ const CustomText = ({ title, text, fontSize = 16, textAlign = "center", marginHo
           <Text
             style={{
               fontSize: fontSize,
-              color: colors.primary,
+              color: color,
               fontWeight: "bold",
             }}
           >
@@ -29,7 +37,7 @@ const CustomText = ({ title, text, fontSize = 16, textAlign = "center", marginHo
             style={{
               fontSize: fontSize,
               color: colors.primary,
-              flexWrap: 'wrap'
+              flexWrap: "wrap",
             }}
           >
             {text}

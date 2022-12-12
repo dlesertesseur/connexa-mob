@@ -1,39 +1,39 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import i18n from "../Config/i18n";
 import CustomButton from "../Components/CustomButton";
+import CustomImage from "../Components/CustomImage";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
 import CustomText from "../Components/CustomText";
-import WorkShiftItem from "../Components/WorkShiftItem";
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 
-const StartWorkShiftScreen = ({ navigation, route }) => {
-  const workShift = route.params;
+const NotFoundScreen = ({ navigation }) => {
+  const logo = require("../../assets/images/logo-banner.png");
+  const picture = require("../../assets/images/notFound.png");
 
   return (
     <View style={styles.container}>
+      <CustomImage source={logo} style={styles.logo} />
       <CustomText
-        title={i18n.t("title.screen.startWorkShift")}
+        title={i18n.t("title.screen.notFound")}
         fontSize={28}
         color={colors.primary}
       />
       <HorizontalSeparator />
       <CustomText
-        text={i18n.t("title.screen.startWorkShift-desc")}
+        text={i18n.t("title.screen.notFound-desc")}
         fontSize={18}
         color={colors.primary}
       />
-      <View style={styles.centralPanel}>
-        <View style={{height:300, width:"100%"}}>
-          <WorkShiftItem item={workShift} />
-        </View>
+      <View style={styles.imgPanel}>
+        <Image source={picture} style={styles.picture} />
       </View>
 
       <View style={styles.panel}>
         <CustomButton
-          text={i18n.t("button.startWorkShift")}
+          text={i18n.t("button.close")}
           onPress={() => {
-            navigation.navigate("OptionsMenu", workShift);
+            navigation.goBack();
           }}
         />
       </View>
@@ -41,7 +41,7 @@ const StartWorkShiftScreen = ({ navigation, route }) => {
   );
 };
 
-export default StartWorkShiftScreen;
+export default NotFoundScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -60,13 +60,12 @@ const styles = StyleSheet.create({
   panel: {
     margin: 15,
     justifyContent: "flex-end",
-    marginBottom: 15,
+    marginBottom:15
   },
 
-  centralPanel: {
+  imgPanel: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal:15
   },
 });
