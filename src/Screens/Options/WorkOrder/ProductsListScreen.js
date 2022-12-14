@@ -1,6 +1,6 @@
 import React from "react";
 import { colors } from "../../../Styles/Colors";
-import { Dimensions, FlatList, StyleSheet, View } from "react-native";
+import { Alert, Dimensions, FlatList, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -12,6 +12,8 @@ import ProductItem from "../../../Components/ProductItem";
 import CustomButton from "../../../Components/CustomButton";
 import CustomFloatingButton from "../../../Components/CustomFloatingButton";
 import CustomTitleBar from "../../../Components/CustomTitleBar";
+import { deleteScannedProduct } from "../../../Features/Products";
+import { ui } from "../../../Config/Constants";
 
 const ProductsListScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -20,6 +22,8 @@ const ProductsListScreen = ({ navigation, route }) => {
 
   const [searchText, setSearchText] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [itemSelected, setItemSelected] = useState(null);
 
   const windowHeight = Dimensions.get("window").height;
 
@@ -36,8 +40,21 @@ const ProductsListScreen = ({ navigation, route }) => {
     }
   }, [searchText]);
 
+  const deleteProductItem = (item) => {
+    setItemSelected(item);
+    setModalVisible(true);
+  };
+
   const renderProduct = (props) => {
-    return <ProductItem item={props.item} onPress={() => {}} />;
+    return (
+      <ProductItem
+        item={props.item}
+        onPress={() => {}}
+        onLongPress={(item) => {
+          deleteProductItem(item);
+        }}
+      />
+    );
   };
 
   return (
@@ -83,6 +100,43 @@ const ProductsListScreen = ({ navigation, route }) => {
           }}
         />
       </View>
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <HorizontalSeparator />
+            <CustomLabel title={i18n.t("title.screen.deleteItem")} text={i18n.t("title.screen.deleteItem-desc")} />
+            <HorizontalSeparator />
+
+            <View style={{width:"100%", paddingHorizontal:15}}>
+              <CustomButton
+                text={i18n.t("button.delete")}
+                onPress={() => {
+                  dispatch(deleteScannedProduct(itemSelected));
+                  setItemSelected(null);
+                  setModalVisible(false);
+                }}
+              />
+              <HorizontalSeparator />
+              <CustomButton
+                text={"Cancelar"}
+                onPress={() => {
+                  setModalVisible(false);
+                }}
+              />
+              <HorizontalSeparator />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -119,5 +173,20 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  modalView: {
+    width: 260,
+    borderRadius: ui.borderRadius,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.primary,
+    backgroundColor: colors.background,
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

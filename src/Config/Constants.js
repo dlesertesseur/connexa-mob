@@ -21,3 +21,9 @@ export const optionsType = {
   "WORKING": "WORKING",
   "FINALIZE":"FINALIZE"
 }
+
+export const workShiftStatus = {
+  "STARTED": "STARTED",
+  "ENDED": "ENDED",
+  "FINALIZED":"FINALIZED"
+}

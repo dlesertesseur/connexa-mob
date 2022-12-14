@@ -3,6 +3,11 @@ const SERVER = "http://192.168.0.12";
 const PORT = "8080";
 const API_BASE = "/workers/api/v1";
 
+
+const LOCAL_SERVER = "http://192.168.0.11";
+const LOCAL_API_BASE = "/admin/api/v1";
+
+
 export const API = {
     auth: {
       signUp: SERVER + ":" + PORT + API_BASE + "/workers",
@@ -30,6 +35,11 @@ export const API = {
 
     shift: {
       findAllByWorkerId: SERVER + ":" + PORT + API_BASE + "/workershifts/",
+      findStartedShiftByWorkerId: SERVER + ":" + PORT + API_BASE + "/workershifts/",
+      startWorkShiftById: SERVER + ":" + PORT + API_BASE + "/workershifts/",
+      endWorkShiftById: SERVER + ":" + PORT + API_BASE + "/workershifts/",
     },
-
+    product: {
+      findByEan: LOCAL_SERVER + ":" + PORT + LOCAL_API_BASE + "/items/",
+    },
 }  

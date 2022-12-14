@@ -9,7 +9,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useState } from "react";
 
 
-const ProductItem = ({ item, onPress }) => {
+const ProductItem = ({ item, onPress, onLongPress }) => {
   const [quantity, setQuantity] = useState(1);
 
   const increasePackages = () => {
@@ -27,11 +27,17 @@ const ProductItem = ({ item, onPress }) => {
       disabled={!onPress}
       style={{
         width: "100%",
-        height: 120,
+        height: 124,
       }}
       onPress={() => {
         if (onPress) {
           onPress(item);
+        }
+      }}
+
+      onLongPress={() => {
+        if (onLongPress) {
+          onLongPress(item);
         }
       }}
     >
@@ -52,7 +58,7 @@ const ProductItem = ({ item, onPress }) => {
           <View style={styles.rightPart}>
             <Text
               style={{
-                fontSize: 24,
+                fontSize: 18,
                 color: colors.primary,
                 fontWeight: "bold",
               }}

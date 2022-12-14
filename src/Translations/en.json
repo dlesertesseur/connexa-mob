@@ -38,7 +38,8 @@
       "logout":"Logout",
       "startValidationProcess":"Start validation process",
       "startWorkShift":"Start",
-      "finish":"Finish"
+      "finish":"Finish",
+      "delete":"Delete"
     },
 
     "validation": {
@@ -85,7 +86,12 @@
         "productsList":"Products list",
         "productsList-desc":"Create the list of products you need to supply.",
         "numberOfUnits":"Number of units",
-        "numberOfUnits-desc":"Indicate the number of units (in packages) that you need to supply"
+        "numberOfUnits-desc":"Indicate the number of units (in packages) that you need to supply",
+        "deleteItem":"Delete item",
+        "deleteItem-desc":"Delete item from the list.",
+        "finalizeWorkShift": "Finalize work shift",
+        "finalizeWorkShift-desc":"Remember that if you end the shift early, you could be graded negatively."
+
       },
       "error":"ERROR"
     },

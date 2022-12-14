@@ -6,6 +6,6 @@
   {"id": 5,"option": "INICIAR REPOSICION", "type": "NotFound"},
   {"id": 6,"option": "INICIAR CONTROL DE VENCIMIENTOS", "type": "NotFound"},
   {"id": 7,"option": "INICIAR CAMBIO DE PRECIOS", "type": "NotFound"},
-  {"id": 8,"option": "FINALIZAR TURNO", "type": "NotFound"}
+  {"id": 8,"option": "FINALIZAR TURNO", "type": "FinalizeWorkShift"}
 
 ]

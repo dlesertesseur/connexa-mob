@@ -8,12 +8,10 @@ import CustomTitleBar from "../Components/CustomTitleBar";
 import { StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedShift, startWorkShift } from "../Features/Shifts";
 import { useEffect } from "react";
-import { workShiftStatus, worlShiftStatus } from "../Config/Constants";
+import { worlShiftStatus } from "../Config/Constants";
 
-const StartWorkShiftScreen = ({ navigation, route }) => {
-  const workShift = route.params;
+const FinalizeWorkShiftScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.value);
   const { selectedShift } = useSelector((state) => state.shifts.value);
@@ -21,27 +19,29 @@ const StartWorkShiftScreen = ({ navigation, route }) => {
   useEffect(() => {
     if (selectedShift) {
       console.log("selectedShift -> ", selectedShift);
-      navigation.navigate("OptionsMenu");
+      if (selectedShift.status === worlShiftStatus.FINALIZED) {
+        navigation.navigate("WorkShitList");
+      }
     }
   }, [selectedShift]);
 
   return (
     <View style={styles.container}>
       <CustomTitleBar title={i18n.t("title.screen.workshiftList")} />
-      <CustomLabel title={i18n.t("title.screen.startWorkShift")} text={i18n.t("title.screen.startWorkShift-desc")} />
+      <CustomLabel title={i18n.t("title.screen.finalizeWorkShift")} text={i18n.t("title.screen.finalizeWorkShift-desc")} />
       <HorizontalSeparator />
       <View style={styles.centralPanel}>
         <View style={{ height: 300, width: "100%" }}>
-          <WorkShiftItem item={workShift} />
+          <WorkShiftItem item={selectedShift} />
         </View>
       </View>
 
       <View style={styles.panel}>
         <CustomButton
-          text={i18n.t("button.startWorkShift")}
+          text={i18n.t("button.finalizeWorkShift")}
           onPress={() => {
-            const params = { id: workShift.id, token: user.token };
-            dispatch(startWorkShift(params));
+            const params = { id: selectedShift.id, token: user.token };
+            dispatch(finalizeWorkShift(params));
           }}
         />
       </View>
@@ -49,7 +49,7 @@ const StartWorkShiftScreen = ({ navigation, route }) => {
   );
 };
 
-export default StartWorkShiftScreen;
+export default FinalizeWorkShiftScreen;
 
 const styles = StyleSheet.create({
   container: {

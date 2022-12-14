@@ -44,7 +44,8 @@
       "logout":"Cerrar sesión",
       "startValidationProcess":"Iniciar proceso de validación",
       "startWorkShift":"Iniciar",
-      "finish":"Terminar"
+      "finish":"Terminar",
+      "delete":"Eliminar"
     },
 
     "validation": {
@@ -89,7 +90,11 @@
         "productsList":"Lista de productos",
         "productsList-desc":"Crea la lista de productos que necesitas suministrar.",
         "numberOfUnits":"Cantidad de unidades",
-        "numberOfUnits-desc":"Indique la cantidad de unidades (en bultos) que necesita abastecer"
+        "numberOfUnits-desc":"Indique la cantidad de unidades (en bultos) que necesita abastecer",
+        "deleteItem":"Eliminar item",
+        "deleteItem-desc":"Se eliminara el item de la lista.",
+        "finalizeWorkShift": "Finalizar turno",
+        "finalizeWorkShift-desc":"Recuerda que si finaliza el turno antes de tiempo, podria ser calificado negativamente."
       },
       "error": "ERROR"
     },

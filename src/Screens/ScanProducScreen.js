@@ -9,6 +9,7 @@ import { Audio } from "expo-av";
 import { addScannedProduct } from "../Features/Products";
 import { useDispatch } from "react-redux";
 import { ui } from "../Config/Constants";
+import { findProuctByEan } from "../DataAccess/ProductDao";
 
 const ScanProducScreen = ({ barCode = true, qrCode = false }) => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -21,15 +22,21 @@ const ScanProducScreen = ({ barCode = true, qrCode = false }) => {
   async function playSound(data) {
     const { sound } = await Audio.Sound.createAsync(require("./../../assets/sound/beep_2.mp3"));
     setSound(sound);
-    sound.playAsync().then((ret) => {
-      const obj = {
-        id: Date.now(),
-        type: data.type,
-        ean: data.ean,
-        image:"https://picsum.photos/100/100?random=1",
-        name: "Producto No identificado",
-      };
-      dispatch(addScannedProduct(obj));
+    sound.playAsync().then(() => {
+      findProuctByEan(data).then((itemData) => {
+
+        if (itemData.id) {
+          const obj = {
+            id: itemData.id,
+            code: itemData.code,
+            type: data.type,
+            ean: data.ean,
+            image: "https://picsum.photos/100/100", //itemData.urlImage,
+            name: itemData.description,
+          };
+          dispatch(addScannedProduct(obj));
+        }
+      });
     });
   }
 
@@ -44,7 +51,7 @@ const ScanProducScreen = ({ barCode = true, qrCode = false }) => {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    playSound({ type:type, ean:data });
+    playSound({ type: type, ean: data });
   };
 
   const actionButton = () => {
@@ -77,6 +84,7 @@ const ScanProducScreen = ({ barCode = true, qrCode = false }) => {
           <BarCodeScanner
             onBarCodeScanned={!scanned && scanActived ? handleBarCodeScanned : undefined}
             style={StyleSheet.absoluteFillObject}
+            barCodeTypes={[BarCodeScanner.Constants.BarCodeType.ean]}
           />
         ) : (
           <CustomError title={i18n.t("title.error")} text={error} />
