@@ -8,9 +8,8 @@ import CustomTitleBar from "../Components/CustomTitleBar";
 import { StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedShift, startWorkShift } from "../Features/Shifts";
+import { startWorkShift } from "../Features/Shifts";
 import { useEffect } from "react";
-import { workShiftStatus, worlShiftStatus } from "../Config/Constants";
 
 const StartWorkShiftScreen = ({ navigation, route }) => {
   const workShift = route.params;
@@ -20,7 +19,6 @@ const StartWorkShiftScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     if (selectedShift) {
-      console.log("selectedShift -> ", selectedShift);
       navigation.navigate("OptionsMenu");
     }
   }, [selectedShift]);

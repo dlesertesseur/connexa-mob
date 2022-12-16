@@ -15,6 +15,7 @@ import CustomTitleBar from "../Components/CustomTitleBar";
 
 const OptionsMenuScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
+
   const { selectedShift } = useSelector((state) => state.shifts.value);
 
   const [options, setOptions] = useState(require("../DataAccess/optionsMenu.json"));
@@ -53,9 +54,7 @@ const OptionsMenuScreen = ({ navigation, route }) => {
       <CustomTitleBar title={i18n.t("title.screen.activityLog")} />
 
       <View style={styles.centralPanel}>
-        <View style={{ width: "100%" }}>
-          <WorkShiftItem item={selectedShift} />
-        </View>
+        <View style={{ width: "100%" }}>{selectedShift ? <WorkShiftItem item={selectedShift} /> : null}</View>
       </View>
 
       <HorizontalSeparator />

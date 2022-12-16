@@ -9,16 +9,15 @@ import HorizontalSeparator from "../Components/HorizontalSeparator";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { useForm } from "react-hook-form";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Alert, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../Features/Auth";
+import CustomError from "../Components/CustomError";
 
 const SignInScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { error, errorMessage, authenticating } = useSelector(
-    (state) => state.auth.value
-  );
+  const { error, errorMessage, authenticating } = useSelector((state) => state.auth.value);
 
   const {
     control,
@@ -60,13 +59,7 @@ const SignInScreen = ({ navigation }) => {
             },
           }}
           getIcon={(error) => {
-            return (
-              <MaterialIcons
-                name="email"
-                size={24}
-                color={error ? colors.error : colors.primary}
-              />
-            );
+            return <MaterialIcons name="email" size={24} color={error ? colors.error : colors.primary} />;
           }}
         />
         <HorizontalSeparator />
@@ -82,21 +75,12 @@ const SignInScreen = ({ navigation }) => {
             },
           }}
           getIcon={(error) => {
-            return (
-              <Octicons
-                name="key-asterisk"
-                size={24}
-                color={error ? colors.error : colors.primary}
-              />
-            );
+            return <Octicons name="key-asterisk" size={24} color={error ? colors.error : colors.primary} />;
           }}
           password={true}
         />
 
-        <CustomLink
-          text={i18n.t("label.forgotPassword")}
-          style={styles.forgotPassword}
-        />
+        <CustomLink text={i18n.t("label.forgotPassword")} style={styles.forgotPassword} />
       </View>
 
       <HorizontalSeparator />
@@ -106,20 +90,10 @@ const SignInScreen = ({ navigation }) => {
           <ActivityIndicator size="large" color="#0000ff" />
         </View>
       ) : null}
-      {error
-        ? Alert.alert(i18n.t("title.error"), errorMessage, [
-            {
-              text: i18n.t("button.close"),
-              style: "cancel",
-            },
-          ])
-        : null}
+      {error ? <CustomError title={i18n.t("title.error")} text={errorMessage} /> : null}
 
       <View style={{ flex: 1, margin: 15, justifyContent: "flex-end" }}>
-        <CustomButton
-          text={i18n.t("button.login")}
-          onPress={handleSubmit(onSubmit)}
-        />
+        <CustomButton text={i18n.t("button.login")} onPress={handleSubmit(onSubmit)} />
       </View>
     </View>
   );

@@ -23,7 +23,11 @@
       "hours": "Horas",
       "minutes": "Minutos",
       "seconds": "Segundos",
-      "packages": "Bultos"
+      "packages": "Bultos",
+      "loadingProfile": "Obteniendo datos de perfil",
+      "waiting": "Espere, por favor",
+      "available":"Disponible",
+      "gpsLocation":"En ubicación"
     },
 
     "button": {
@@ -35,7 +39,8 @@
       "cancel": "Cancelar",
       "scan":"Escanear",
       "finish":"Terminar",
-      "delete":"Eliminar"
+      "delete":"Eliminar",
+      "finalizeWorkShift": "Terminar"
     },
 
     "validation": {
@@ -81,7 +86,9 @@
         "deleteItem-desc":"Se eliminara el item de la lista.",
         "finalizeWorkShift": "Finalizar turno",
         "finalizeWorkShift-desc":"Recuerda que si finaliza el turno antes de tiempo, podria ser calificado negativamente."
-      }
+      },
+      "error": "ERROR",
+      "noData": "Sin datos"
     },
 
     "tab": {
@@ -94,6 +101,9 @@
       "camera": {
         "noAccess": "Sin acceso a la cámara",
         "permission": "Solicitando permiso de acceso a la cámara"
+      },
+      "data":{
+        "shift": "No existen turnos asignados para el operario"
       }
     },
 

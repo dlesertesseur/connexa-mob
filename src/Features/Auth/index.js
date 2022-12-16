@@ -24,10 +24,10 @@ const initialState = {
       photo: null,
       country: null,
       city: null,
-      dateOfBirth:null,
-      phoneNumber:null,
-      names:null,
-      surnames:null,
+      dateOfBirth: null,
+      phoneNumber: null,
+      names: null,
+      surnames: null,
       address: null,
       status: null,
     },
@@ -44,32 +44,29 @@ const initialState = {
   },
 };
 
-export const signIn = createAsyncThunk(
-  "auth/signIn",
-  async (parameters, asyncThunk) => {
-    try {
-      const body = JSON.stringify({
-        email: parameters.email,
-        password: parameters.password,
-      });
+export const signIn = createAsyncThunk("auth/signIn", async (parameters, asyncThunk) => {
+  try {
+    const body = JSON.stringify({
+      email: parameters.email,
+      password: parameters.password,
+    });
 
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: body,
-      };
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: body,
+    };
 
-      const url = API.auth.signIn;
+    const url = API.auth.signIn;
 
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
 
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
   }
-);
+});
 
 export const signUp = createAsyncThunk("auth/signUp", async (parameters) => {
   try {
@@ -85,8 +82,6 @@ export const signUp = createAsyncThunk("auth/signUp", async (parameters) => {
       password: parameters.password,
     };
 
-    console.log("signUp -> body", body);
-
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -99,39 +94,35 @@ export const signUp = createAsyncThunk("auth/signUp", async (parameters) => {
 
     return data;
   } catch (error) {
-
     console.log("signUp -> " + error);
     return rejectWithValue(error);
   }
 });
 
-export const updateWorker = createAsyncThunk(
-  "auth/updateWorker",
-  async (parameters) => {
-    try {
-      const body = JSON.stringify(parameters.data);
+export const updateWorker = createAsyncThunk("auth/updateWorker", async (parameters) => {
+  try {
+    const body = JSON.stringify(parameters.data);
 
-      const requestOptions = {
-        method: "PUT",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          token: parameters.token,
-        },
-        body: body,
-      };
+    const requestOptions = {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        token: parameters.token,
+      },
+      body: body,
+    };
 
-      console.log("updateWorker -> ", parameters);
+    console.log("updateWorker -> ", parameters);
 
-      const url = API.worker.update;
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+    const url = API.worker.update;
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
   }
-);
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -141,6 +132,7 @@ export const authSlice = createSlice({
     updatedDocument: (state, action) => {
       state.value.updatedDocument = Date.now();
     },
+    
     setDocument: (state, action) => {
       state.value.document = action.payload;
     },
@@ -164,14 +156,17 @@ export const authSlice = createSlice({
       state.value.errorMessage = null;
     },
     [signIn.fulfilled]: (state, { payload }) => {
-
+      
       if (payload.error) {
-        state.value.error = payload.error.message;
+        state.value.error = true;
+        state.value.errorMessage = payload.message;
+      } else {
+        state.value.user = payload.worker;
+        state.value.user.token = payload.token;
+        state.value.error = true;
+        state.value.errorMessage = payload.message;
       }
       state.value.authenticating = false;
-
-      state.value.user = payload.worker;
-      state.value.user.token = payload.token;
     },
     [signIn.rejected]: (state, { payload }) => {
       state.value.authenticating = false;
@@ -218,13 +213,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const {
-  resetAuthData,
-  setSelectedCountry,
-  setSeletedCity,
-  setDocument,
-  setSignupData,
-  updatedDocument,
-} = authSlice.actions;
+export const { resetAuthData, setSelectedCountry, setSeletedCity, setDocument, setSignupData, updatedDocument } =
+  authSlice.actions;
 
 export default authSlice.reducer;

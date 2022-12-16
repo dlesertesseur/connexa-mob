@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import i18n from "../Config/i18n";
 import CustomButton from "../Components/CustomButton";
 import CustomImage from "../Components/CustomImage";

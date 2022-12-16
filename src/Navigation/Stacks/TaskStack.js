@@ -6,16 +6,16 @@ import OptionsMenuScreen from "../../Screens/OptionsMenuScreen";
 import NonWorkingTimeScreen from "../../Screens/Options/NonWorkingTimeScreen";
 import NotFoundScreen from "../../Screens/NotFoundScreen";
 import WorkOrderScreen from "../../Screens/Options/WorkOrder/WorkOrderScreen";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FinalizeWorkShiftScreen from "../../Screens/FinalizeWorkShiftScreen";
-
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useSelector } from "react-redux";
 
 const Stack = createNativeStackNavigator();
 
 const TaskStack = () => {
 
   const { selectedShift } = useSelector((state) => state.shifts.value);
-
+  
   return (
     <Stack.Navigator
       initialRouteName={selectedShift ? "OptionsMenu" : "WorkShitList"}

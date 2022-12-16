@@ -9,6 +9,7 @@ const initialState = {
     loading: false,
     error: false,
     errorMessage: null,
+    loadingProfile: false,
   },
 };
 
@@ -60,53 +61,47 @@ export const findStartedShiftByWorkerId = createAsyncThunk(
   }
 );
 
-export const startWorkShift = createAsyncThunk(
-  "shifts/startWorkShift",
-  async (parameters, asyncThunk) => {
-    try {
-      const requestOptions = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          token: parameters.token,
-        },
-      };
+export const startWorkShift = createAsyncThunk("shifts/startWorkShift", async (parameters, asyncThunk) => {
+  try {
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        token: parameters.token,
+      },
+    };
 
-      const url = API.shift.startWorkShiftById + parameters.id + "/status/started";
+    const url = API.shift.startWorkShiftById + parameters.id + "/status/started";
 
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
 
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
   }
-);
+});
 
-export const endWorkShift = createAsyncThunk(
-  "shifts/endWorkShift",
-  async (parameters, asyncThunk) => {
-    try {
-      const requestOptions = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          token: parameters.token,
-        },
-      };
+export const endWorkShift = createAsyncThunk("shifts/endWorkShift", async (parameters, asyncThunk) => {
+  try {
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        token: parameters.token,
+      },
+    };
 
-      const url = API.shift.endWorkShiftById + parameters.id + "/status/ended";
+    const url = API.shift.endWorkShiftById + parameters.id + "/status/ended";
 
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
 
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
   }
-);
+});
 
 export const shiftsSlice = createSlice({
   name: "shifts",
@@ -125,10 +120,11 @@ export const shiftsSlice = createSlice({
     [findAllShiftsByWorkerId.fulfilled]: (state, { payload }) => {
 
       if (payload.error) {
-        state.value.error = payload.error.message;
+        state.value.error = true;
+        state.value.errorMessage = payload.message;
+      }else{
+        state.value.shifts = payload;
       }
-      state.value.shifts = payload;
-      state.value.selectedShift = null;
     },
     [findAllShiftsByWorkerId.rejected]: (state, { payload }) => {
       state.value.loading = false;
@@ -141,7 +137,6 @@ export const shiftsSlice = createSlice({
       state.value.errorMessage = null;
     },
     [startWorkShift.fulfilled]: (state, { payload }) => {
-
       if (payload.error) {
         state.value.error = payload.error.message;
       }
@@ -158,7 +153,6 @@ export const shiftsSlice = createSlice({
       state.value.errorMessage = null;
     },
     [endWorkShift.fulfilled]: (state, { payload }) => {
-
       if (payload.error) {
         state.value.error = payload.error.message;
       }
@@ -173,16 +167,24 @@ export const shiftsSlice = createSlice({
     [findStartedShiftByWorkerId.pending]: (state) => {
       state.value.error = false;
       state.value.errorMessage = null;
+      state.value.loadingProfile = true;
     },
     [findStartedShiftByWorkerId.fulfilled]: (state, { payload }) => {
+      state.value.loadingProfile = false;
 
       if (payload.error) {
         state.value.error = payload.error.message;
+        state.value.selectedShift = null;
+      } else {
+        if(payload.length > 0){
+          state.value.selectedShift = payload[0];
+        }else{
+          state.value.selectedShift = null;
+        }
       }
-      state.value.selectedShift = payload;
     },
     [findStartedShiftByWorkerId.rejected]: (state, { payload }) => {
-      state.value.loading = false;
+      state.value.loadingProfile = false;
       state.value.error = true;
       state.value.errorMessage = payload.error.message;
     },

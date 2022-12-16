@@ -8,16 +8,20 @@
       "names": "Names",
       "surnames": "Surnames",
       "code": "Code",
-      "phoneNumber":"Phone number (99) 9 99 9999-9999",
-      "address":"Address",
-      "dateOfBirth":"Date of Birth",
-      "chooseOne":"Choose one",
+      "phoneNumber": "Phone number (99) 9 99 9999-9999",
+      "address": "Address",
+      "dateOfBirth": "Date of Birth",
+      "chooseOne": "Choose one",
       "search": "Search",
       "months": "Months",
       "hours": "Hours",
       "minutes": "Minutes",
       "seconds": "Seconds",
-      "packages": "Packages"
+      "packages": "Packages",
+      "loadingProfile": "Getting profile data",
+      "waiting": "Please wait",
+      "available":"Available",
+      "gpsLocation":"Location"
     },
 
     "button": {
@@ -28,18 +32,19 @@
       "notAccount": "Don't have an account? Sign up",
       "accept": "Accept",
       "cancel": "Cancel",
-      "scan":"Scan",
-      "profileImage":"Profile photo",
-      "close":"Close",
-      "welcome-signIn":"I already have an account",
-      "welcome-signUp":"Create a new account",
-      "continue":"Continue",
-      "save":"Save",
-      "logout":"Logout",
-      "startValidationProcess":"Start validation process",
-      "startWorkShift":"Start",
-      "finish":"Finish",
-      "delete":"Delete"
+      "scan": "Scan",
+      "profileImage": "Profile photo",
+      "close": "Close",
+      "welcome-signIn": "I already have an account",
+      "welcome-signUp": "Create a new account",
+      "continue": "Continue",
+      "save": "Save",
+      "logout": "Logout",
+      "startValidationProcess": "Start validation process",
+      "startWorkShift": "Start",
+      "finish": "Finish",
+      "delete": "Delete",
+      "finalizeWorkShift": "Finish"
     },
 
     "validation": {
@@ -61,39 +66,39 @@
         "signUp-desc": "Create an account and start managing all your resources in a centralized and organized way",
         "welcome": "Welcome",
         "welcome-desc": "Get connected - Look for a job - Book it for yourself - Manage your time - Earn money !!!",
-        "selectCountry":"which country are you going to work?",
-        "selectCity":"which city are you going to work?",
+        "selectCountry": "which country are you going to work?",
+        "selectCity": "which city are you going to work?",
         "personalData": "Personal information",
         "personalData-desc": "Enter your personal data (as they appear on your document)",
-        "checkCode":"Security code",
-        "checkCode-desc":"Please enter the security code that we sent you by e-mail",
-        "accountCreatedSuccessfully":"Congratulations",
-        "accountCreatedSuccessfully-desc":"Your account has been created successfully.\nPlease enter the application to finish configuring your profile.",
-        "documents":"Required documents",
-        "documents-desc":"Complete the following list of required documents in order to start working.",
-        "account":"My account",
-        "verifyingData":"Verifying data",
-        "verifyingData-desc":"We are verifying your documents.",
-        "workshiftList":"Work shifts",
+        "checkCode": "Security code",
+        "checkCode-desc": "Please enter the security code that we sent you by e-mail",
+        "accountCreatedSuccessfully": "Congratulations",
+        "accountCreatedSuccessfully-desc": "Your account has been created successfully.\nPlease enter the application to finish configuring your profile.",
+        "documents": "Required documents",
+        "documents-desc": "Complete the following list of required documents in order to start working.",
+        "account": "My account",
+        "verifyingData": "Verifying data",
+        "verifyingData-desc": "We are verifying your documents.",
+        "workshiftList": "Work shifts",
         "startWorkShift": "Start work shift",
-        "startWorkShift-desc":"Remember that when you start the turn you must finish it, otherwise you will be negatively qualified",
-        "optionsMenu":"Options menu",
-        "activityLog":"Activity log",
+        "startWorkShift-desc": "Remember that when you start the turn you must finish it, otherwise you will be negatively qualified",
+        "optionsMenu": "Options menu",
+        "activityLog": "Activity log",
         "notFound": "Option not found",
-        "notFound-desc":"The menu option was not implemented yet",
-        "nonWorkingTime":"Not worked time",
-        "nonWorkingTime-desc":"Records the time not worked by the operator in charge of the company.",
-        "productsList":"Products list",
-        "productsList-desc":"Create the list of products you need to supply.",
-        "numberOfUnits":"Number of units",
-        "numberOfUnits-desc":"Indicate the number of units (in packages) that you need to supply",
-        "deleteItem":"Delete item",
-        "deleteItem-desc":"Delete item from the list.",
+        "notFound-desc": "The menu option was not implemented yet",
+        "nonWorkingTime": "Not worked time",
+        "nonWorkingTime-desc": "Records the time not worked by the operator in charge of the company.",
+        "productsList": "Products list",
+        "productsList-desc": "Create the list of products you need to supply.",
+        "numberOfUnits": "Number of units",
+        "numberOfUnits-desc": "Indicate the number of units (in packages) that you need to supply",
+        "deleteItem": "Delete item",
+        "deleteItem-desc": "Delete item from the list.",
         "finalizeWorkShift": "Finalize work shift",
-        "finalizeWorkShift-desc":"Remember that if you end the shift early, you could be graded negatively."
-
+        "finalizeWorkShift-desc": "Remember that if you end the shift early, you could be graded negatively."
       },
-      "error":"ERROR"
+      "error": "ERROR",
+      "noData": "No data found"
     },
 
     "tab": {
@@ -106,44 +111,47 @@
       "camera": {
         "noAccess": "No access to camera",
         "permission": "Requesting for camera permission"
+      },
+      "data":{
+        "shift": "There are no assigned shifts for the operator"
       }
     },
 
     "documents": {
-      "ids":{
-        "PROFILE_IMAGE":"Profile image",
-        "NDI_FRONT_IMAGE":"NDI (Front)",
-        "NDI_REVERSE_IMAGE":"NDI (Reverse)"
+      "ids": {
+        "PROFILE_IMAGE": "Profile image",
+        "NDI_FRONT_IMAGE": "NDI (Front)",
+        "NDI_REVERSE_IMAGE": "NDI (Reverse)"
       },
-      "desc":{
-        "PROFILE_IMAGE":"This image should clearly show your face.",
-        "NDI_FRONT_IMAGE":"This image corresponds to the back of your identity document.",
-        "NDI_REVERSE_IMAGE":"This image corresponds to the back of your identity document."
+      "desc": {
+        "PROFILE_IMAGE": "This image should clearly show your face.",
+        "NDI_FRONT_IMAGE": "This image corresponds to the back of your identity document.",
+        "NDI_REVERSE_IMAGE": "This image corresponds to the back of your identity document."
       },
       "status": {
-        "active":"Active",
-        "expired":"Expired",
-        "pending":"Pending"
+        "active": "Active",
+        "expired": "Expired",
+        "pending": "Pending"
       }
     },
 
-    "errors":{
-      "savePhoto":"Error saving photo"
+    "errors": {
+      "savePhoto": "Error saving photo"
     },
 
-    "month":{
-      "1":"January", 
-      "2":"February", 
-      "3":"March", 
-      "4":"April", 
-      "5":"May", 
-      "6":"June", 
-      "7":"July", 
-      "8":"August", 
-      "9":"September", 
-      "10":"October", 
-      "11":"November", 
-      "12":"December"
+    "month": {
+      "1": "January",
+      "2": "February",
+      "3": "March",
+      "4": "April",
+      "5": "May",
+      "6": "June",
+      "7": "July",
+      "8": "August",
+      "9": "September",
+      "10": "October",
+      "11": "November",
+      "12": "December"
     }
   }
 }

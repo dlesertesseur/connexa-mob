@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import i18n from "../Config/i18n";
 import CustomText from "./CustomText";
 import CustomTextTime from "./CustomTextTime";
@@ -6,34 +6,38 @@ import HorizontalSeparator from "./HorizontalSeparator";
 import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { ui } from "../Config/Constants";
 import { colors } from "../Styles/Colors";
-import CustomTextRequirement from "./CustomTextRequirement";
+import { getDateFromStr, zeroPad } from "../Util";
+import CustomBadge from "./CustomBadge";
 
 const WorkShiftItem = ({ item, onPress }) => {
-  const getMonth = (yyyyMMdd) => {
-    const mm = yyyyMMdd.substring(4, 6);
-    const ret = i18n.t("month." + mm);
+  const start = getDateFromStr(item.startDateAndTime);
+  const end = getDateFromStr(item.endDateAndTime);
+
+  let startPause = null;
+  let endPause = null;
+
+  if (item.pause) {
+    startPause = getDateFromStr(item.pauseStartDateAndTime);
+    endPause = getDateFromStr(item.pauseEndDateAndTime);
+  }
+
+  const onTime = () => {
+    let ret = false;
+    const localTime = new Date();
+    if (localTime >= start && localTime <= end) {
+      ret = true;
+    }
+
     return ret;
   };
 
-  const getDay = (yyyyMMdd) => {
-    const dd = yyyyMMdd.substring(6, 8);
-    return dd;
-  };
-
-  const getWeekDay = (yyyyMMdd) => {
-    const y = yyyyMMdd.substring(0, 4);
-    const m = yyyyMMdd.substring(4, 6);
-    const d = yyyyMMdd.substring(6, 8);
-
-    const date = new Date(y, m - 1, d);
-
-    const ret = i18n.t("day." + date.getDay());
-    return ret;
+  const onLocation = () => {
+    return false;
   };
 
   return (
     <TouchableOpacity
-      disabled={!onPress}
+      disabled={!onTime()}
       style={{
         width: "100%",
         height: 180,
@@ -47,49 +51,54 @@ const WorkShiftItem = ({ item, onPress }) => {
       <View style={styles.baseView}>
         <View style={styles.dataView}>
           <View style={styles.leftPart}>
-            <CustomText title={getMonth(item.startDate)} marginHorizontal={0} fullWidth />
-            <CustomText title={getDay(item.startDate)} marginHorizontal={0} fontSize={48} />
-            <CustomText title={getWeekDay(item.startDate)} marginHorizontal={0} />
+            <CustomText title={i18n.t("month." + start.getMonth())} marginHorizontal={0} fullWidth />
+            <CustomText title={start.getDate()} marginHorizontal={0} fontSize={48} />
+            <CustomText title={i18n.t("day." + start.getDay())} marginHorizontal={0} />
           </View>
           <View style={styles.rightPart}>
-            {/* <CustomText
-              title={item.organization}
-              marginHorizontal={0}
-              fontSize={24}
-              textAlign="center"
-              fullWidth={true}
-            /> */}
             <HorizontalSeparator height={5} />
-            {/* <CustomText text={item.branch + " - " + item.address} marginHorizontal={0} fontSize={16} /> */}
             <CustomText text={item.address} marginHorizontal={0} fontSize={16} />
 
             <HorizontalSeparator height={10} />
             <CustomText title={item.job} marginHorizontal={0} fontSize={18} />
             <HorizontalSeparator />
-            <CustomTextTime icon={"clock"} start={item.startTime} end={item.endTime} marginHorizontal={0} />
+            <CustomTextTime
+              icon={"clock"}
+              start={zeroPad(start.getHours(), 2) + ":" + zeroPad(start.getMinutes(), 2)}
+              end={zeroPad(end.getHours(), 2) + ":" + zeroPad(end.getMinutes(), 2)}
+              marginHorizontal={0}
+            />
             {item.pause ? (
               <>
                 <HorizontalSeparator height={5} />
                 <CustomTextTime
                   icon={"lunch"}
-                  start={item.pauseStartTime}
-                  end={item.pauseEndTime}
-                  //text={item.pauseName}
+                  start={zeroPad(startPause?.getHours(), 2) + ":" + zeroPad(startPause?.getMinutes(), 2)}
+                  end={zeroPad(endPause?.getHours(), 2) + ":" + zeroPad(endPause?.getMinutes(), 2)}
                   marginHorizontal={0}
                 />
               </>
             ) : null}
 
-            {/* {item.requirements ? (
-              <>
-                <HorizontalSeparator height={5} />
-                <CustomTextRequirement
-                  text={item.requirements}
-                  marginHorizontal={0}
-                />
-              </>
-            ) : null} */}
             <HorizontalSeparator height={5} />
+
+            <View style={{ flexDirection: "row" }}>
+              {onTime() ? (
+                <>
+                <CustomBadge text={i18n.t("label.available")} bgColor={colors.active} color={colors.activeDarck} iconName={"timer"}/>
+                <View style={{ marginLeft:5}}>
+                {onLocation() ? (
+                  <CustomBadge text={i18n.t("label.gpsLocation")} bgColor={colors.active} color={colors.activeDarck} iconName={"location-on"}/>
+                ) : (
+                  <CustomBadge text={i18n.t("label.gpsLocation")} bgColor={colors.inactive} color={colors.inactiveDarck} iconName={"location-off"}/>
+                )}
+              </View>
+
+                </>
+              ) : (
+                <CustomBadge text={i18n.t("label.available")} bgColor={colors.inactive} color={colors.inactiveDarck} iconName={"timer-off"}/>
+              )}
+            </View>
           </View>
         </View>
       </View>

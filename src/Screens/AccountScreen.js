@@ -1,6 +1,5 @@
 import i18n from "../Config/i18n";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
-import CustomText from "../Components/CustomText";
 import CustomAvatar from "../Components/CustomAvatar";
 import CustomTextInput from "../Components/CustomTextInput";
 import CustomPhoneInput from "../Components/CustomPhoneInput";
@@ -140,6 +139,7 @@ const AccountScreen = ({ navigation }) => {
           <CustomButton
             text={i18n.t("button.logout")}
             onPress={() => {
+              // console.log("params -> ", props);
               dispatch(resetAuthData());
             }}
           />

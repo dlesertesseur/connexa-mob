@@ -9,7 +9,8 @@ import { StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { worlShiftStatus } from "../Config/Constants";
+import { workShiftStatus } from "../Config/Constants";
+import { endWorkShift } from "../Features/Shifts";
 
 const FinalizeWorkShiftScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -17,22 +18,22 @@ const FinalizeWorkShiftScreen = ({ navigation, route }) => {
   const { selectedShift } = useSelector((state) => state.shifts.value);
 
   useEffect(() => {
-    if (selectedShift) {
-      console.log("selectedShift -> ", selectedShift);
-      if (selectedShift.status === worlShiftStatus.FINALIZED) {
-        navigation.navigate("WorkShitList");
-      }
+    if (selectedShift === null) {
+      navigation.navigate("WorkShitList");
     }
   }, [selectedShift]);
 
   return (
     <View style={styles.container}>
       <CustomTitleBar title={i18n.t("title.screen.workshiftList")} />
-      <CustomLabel title={i18n.t("title.screen.finalizeWorkShift")} text={i18n.t("title.screen.finalizeWorkShift-desc")} />
+      <CustomLabel
+        title={i18n.t("title.screen.finalizeWorkShift")}
+        text={i18n.t("title.screen.finalizeWorkShift-desc")}
+      />
       <HorizontalSeparator />
       <View style={styles.centralPanel}>
         <View style={{ height: 300, width: "100%" }}>
-          <WorkShiftItem item={selectedShift} />
+          {selectedShift ? <WorkShiftItem item={selectedShift} /> : null}
         </View>
       </View>
 
@@ -41,7 +42,7 @@ const FinalizeWorkShiftScreen = ({ navigation, route }) => {
           text={i18n.t("button.finalizeWorkShift")}
           onPress={() => {
             const params = { id: selectedShift.id, token: user.token };
-            dispatch(finalizeWorkShift(params));
+            dispatch(endWorkShift(params));
           }}
         />
       </View>

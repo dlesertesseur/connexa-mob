@@ -1,25 +1,24 @@
 import i18n from "../Config/i18n";
 import React from "react";
-
+import WorkShiftItem from "../Components/WorkShiftItem";
+import CustomTitleBar from "../Components/CustomTitleBar";
 import { FlatList, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { ui } from "../Config/Constants";
-import WorkShiftItem from "../Components/WorkShiftItem";
-import CustomTitleBar from "../Components/CustomTitleBar";
 import { findAllShiftsByWorkerId } from "../Features/Shifts";
+import CustomText from "../Components/CustomText";
 
 const WorkShitListScreen = ({ navigation }) => {
-  const { user } = useSelector((state) => state.auth.value);
-  const { shifts } = useSelector((state) => state.shifts.value);
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth.value);
+  const { shifts, selectedShift } = useSelector((state) => state.shifts.value);
 
   useEffect(() => {
     const params = { id: user.id, token: user.token };
     dispatch(findAllShiftsByWorkerId(params));
-  }, [user]);
+  }, [selectedShift]);
 
   const onPressShitf = (item) => {
     navigation.navigate("StartWorkShift", item);
@@ -41,7 +40,16 @@ const WorkShitListScreen = ({ navigation }) => {
           marginBottom: 15,
         }}
       >
-        <FlatList data={shifts} renderItem={renderShit} keyExtractor={(item) => item.id} />
+        <FlatList
+          data={shifts}
+          renderItem={renderShit}
+          keyExtractor={(item) => item.id}
+          ListEmptyComponent={() =>
+            !shifts.length ? (
+              <CustomText title={i18n.t("title.noData")} text={i18n.t("message.data.shift")} fontSize={20} />
+            ) : null
+          }
+        />
       </View>
     </View>
   );

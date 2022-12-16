@@ -9,5 +9,9 @@ export const colors = {
     pending: "#c5c5c5",
     errorText: "#ffffff",
     background:"#ffffff",
-    panel:"rgba(221, 219, 255, 0.4)"
+    panel:"rgba(221, 219, 255, 0.4)",
+    active:"#8CE99A",
+    activeDarck:"#40C057",
+    inactive:"#CED4DA",
+    inactiveDarck:"#ADB5BD"
 }
