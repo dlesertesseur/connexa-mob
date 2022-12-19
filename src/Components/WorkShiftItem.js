@@ -7,12 +7,11 @@ import CustomBadge from "./CustomBadge";
 import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { ui } from "../Config/Constants";
 import { colors } from "../Styles/Colors";
-import { zeroPad } from "../Util";
 
-const WorkShiftItem = ({ item, onPress }) => {
+const WorkShiftItem = ({ item, onPress = undefined, withLocationInfo = true }) => {
   return (
     <TouchableOpacity
-      disabled={!item?.onTime}
+      disabled={(item?.disabled || onPress === undefined)}
       style={{
         width: "100%",
         height: 180,
@@ -26,9 +25,9 @@ const WorkShiftItem = ({ item, onPress }) => {
       <View style={styles.baseView}>
         <View style={styles.dataView}>
           <View style={styles.leftPart}>
-            <CustomText title={i18n.t("month." + item?.start.getMonth())} marginHorizontal={0} fullWidth />
-            <CustomText title={item?.start.getDate()} marginHorizontal={0} fontSize={48} />
-            <CustomText title={i18n.t("day." + item?.start.getDay())} marginHorizontal={0} />
+            <CustomText title={i18n.t("month." + item.startMonth)} marginHorizontal={0} fullWidth />
+            <CustomText title={item?.startDate} marginHorizontal={0} fontSize={48} />
+            <CustomText title={i18n.t("day." + item?.startDayOfWeek)} marginHorizontal={0} />
           </View>
           <View style={styles.rightPart}>
             <HorizontalSeparator height={5} />
@@ -37,19 +36,14 @@ const WorkShiftItem = ({ item, onPress }) => {
             <HorizontalSeparator height={10} />
             <CustomText title={item.job} marginHorizontal={0} fontSize={18} />
             <HorizontalSeparator />
-            <CustomTextTime
-              icon={"clock"}
-              start={zeroPad(item.start.getHours(), 2) + ":" + zeroPad(item?.start.getMinutes(), 2)}
-              end={zeroPad(item.end.getHours(), 2) + ":" + zeroPad(item?.end.getMinutes(), 2)}
-              marginHorizontal={0}
-            />
+            <CustomTextTime icon={"clock"} start={item.startTime} end={item.endTime} marginHorizontal={0} />
             {item.pause ? (
               <>
                 <HorizontalSeparator height={5} />
                 <CustomTextTime
                   icon={"lunch"}
-                  start={zeroPad(item.startPause?.getHours(), 2) + ":" + zeroPad(item.startPause?.getMinutes(), 2)}
-                  end={zeroPad(item.endPause?.getHours(), 2) + ":" + zeroPad(item.endPause?.getMinutes(), 2)}
+                  start={item.pauseStartTime}
+                  end={item.pauseEndTime}
                   marginHorizontal={0}
                 />
               </>
@@ -60,18 +54,39 @@ const WorkShiftItem = ({ item, onPress }) => {
             <View style={{ flexDirection: "row" }}>
               {item?.onTime ? (
                 <>
-                <CustomBadge text={i18n.t("label.available")} bgColor={colors.active} color={colors.activeDarck} iconName={"timer"}/>
-                <View style={{ marginLeft:5}}>
-                {item?.onLocation ? (
-                  <CustomBadge text={i18n.t("label.gpsLocation")} bgColor={colors.active} color={colors.activeDarck} iconName={"location-on"}/>
-                ) : (
-                  <CustomBadge text={i18n.t("label.gpsLocation")} bgColor={colors.inactive} color={colors.inactiveDarck} iconName={"location-off"}/>
-                )}
-              </View>
-
+                  <CustomBadge
+                    text={i18n.t("label.available")}
+                    bgColor={colors.active}
+                    color={colors.activeDarck}
+                    iconName={"timer"}
+                  />
+                  <View style={{ marginLeft: 5 }}>
+                    {withLocationInfo ? (
+                      item?.onLocation ? (
+                        <CustomBadge
+                          text={i18n.t("label.gpsLocation")}
+                          bgColor={colors.active}
+                          color={colors.activeDarck}
+                          iconName={"location-on"}
+                        />
+                      ) : (
+                        <CustomBadge
+                          text={i18n.t("label.gpsLocation")}
+                          bgColor={colors.inactive}
+                          color={colors.inactiveDarck}
+                          iconName={"location-off"}
+                        />
+                      )
+                    ) : null}
+                  </View>
                 </>
               ) : (
-                <CustomBadge text={i18n.t("label.available")} bgColor={colors.inactive} color={colors.inactiveDarck} iconName={"timer-off"}/>
+                <CustomBadge
+                  text={i18n.t("label.available")}
+                  bgColor={colors.inactive}
+                  color={colors.inactiveDarck}
+                  iconName={"timer-off"}
+                />
               )}
             </View>
           </View>

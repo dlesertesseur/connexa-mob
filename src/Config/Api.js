@@ -42,4 +42,9 @@ export const API = {
     product: {
       findByEan: LOCAL_SERVER + ":" + PORT + LOCAL_API_BASE + "/items/",
     },
+
+    location: {
+      register: LOCAL_SERVER + ":" + PORT + LOCAL_API_BASE + "/workers/",
+    },
+
 }  

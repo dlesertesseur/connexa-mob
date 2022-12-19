@@ -19,7 +19,7 @@ const StartWorkShiftScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     if (selectedShift) {
-      navigation.navigate("OptionsMenu");
+      navigation.navigate("OptionsMenu", workShift);
     }
   }, [selectedShift]);
 
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
 
   centralPanel: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     marginHorizontal: 15,
   },

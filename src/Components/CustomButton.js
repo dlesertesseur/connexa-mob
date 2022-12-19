@@ -3,10 +3,22 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ui } from "../Config/Constants";
 import { colors } from "../Styles/Colors";
 
-const CustomButton = ({ text, onPress, style }) => {
+const CustomButton = ({ text, onPress, style, disabled = false }) => {
   return (
     <View style={[styles.container, style]}>
-      <TouchableOpacity style={styles.button} onPress={onPress}>
+      <TouchableOpacity
+        style={{
+          width: "100%",
+          height: 50,
+          borderRadius: ui.borderRadius,
+          justifyContent: "center",
+          alignItems: "center",
+          borderWidth: 0,
+          backgroundColor: disabled ? colors.inactive : colors.primary,
+        }}
+        onPress={onPress}
+        disabled={disabled}
+      >
         <Text style={styles.text}> {text} </Text>
       </TouchableOpacity>
     </View>
@@ -20,16 +32,6 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-  },
-
-  button: {
-    width: "100%",
-    height: 50,
-    borderRadius: ui.borderRadius,
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 0,
-    backgroundColor: colors.primary,
   },
 
   text: {

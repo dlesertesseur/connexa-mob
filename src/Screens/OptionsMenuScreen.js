@@ -4,23 +4,23 @@ import CustomText from "../Components/CustomText";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
 import CustomSearchInput from "../Components/CustomSearchInput";
 import WorkShiftItem from "../Components/WorkShiftItem";
-import { BackHandler, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import CustomTitleBar from "../Components/CustomTitleBar";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import { ui } from "../Config/Constants";
 import { MaterialIcons } from "@expo/vector-icons";
-import CustomTitleBar from "../Components/CustomTitleBar";
+import { getDateFromStr, onTime, zeroPad } from "../Util";
 
 const OptionsMenuScreen = ({ navigation, route }) => {
-  const dispatch = useDispatch();
-
   const { selectedShift } = useSelector((state) => state.shifts.value);
 
   const [options, setOptions] = useState(require("../DataAccess/optionsMenu.json"));
   const [searchText, setSearchText] = useState(null);
   const [filteredOptions, setFilteredOptions] = useState(options);
+  const [shiftProcessed, setShiftProcessed] = useState();
 
   const onSelect = (item) => {
     navigation.navigate(item.type, item);
@@ -30,6 +30,37 @@ const OptionsMenuScreen = ({ navigation, route }) => {
   //   const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
   //   return () => backHandler.remove()
   // }, [])
+
+  useEffect(() => {
+    if (selectedShift) {
+      const r = { ...selectedShift };
+
+      let startPause = null;
+      let endPause = null;
+      const start = getDateFromStr(r.startDateAndTime);
+      const end = getDateFromStr(r.endDateAndTime);
+
+      if (r.pause) {
+        startPause = getDateFromStr(r.pauseStartDateAndTime);
+        endPause = getDateFromStr(r.pauseEndDateAndTime);
+      }
+
+      r.startMonth = start.getMonth();
+      r.startDate = start.getDate();
+      r.startDayOfWeek = start.getDay();
+
+      r.startTime = zeroPad(start.getHours(), 2) + ":" + zeroPad(start.getMinutes(), 2);
+      r.endTime = zeroPad(end.getHours(), 2) + ":" + zeroPad(end.getMinutes(), 2);
+
+      if (startPause) {
+        r.pauseStartTime = zeroPad(startPause.getHours(), 2) + ":" + zeroPad(startPause.getMinutes(), 2);
+        r.pauseEndTime = zeroPad(endPause?.getHours(), 2) + ":" + zeroPad(endPause?.getMinutes(), 2);
+      }
+
+      r.onTime = onTime(start, end);
+      setShiftProcessed(r);
+    }
+  }, [selectedShift]);
 
   useEffect(() => {
     if (searchText) {
@@ -54,7 +85,9 @@ const OptionsMenuScreen = ({ navigation, route }) => {
       <CustomTitleBar title={i18n.t("title.screen.activityLog")} />
 
       <View style={styles.centralPanel}>
-        <View style={{ width: "100%" }}>{selectedShift ? <WorkShiftItem item={selectedShift} /> : null}</View>
+        <View style={{ width: "100%" }}>
+          {shiftProcessed ? <WorkShiftItem item={shiftProcessed} withLocationInfo={false} /> : null}
+        </View>
       </View>
 
       <HorizontalSeparator />

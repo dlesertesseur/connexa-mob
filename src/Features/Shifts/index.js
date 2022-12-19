@@ -18,20 +18,18 @@ export const findAllShiftsByWorkerId = createAsyncThunk(
   "shifts/findAllShiftsByWorkerId",
   async (parameters, asyncThunk) => {
     try {
-      // const requestOptions = {
-      //   method: "GET",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     token: parameters.token,
-      //   },
-      // };
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: parameters.token,
+        },
+      };
 
-      // const url = API.shift.findAllByWorkerId + parameters.id;
+      const url = API.shift.findAllByWorkerId + parameters.id;
 
-      // const res = await fetch(url, requestOptions);
-      // const data = await res.json();
-
-      const data = require("../../DataAccess/workShift.json");
+      const res = await fetch(url, requestOptions);
+      const data = await res.json();
 
       return data;
     } catch (error) {
@@ -79,8 +77,7 @@ export const startWorkShift = createAsyncThunk(
         },
       };
 
-      const url =
-        API.shift.startWorkShiftById + parameters.id + "/status/started";
+      const url = API.shift.startWorkShiftById + parameters.id + "/status/started";
 
       const res = await fetch(url, requestOptions);
       const data = await res.json();
@@ -126,7 +123,6 @@ export const shiftsSlice = createSlice({
     },
     setActualLocation: (state, action) => {
       state.value.actualLocation = action.payload;
-      console.log("setActualLocation() -> ", action.payload.latitude, action.payload.longitude);
     },
   },
   extraReducers: {

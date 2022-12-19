@@ -87,7 +87,9 @@
         "finalizeWorkShift": "Finalizar turno",
         "finalizeWorkShift-desc":"Recuerda que si finaliza el turno antes de tiempo, podria ser calificado negativamente.",
         "location": "Ubicacion",
-        "location-desc": ""
+        "location-desc": "",
+        "fronting":"Frenteo",
+        "fronting-desc":"Colocar los articulos al frente para cubrir los espacios."
       },
       "error": "ERROR",
       "noData": "Sin datos"

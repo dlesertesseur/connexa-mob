@@ -3,46 +3,50 @@ import React from "react";
 import WorkShiftItem from "../Components/WorkShiftItem";
 import CustomTitleBar from "../Components/CustomTitleBar";
 import CustomText from "../Components/CustomText";
-import haversine from "haversine-distance";
+import * as Location from "expo-location";
 import { FlatList, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { ui } from "../Config/Constants";
-import { findAllShiftsByWorkerId } from "../Features/Shifts";
+import { findAllShiftsByWorkerId, setActualLocation } from "../Features/Shifts";
 import { useState } from "react";
-import { getDateFromStr } from "../Util";
-
-function onTime(start, end) {
-  let ret = false;
-  const localTime = new Date();
-  if (localTime >= start && localTime <= end) {
-    ret = true;
-  }
-
-  return ret;
-}
-
-function onLocation(lat1, long1, lat2, long2) {
-  const a = { lat1, long1 };
-  const b = { lat2, long2 };
-  const ret = haversine(a, b);
-  console.log(ret);
-  return(ret);
-}
+import { getDateFromStr, onLocation, onTime, zeroPad } from "../Util";
+import { useFocusEffect } from "@react-navigation/native";
 
 const WorkShitListScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.value);
-  const { shifts, selectedShift } = useSelector((state) => state.shifts.value);
+  const { shifts } = useSelector((state) => state.shifts.value);
   const { actualLocation } = useSelector((state) => state.shifts.value);
   const [shiftProcess, setShiftProcess] = useState([]);
+
+  //let watchID = null;
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const params = { id: user.id, token: user.token };
+      dispatch(findAllShiftsByWorkerId(params));
+  
+      // console.log("WorkShitListScreen <- start watchID");
+      // Location.watchPositionAsync({ accuracy: 6, timeInterval: 5000 }, (position) => {
+      //   dispatch(setActualLocation(position.coords));
+      // }).then((ret) => (watchID = ret));
+
+      // return () => {
+      //   console.log("WorkShitListScreen <-  watchID.remove()");
+      //   watchID.remove();
+      //   dispatch(setActualLocation(null));
+      // };
+    }, [user])
+  );
 
   useEffect(() => {
     const ret = shifts.map((s) => {
       const r = { ...s };
       let startPause = null;
       let endPause = null;
+
       const start = getDateFromStr(r.startDateAndTime);
       const end = getDateFromStr(r.endDateAndTime);
 
@@ -51,27 +55,40 @@ const WorkShitListScreen = ({ navigation }) => {
         endPause = getDateFromStr(r.pauseEndDateAndTime);
       }
 
-      r.start = start;
-      r.end = end;
-      r.onTime = onTime(start, end);
-      r.startPause = startPause;
-      r.endPause = endPause;
+      r.startMonth = start.getMonth();
+      r.startDate = start.getDate();
+      r.startDayOfWeek = start.getDay();
 
-      r.onLocation = onLocation(
-        actualLocation.latitude,
-        actualLocation.longitude,
-        r.latitude,
-        r.longitude
-      );
+      r.startTime = zeroPad(start.getHours(), 2) + ":" + zeroPad(start.getMinutes(), 2);
+      r.endTime = zeroPad(end.getHours(), 2) + ":" + zeroPad(end.getMinutes(), 2);
+
+      if (startPause) {
+        r.pauseStartTime = zeroPad(startPause.getHours(), 2) + ":" + zeroPad(startPause.getMinutes(), 2);
+        r.pauseEndTime = zeroPad(endPause?.getHours(), 2) + ":" + zeroPad(endPause?.getMinutes(), 2);
+      }
+
+      r.onTime = onTime(start, end);
+      if (actualLocation) {
+        r.onLocation = onLocation(
+          actualLocation?.latitude,
+          actualLocation?.longitude,
+          r.siteLatitude,
+          r.siteLongitude,
+          r.siteRadiusInMeters
+        );
+      } else {
+        r.onLocation = false;
+      }
+
+      r.disabled = !(r.onTime && r.onLocation);
+
       return r;
     });
+
     setShiftProcess(ret);
+
   }, [shifts, actualLocation]);
 
-  useEffect(() => {
-    const params = { id: user.id, token: user.token };
-    dispatch(findAllShiftsByWorkerId(params));
-  }, [selectedShift]);
 
   const onPressShitf = (item) => {
     navigation.navigate("StartWorkShift", item);
@@ -99,11 +116,7 @@ const WorkShitListScreen = ({ navigation }) => {
           keyExtractor={(item) => item.id}
           ListEmptyComponent={() =>
             !shiftProcess.length ? (
-              <CustomText
-                title={i18n.t("title.noData")}
-                text={i18n.t("message.data.shift")}
-                fontSize={20}
-              />
+              <CustomText title={i18n.t("title.noData")} text={i18n.t("message.data.shift")} fontSize={20} />
             ) : null
           }
         />
