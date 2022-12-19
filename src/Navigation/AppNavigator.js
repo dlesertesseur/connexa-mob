@@ -11,30 +11,40 @@ import { StyleSheet } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { findStartedShiftByWorkerId } from "../Features/Shifts";
+import {
+  findStartedShiftByWorkerId,
+  setActualLocation,
+} from "../Features/Shifts";
+import IndoorMapScreen from "../Screens/IndoorMapScreen";
 
 const BottomTabs = createBottomTabNavigator();
 
 const AppNavigator = () => {
   const { user } = useSelector((state) => state.auth.value);
-  const { selectedShift, loadingProfile } = useSelector((state) => state.shifts.value);
+  const { selectedShift, loadingProfile } = useSelector(
+    (state) => state.shifts.value
+  );
   const dispatch = useDispatch();
   let watchID = null;
 
   useEffect(() => {
+    if (user.token === null && watchID) {
+      console.log("watchID.remove()");
+      watchID.remove();
+    } else {
+      watchID = Location.watchPositionAsync(
+        { accuracy: 6, timeInterval: 5000 },
+        (position) => {
+          dispatch(setActualLocation(position.coords));
+        }
+      );
+    }
+  }, [user.token]);
+
+  useEffect(() => {
     const params = { id: user.id, token: user.token };
     dispatch(findStartedShiftByWorkerId(params));
-
-    watchID = Location.watchPositionAsync({ accuracy: 6, timeInterval: 500 }, (position) => {
-      console.log(
-        "watchPositionAsync -> lat [" + position.coords.latitude + "] lon [" + position.coords.longitude + "]"
-      );
-    });
   }, [user]);
-
-  const stopLocationReport = () =>{
-    watchID.remove();
-  }
 
   return (
     <>
@@ -53,7 +63,13 @@ const AppNavigator = () => {
               component={AccountScreen}
               options={{
                 tabBarIcon: ({ focused }) => {
-                  return <CustomTabBarIcon text={i18n.t("tab.user")} focused={focused} iconName={"user-alt"} />;
+                  return (
+                    <CustomTabBarIcon
+                      text={i18n.t("tab.user")}
+                      focused={focused}
+                      iconName={"user-alt"}
+                    />
+                  );
                 },
               }}
             />
@@ -63,7 +79,13 @@ const AppNavigator = () => {
               component={TaskStack}
               options={{
                 tabBarIcon: ({ focused }) => {
-                  return <CustomTabBarIcon focused={focused} text={i18n.t("tab.task")} iconName={"tasks"} />;
+                  return (
+                    <CustomTabBarIcon
+                      focused={focused}
+                      text={i18n.t("tab.task")}
+                      iconName={"tasks"}
+                    />
+                  );
                 },
                 tabBarStyle: { display: "none" },
               }}
@@ -75,7 +97,27 @@ const AppNavigator = () => {
               options={{
                 tabBarIcon: ({ focused }) => {
                   return (
-                    <CustomTabBarIcon focused={focused} text={i18n.t("tab.timeAndAttendance")} iconName={"stopwatch"} />
+                    <CustomTabBarIcon
+                      focused={focused}
+                      text={i18n.t("tab.timeAndAttendance")}
+                      iconName={"stopwatch"}
+                    />
+                  );
+                },
+              }}
+            />
+
+            <BottomTabs.Screen
+              name="IndoorMapTab"
+              component={IndoorMapScreen}
+              options={{
+                tabBarIcon: ({ focused }) => {
+                  return (
+                    <CustomTabBarIcon
+                      focused={focused}
+                      text={i18n.t("tab.indoorMap")}
+                      iconName={"map"}
+                    />
                   );
                 },
               }}
@@ -83,7 +125,10 @@ const AppNavigator = () => {
           </BottomTabs.Navigator>
         </>
       ) : (
-        <LoadingScreen title={i18n.t("label.loadingProfile")} footerText={i18n.t("label.waiting")} />
+        <LoadingScreen
+          title={i18n.t("label.loadingProfile")}
+          footerText={i18n.t("label.waiting")}
+        />
       )}
     </>
   );

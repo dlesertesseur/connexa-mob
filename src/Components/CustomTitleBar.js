@@ -12,6 +12,7 @@ const CustomTitleBar = ({
   fullWidth,
   color = colors.secondary,
   avatar = true,
+  marginBottom = 15
 }) => {
   const { user } = useSelector((state) => state.auth.value);
 
@@ -22,7 +23,8 @@ const CustomTitleBar = ({
         backgroundColor: colors.primary,
         width: fullWidth ? "100%" : null,
         height: 64,
-        marginVertical: 15,
+        marginTop: 15,
+        marginBottom: marginBottom,
         flexDirection: "row",
         justifyContent: "space-between",
       }}

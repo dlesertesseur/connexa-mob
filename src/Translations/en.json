@@ -95,7 +95,9 @@
         "deleteItem": "Delete item",
         "deleteItem-desc": "Delete item from the list.",
         "finalizeWorkShift": "Finalize work shift",
-        "finalizeWorkShift-desc": "Remember that if you end the shift early, you could be graded negatively."
+        "finalizeWorkShift-desc": "Remember that if you end the shift early, you could be graded negatively.",
+        "location": "Location",
+        "location-desc": ""
       },
       "error": "ERROR",
       "noData": "No data found"
@@ -104,7 +106,8 @@
     "tab": {
       "task": "Tasks",
       "timeAndAttendance": "Productivity",
-      "user": "Account"
+      "user": "Account",
+      "indoorMap":"Floor"
     },
 
     "message": {
@@ -136,7 +139,8 @@
     },
 
     "errors": {
-      "savePhoto": "Error saving photo"
+      "savePhoto": "Error saving photo",
+      "connection":"Connection error"
     },
 
     "month": {

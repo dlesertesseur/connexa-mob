@@ -85,7 +85,9 @@
         "deleteItem":"Eliminar item",
         "deleteItem-desc":"Se eliminara el item de la lista.",
         "finalizeWorkShift": "Finalizar turno",
-        "finalizeWorkShift-desc":"Recuerda que si finaliza el turno antes de tiempo, podria ser calificado negativamente."
+        "finalizeWorkShift-desc":"Recuerda que si finaliza el turno antes de tiempo, podria ser calificado negativamente.",
+        "location": "Ubicacion",
+        "location-desc": ""
       },
       "error": "ERROR",
       "noData": "Sin datos"
@@ -94,7 +96,8 @@
     "tab": {
       "task": "Tareas",
       "timeAndAttendance": "Productividad",
-      "user": "Perfil"
+      "user": "Perfil",
+      "indoorMap":"Planta"
     },
     
     "message": {
@@ -125,7 +128,8 @@
       }
     },
     "errors":{
-      "savePhoto":"Error guardando foto"
+      "savePhoto":"Error guardando foto",
+      "connection":"Error de conexion"
     },
 
     "month": {
