@@ -105,11 +105,12 @@ const AlertScreen = ({ route, navigation }) => {
             style={styles.field}
             text={location ? location : i18n.t("label.location")}
             onPress={() => {
-              navigation.navigate("scanLocationScreen", {
-                barCode: true,
-                qrCode: false,
-                back:"alertScreen"
-              });
+              // navigation.navigate("scanLocationScreen", {
+              //   barCode: true,
+              //   qrCode: false,
+              //   back:"alertScreen"
+              // }
+              // );
             }}
           />
 

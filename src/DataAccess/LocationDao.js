@@ -3,8 +3,6 @@ import { API } from "../Config/Api";
 const registerLocation = async (parameters) => {
   try {
 
-    console.log("register ->" , parameters.coords);
-    
     const body = JSON.stringify(parameters.coords);
 
     const requestOptions = {

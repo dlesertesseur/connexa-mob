@@ -11,10 +11,10 @@ import { colors } from "../Styles/Colors";
 const WorkShiftItem = ({ item, onPress = undefined, withLocationInfo = true }) => {
   return (
     <TouchableOpacity
-      disabled={(item?.disabled || onPress === undefined)}
+      disabled={item?.disabled || onPress === undefined}
       style={{
         width: "100%",
-        height: 180,
+        height: 220,
       }}
       onPress={() => {
         if (onPress) {
@@ -31,7 +31,8 @@ const WorkShiftItem = ({ item, onPress = undefined, withLocationInfo = true }) =
           </View>
           <View style={styles.rightPart}>
             <HorizontalSeparator height={5} />
-            <CustomText text={item.address} marginHorizontal={0} fontSize={16} />
+            <CustomText title={item.siteName} marginHorizontal={0} fontSize={18} />
+            <CustomText text={item.address} marginHorizontal={0} fontSize={14} />
 
             <HorizontalSeparator height={10} />
             <CustomText title={item.job} marginHorizontal={0} fontSize={18} />
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderTopLeftRadius: ui.borderRadius,
     borderBottomLeftRadius: ui.borderRadius,
-    justifyContent: "center",
+    justifyContent: "space-around",
   },
 
   rightPart: {

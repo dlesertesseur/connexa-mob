@@ -1,13 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ui } from "../Config/Constants";
 import { colors } from "../Styles/Colors";
 
-const CustomButton = ({ text, onPress, style, disabled = false }) => {
+const CustomButton = ({ text, onPress, style, disabled = false, loading=false }) => {
   return (
     <View style={[styles.container, style]}>
       <TouchableOpacity
         style={{
+          flexDirection:"row",
           width: "100%",
           height: 50,
           borderRadius: ui.borderRadius,
@@ -20,6 +21,8 @@ const CustomButton = ({ text, onPress, style, disabled = false }) => {
         disabled={disabled}
       >
         <Text style={styles.text}> {text} </Text>
+        {loading ? 
+        <ActivityIndicator size={24} color={colors.primaryLighter} style={{marginStart:10}}/> : null}
       </TouchableOpacity>
     </View>
   );

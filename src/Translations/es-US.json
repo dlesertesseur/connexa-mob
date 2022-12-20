@@ -50,7 +50,9 @@
       "startWorkShift":"Iniciar",
       "finish":"Terminar",
       "delete":"Eliminar",
-      "finalizeWorkShift": "Terminar"
+      "finalizeWorkShift": "Terminar",
+      "startActivity":"Iniciar actividad",
+      "scanLocation": "Escanear ubicación"
     },
 
     "validation": {

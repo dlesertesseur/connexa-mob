@@ -11,10 +11,6 @@ import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { findStartedShiftByWorkerId, setActualLocation } from "../Features/Shifts";
-import IndoorMapScreen from "../Screens/IndoorMapScreen";
-import * as Location from "expo-location";
-import { useFocusEffect } from "@react-navigation/native";
-import { registerLocation } from "../DataAccess/LocationDao";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -22,38 +18,11 @@ const AppNavigator = () => {
   const { user } = useSelector((state) => state.auth.value);
   const { selectedShift, loadingProfile } = useSelector((state) => state.shifts.value);
   const dispatch = useDispatch();
-  let watchID = null;
 
   useEffect(() => {
     const params = { id: user.id, token: user.token };
     dispatch(findStartedShiftByWorkerId(params));
   }, [user]);
-
-
-  useFocusEffect(
-    React.useCallback(() => {
-      console.log("AppNavigator <- start watchID");
-      Location.watchPositionAsync({ accuracy: 6, timeInterval: 5000 }, (position) => {
-        dispatch(setActualLocation(position.coords));
-
-        console.log("setActualLocation() -> ", position.coords)
-
-        const params = {
-          id:user.id,
-          token:user.token,
-          coords:position.coords
-        }
-        registerLocation(params);  
-
-      }).then((ret) => (watchID = ret));
-
-      return () => {
-        console.log("AppNavigator <-  watchID.remove()");
-        watchID.remove();
-        dispatch(setActualLocation(null));
-      };
-    }, [user])
-  );
 
   return (
     <>
@@ -100,7 +69,7 @@ const AppNavigator = () => {
               }}
             />
 
-            <BottomTabs.Screen
+            {/* <BottomTabs.Screen
               name="IndoorMapTab"
               component={IndoorMapScreen}
               options={{
@@ -108,7 +77,7 @@ const AppNavigator = () => {
                   return <CustomTabBarIcon focused={focused} text={i18n.t("tab.indoorMap")} iconName={"map"} />;
                 },
               }}
-            />
+            /> */}
           </BottomTabs.Navigator>
         </>
       ) : (

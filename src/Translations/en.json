@@ -44,7 +44,9 @@
       "startWorkShift": "Start",
       "finish": "Finish",
       "delete": "Delete",
-      "finalizeWorkShift": "Finish"
+      "finalizeWorkShift": "Finish",
+      "startActivity":"Start activity",
+      "scanLocation": "Scan location"
     },
 
     "validation": {

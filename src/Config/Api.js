@@ -38,13 +38,16 @@ export const API = {
       findStartedShiftByWorkerId: SERVER + ":" + PORT + API_BASE + "/workershifts/",
       startWorkShiftById: SERVER + ":" + PORT + API_BASE + "/workershifts/",
       endWorkShiftById: SERVER + ":" + PORT + API_BASE + "/workershifts/",
+      startActiviryFronting: SERVER + ":" + PORT + API_BASE + "/workershifts/",
+      endActiviryFronting: SERVER + ":" + PORT + API_BASE + "/workershifts/",
+
     },
     product: {
       findByEan: LOCAL_SERVER + ":" + PORT + LOCAL_API_BASE + "/items/",
     },
 
     location: {
-      register: LOCAL_SERVER + ":" + PORT + LOCAL_API_BASE + "/workers/",
+      register: SERVER + ":" + PORT + API_BASE + "/workers/",
     },
 
 }  

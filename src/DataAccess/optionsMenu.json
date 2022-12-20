@@ -2,7 +2,7 @@
   {"id": 1,"option": "INICIAR CORTE POR ALMUERZO", "title": "CORTE POR ALMUERZO", "type": "NonWorkingTime"},
   {"id": 2,"option": "INICIAR ORDEN DE TRABAJO", "title": "ORDEN DE TRABAJO", "type": "WorkOrder"},
   {"id": 3,"option": "INICIAR PICKING EN DEPOSITO", "type": "NotFound"},
-  {"id": 4,"option": "INICIAR FRENTEO", "type": "Activities"},
+  {"id": 4,"option": "INICIAR FRENTEO", "title": "FRENTEO DE ESTANTE", "type": "Activities"},
   {"id": 5,"option": "INICIAR REPOSICION", "type": "NotFound"},
   {"id": 6,"option": "INICIAR CONTROL DE VENCIMIENTOS", "type": "NotFound"},
   {"id": 7,"option": "INICIAR CAMBIO DE PRECIOS", "type": "NotFound"},

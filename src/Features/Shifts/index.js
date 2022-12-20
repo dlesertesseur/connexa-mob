@@ -10,7 +10,11 @@ const initialState = {
     error: false,
     errorMessage: null,
     loadingProfile: false,
-    actualLocation:null
+    actualLocation:null,
+    indoorLocationCode:null,
+    startedActivity:null,
+    startingActivity:false,
+    finishingActivity:false,
   },
 };
 
@@ -113,6 +117,54 @@ export const endWorkShift = createAsyncThunk(
   }
 );
 
+export const startActiviryFronting = createAsyncThunk(
+  "shifts/startActiviryFronting",
+  async (parameters, asyncThunk) => {
+    try {
+      const requestOptions = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          token: parameters.token,
+        },
+      };
+
+      const url = API.shift.startActiviryFronting + parameters.id + "/status/fronting-started";
+
+      const res = await fetch(url, requestOptions);
+      const data = await res.json();
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const endActiviryFronting = createAsyncThunk(
+  "shifts/endActiviryFronting",
+  async (parameters, asyncThunk) => {
+    try {
+      const requestOptions = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          token: parameters.token,
+        },
+      };
+
+      const url = API.shift.endActiviryFronting + parameters.id + "/status/fronting-ended";
+
+      const res = await fetch(url, requestOptions);
+      const data = await res.json();
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const shiftsSlice = createSlice({
   name: "shifts",
   initialState,
@@ -121,8 +173,13 @@ export const shiftsSlice = createSlice({
     setSelectedShift: (state, action) => {
       state.value.selectedShift = action.payload;
     },
+    
     setActualLocation: (state, action) => {
       state.value.actualLocation = action.payload;
+    },
+    
+    setIndoorLocationCode: (state, action) => {
+      state.value.indoorLocationCode = action.payload;
     },
   },
   extraReducers: {
@@ -184,6 +241,62 @@ export const shiftsSlice = createSlice({
       }
     },
 
+    [startActiviryFronting.pending]: (state) => {
+      state.value.error = false;
+      state.value.errorMessage = null;
+      state.value.startingActivity = true;
+    },
+    [startActiviryFronting.fulfilled]: (state, { payload }) => {
+      state.value.startingActivity = false;
+
+      if (payload?.error) {
+        state.value.errorMessage = payload.message;
+        state.value.error = true;
+      }
+      else{
+        state.value.startedActivity = payload;
+        state.value.errorMessage = null;
+        state.value.error = false;
+      }
+    },
+    [startActiviryFronting.rejected]: (state, { payload }) => {
+      state.value.loading = false;
+      state.value.startingActivity = false;
+
+      if (payload) {
+        state.value.errorMessage = payload.message;
+      }else{
+        state.value.errorMessage=i18n.t("error.connection");
+      }
+    },
+
+    [endActiviryFronting.pending]: (state) => {
+      state.value.error = false;
+      state.value.errorMessage = null;
+      state.value.finishingActivity=true;
+    },
+    [endActiviryFronting.fulfilled]: (state, { payload }) => {
+      state.value.finishingActivity=false;
+      if (payload.error) {
+        state.value.errorMessage = payload.message;
+        state.value.error = true;
+      }else{
+        state.value.startedActivity = null;
+        state.value.errorMessage = null;
+        state.value.error = false;
+      }
+    },
+    [endActiviryFronting.rejected]: (state, { payload }) => {
+      state.value.loading = false;
+      state.value.error = true;
+      state.value.finishingActivity=false;
+      if (payload) {
+        state.value.errorMessage = payload.message;
+      }else{
+        state.value.errorMessage=i18n.t("error.connection");
+      }
+    },
+
     [findStartedShiftByWorkerId.pending]: (state) => {
       state.value.error = false;
       state.value.errorMessage = null;
@@ -215,6 +328,6 @@ export const shiftsSlice = createSlice({
   },
 });
 
-export const { resetShiftData, setSelectedShift, setActualLocation } = shiftsSlice.actions;
+export const { resetShiftData, setSelectedShift, setActualLocation, setIndoorLocationCode } = shiftsSlice.actions;
 
 export default shiftsSlice.reducer;

@@ -27,7 +27,9 @@
       "loadingProfile": "Obteniendo datos de perfil",
       "waiting": "Espere, por favor",
       "available":"Disponible",
-      "gpsLocation":"En ubicación"
+      "gpsLocation":"En ubicación",
+      "startActivity":"Iniciar actividad",
+      "scanLocation": "Escanear ubicación"
     },
 
     "button": {

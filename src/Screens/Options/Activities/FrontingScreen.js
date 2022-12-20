@@ -1,6 +1,6 @@
 import React from "react";
 import { colors } from "../../../Styles/Colors";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import i18n from "../../../Config/i18n";
@@ -8,15 +8,52 @@ import HorizontalSeparator from "../../../Components/HorizontalSeparator";
 import CustomLabel from "../../../Components/CustomLabel";
 import CustomButton from "../../../Components/CustomButton";
 import CustomTitleBar from "../../../Components/CustomTitleBar";
+import InputLocation from "../../../Components/InputLocation";
+import Stopwatch from "../../../Components/Stopwatch";
 import { ui } from "../../../Config/Constants";
+import { useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { endActiviryFronting, startActiviryFronting } from "../../../Features/Shifts";
+import CustomError from "../../../Components/CustomError";
 
 const FrontingScreen = ({ navigation, route }) => {
+  const {
+    indoorLocationCode,
+    error,
+    errorMessage,
+    selectedShift,
+    startedActivity,
+    startingActivity,
+    finishingActivity,
+  } = useSelector((state) => state.shifts.value);
+  const { user } = useSelector((state) => state.auth.value);
   const dispatch = useDispatch();
+
   const option = route.params;
 
-  // const [modalVisible, setModalVisible] = useState(false);
-
   const windowHeight = Dimensions.get("window").height;
+
+  // const [modalVisible, setModalVisible] = useState(false);
+  const [stopwatchStart, setStopwatchStart] = useState(false);
+  const [indoorLocation, setIndoorLocation] = useState(null);
+
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     return () => {
+  //       setStopwatchStart(false);
+  //       setIndoorLocation(null);
+  //       console.log("useFocusEffect -> lost");
+  //     };
+  //   }, [indoorLocation])
+  // );
+
+  useEffect(() => {
+    setIndoorLocation(indoorLocationCode);
+  }, [indoorLocationCode]);
+
+  const scanIndorLocation = () => {
+    navigation.navigate("ScanLocation");
+  };
 
   return (
     <View style={styles.container}>
@@ -31,18 +68,88 @@ const FrontingScreen = ({ navigation, route }) => {
       />
 
       <View style={{ flex: 1 }}>
+        <View style={{ width: "100%" }}>
+          <InputLocation
+            disabled={startedActivity ? true : false}
+            placeholder={i18n.t("label.location")}
+            value={indoorLocation}
+            setValue={setIndoorLocation}
+            onPress={scanIndorLocation}
+          />
+        </View>
+
+        <View
+          style={{
+            padding: 5,
+            marginHorizontal: 10,
+            justifyContent: "center",
+            alignContent: "center",
+            backgroundColor: stopwatchStart ? colors.primary : colors.inactive,
+            borderRadius: ui.borderRadius,
+          }}
+        >
+          <Stopwatch disabled={stopwatchStart ? false : true} />
+        </View>
+
+        <HorizontalSeparator />
+
+        <View
+          style={{
+            marginHorizontal: 10,
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <CustomButton
+            loading={startingActivity}
+            text={i18n.t("button.startActivity")}
+            onPress={() => {
+              const params = {
+                id: selectedShift.id,
+                token: user.token,
+              };
+              dispatch(startActiviryFronting(params));
+              setStopwatchStart(true);
+            }}
+            disabled={indoorLocation && startedActivity === null ? false : true}
+          />
+        </View>
+
+        <HorizontalSeparator />
+
+        {error ? (
+          <View
+            style={{
+              padding: 5,
+              marginHorizontal: 10,
+              justifyContent: "center",
+              alignContent: "center",
+              backgroundColor: colors.error,
+              borderRadius: ui.borderRadius,
+            }}
+          >
+            <CustomError title={i18n.t("title.error")} text={errorMessage} />
+          </View>
+        ) : null}
       </View>
 
       <HorizontalSeparator />
       <View style={styles.panel}>
         <CustomButton
+          loading={finishingActivity}
           text={i18n.t("button.finish")}
           onPress={() => {
+            const params = {
+              id: selectedShift.id,
+              token: user.token,
+            };
+            dispatch(endActiviryFronting(params));
             navigation.goBack();
           }}
+          disabled={startedActivity ? false : true}
         />
       </View>
-      <View
+      {/* <View
         style={{
           width: "100%",
           top: windowHeight - 180,
@@ -51,9 +158,7 @@ const FrontingScreen = ({ navigation, route }) => {
           justifyContent: "flex-end",
           padding: 15,
         }}
-      >
-
-      </View>
+      ></View> */}
 
       {/* <Modal
         animationType="fade"
@@ -110,9 +215,6 @@ const styles = StyleSheet.create({
 
   panel: {
     marginHorizontal: 15,
-  },
-
-  panel: {
     justifyContent: "flex-end",
     marginHorizontal: 15,
     marginBottom: 15,
