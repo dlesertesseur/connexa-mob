@@ -1,8 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { colors } from "../Styles/Colors";
+import { toHoursAndMinutes } from "../Util";
 
-const Stopwatch = ({ data = "00:00:00"}) => {
+const Stopwatch = ({ seconds }) => {
   return (
     <View style={styles.container}>
       <View style={{marginHorizontal:15}}>
@@ -13,7 +14,7 @@ const Stopwatch = ({ data = "00:00:00"}) => {
             //fontWeight: "bold",
           }}
         >
-          {data}
+          {toHoursAndMinutes(seconds)}
         </Text>
       </View>
     </View>

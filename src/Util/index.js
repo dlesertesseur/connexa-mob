@@ -69,6 +69,17 @@ function onLocation(lat1, long1, lat2, long2, siteRadiusInMeters = 100) {
   return ret;
 }
 
+function toHoursAndMinutes(totalSeconds) {
+  const totalMinutes = Math.floor(totalSeconds / 60);
+
+  const seconds = totalSeconds % 60;
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  return { h: hours, m: minutes, s: seconds };
+}
+
+
 const zeroPad = (num, places) => String(num).padStart(places, '0')
 
-export { showAlert, getDateFromStr, subtractMinutes, zeroPad, onTime, onLocation};
+export { showAlert, getDateFromStr, subtractMinutes, zeroPad, onTime, onLocation, toHoursAndMinutes};

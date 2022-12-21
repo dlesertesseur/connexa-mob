@@ -36,6 +36,7 @@ const FrontingScreen = ({ navigation, route }) => {
   // const [modalVisible, setModalVisible] = useState(false);
   const [stopwatchStart, setStopwatchStart] = useState(false);
   const [indoorLocation, setIndoorLocation] = useState(null);
+  const [timeElapsed, setTimeElapsed] = useState(0);
 
   // useFocusEffect(
   //   React.useCallback(() => {
@@ -46,6 +47,10 @@ const FrontingScreen = ({ navigation, route }) => {
   //     };
   //   }, [indoorLocation])
   // );
+
+  useEffect(() => {
+    stopwatchStart > 0 && setTimeout(() => setTimeElapsed(timeElapsed + 1), 1000);
+  }, [timeElapsed]);
 
   useEffect(() => {
     setIndoorLocation(indoorLocationCode);
@@ -88,7 +93,7 @@ const FrontingScreen = ({ navigation, route }) => {
             borderRadius: ui.borderRadius,
           }}
         >
-          <Stopwatch disabled={stopwatchStart ? false : true} />
+          <Stopwatch disabled={stopwatchStart ? false : true} seconds={timeElapsed}/>
         </View>
 
         <HorizontalSeparator />
