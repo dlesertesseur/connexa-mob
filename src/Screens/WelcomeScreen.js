@@ -9,7 +9,7 @@ import { colors } from "../Styles/Colors";
 
 const WelcomeScreen = ({ navigation }) => {
   const logo = require("../../assets/images/logo-banner.png");
-  const jobsOferts = require("../../assets/images/jobOffers.png");
+  const welcomeImage = require("../../assets/images/welcome.png");
 
   return (
     <View style={styles.container}>
@@ -19,7 +19,7 @@ const WelcomeScreen = ({ navigation }) => {
       <CustomText text={i18n.t("title.screen.welcome-desc")} fontSize={18} color={colors.primary} textAlign={"center"}/>
      
       <View style={styles.imgPanel}>
-        <Image source={jobsOferts} style={styles.picture} />
+        <Image source={welcomeImage} style={styles.picture} />
       </View>
 
       <View style={styles.panel}>

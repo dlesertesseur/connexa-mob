@@ -42,7 +42,8 @@
       "scan":"Escanear",
       "finish":"Terminar",
       "delete":"Eliminar",
-      "finalizeWorkShift": "Terminar"
+      "finalizeWorkShift": "Terminar",
+      "back": "Volver a opciones"
     },
 
     "validation": {
@@ -64,6 +65,8 @@
         "signUp-desc": "Crea una cuenta y empieza a gestionar todos tus recursos de forma centralizada y organizada",
         "selectCountry":"¿En que pais vas a trabajar?",
         "selectCity":"¿En que ciudad vas a trabajar?",
+        "welcome": "Bienvenido",
+        "welcome-desc": "Plataforma de administracion de turnos de trabajo y gestion de actividades, para colaboradoes internos y externos", 
         "personalData": "Datos personales",
         "personalData-desc": "Ingresa tus datos personales (tal y como figuran en tu documento)",
         "documents":"Documentos requeridos",
@@ -101,7 +104,8 @@
       "task": "Tareas",
       "timeAndAttendance": "Productividad",
       "user": "Perfil",
-      "indoorMap":"Planta"
+      "indoorMap":"Planta",
+      "map": "Mapa"
     },
     
     "message": {
@@ -149,6 +153,14 @@
       "10": "Octubre",
       "11": "Noviembre",
       "12": "Diciembre"
+    },
+
+    "modal":{
+      "confirmation":"Confirmación",
+      "confirmation-finishActivity":"¿Quiere terminar la actividad?",
+      "confirmation-startShift":"¿Quiere iniciar el turno?",
+      "confirmation-endShift":"¿Quiere finalizar el turno?"
     }
+
   }
 }

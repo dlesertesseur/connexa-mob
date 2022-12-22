@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { endWorkShift, setActualLocation } from "../Features/Shifts";
 import { useState } from "react";
 import { getDateFromStr, onTime, zeroPad, onLocation } from "../Util";
+import ConfirmDialog from "../Components/ConfirmDialog";
 
 const FinalizeWorkShiftScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const FinalizeWorkShiftScreen = ({ navigation }) => {
 
   const [shiftProcessed, setShiftProcessed] = useState();
   const [activateButton, setActivateButton] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     if (selectedShift === null) {
@@ -93,13 +95,24 @@ const FinalizeWorkShiftScreen = ({ navigation }) => {
       <View style={styles.panel}>
         <CustomButton
           text={i18n.t("button.finalizeWorkShift")}
-          onPress={() => {
-            const params = { id: selectedShift.id, token: user.token };
-            dispatch(endWorkShift(params));
-          }}
+          onPress={() => {setModalVisible(true)}}
           disabled={!activateButton}
         />
       </View>
+
+      <ConfirmDialog
+        visible={modalVisible}
+        title={i18n.t("modal.confirmation")}
+        text={i18n.t("modal.confirmation-endShift")}
+        onAccept={() => {
+            const params = { id:user.id, shiftId: selectedShift.id, token: user.token };
+            dispatch(endWorkShift(params));
+            setModalVisible(false);
+          }}
+        onCancel={() => {
+          setModalVisible(false);
+        }}
+      />
     </View>
   );
 };

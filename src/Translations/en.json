@@ -46,7 +46,8 @@
       "delete": "Delete",
       "finalizeWorkShift": "Finish",
       "startActivity":"Start activity",
-      "scanLocation": "Scan location"
+      "scanLocation": "Scan location",
+      "back": "Back"
     },
 
     "validation": {
@@ -67,7 +68,7 @@
         "signUp": "Registration",
         "signUp-desc": "Create an account and start managing all your resources in a centralized and organized way",
         "welcome": "Welcome",
-        "welcome-desc": "Get connected - Look for a job - Book it for yourself - Manage your time - Earn money !!!",
+        "welcome-desc": "Platform for administration of work shifts and activity management, for internal and external collaborators",
         "selectCountry": "which country are you going to work?",
         "selectCity": "which city are you going to work?",
         "personalData": "Personal information",
@@ -111,7 +112,8 @@
       "task": "Tasks",
       "timeAndAttendance": "Productivity",
       "user": "Account",
-      "indoorMap":"Floor"
+      "indoorMap":"Floor",
+      "map": "Map"
     },
 
     "message": {
@@ -160,6 +162,13 @@
       "10": "October",
       "11": "November",
       "12": "December"
+    },
+
+    "modal":{
+      "confirmation":"Confirmation",
+      "confirmation-finishActivity":"Do you want to finish the activity?",
+      "confirmation-startShift":"Do you want to start the shift?",
+      "confirmation-endShift":"Do you want to end the shift?"
     }
   }
 }

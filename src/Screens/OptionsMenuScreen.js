@@ -5,7 +5,7 @@ import HorizontalSeparator from "../Components/HorizontalSeparator";
 import CustomSearchInput from "../Components/CustomSearchInput";
 import WorkShiftItem from "../Components/WorkShiftItem";
 import CustomTitleBar from "../Components/CustomTitleBar";
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { BackHandler, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -26,10 +26,10 @@ const OptionsMenuScreen = ({ navigation, route }) => {
     navigation.navigate(item.type, item);
   };
 
-  // useEffect(() => {
-  //   const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
-  //   return () => backHandler.remove()
-  // }, [])
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
+    return () => backHandler.remove()
+  }, [])
 
   useEffect(() => {
     if (selectedShift) {
@@ -110,8 +110,6 @@ const OptionsMenuScreen = ({ navigation, route }) => {
       >
         <FlatList data={filteredOptions} renderItem={renderOption} keyExtractor={(item) => item.id} />
       </View>
-
-      <HorizontalSeparator />
     </View>
   );
 };

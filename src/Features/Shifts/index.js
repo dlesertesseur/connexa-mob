@@ -10,11 +10,11 @@ const initialState = {
     error: false,
     errorMessage: null,
     loadingProfile: false,
-    actualLocation:null,
-    indoorLocationCode:null,
-    startedActivity:null,
-    startingActivity:false,
-    finishingActivity:false,
+    actualLocation: null,
+    indoorLocationCode: null,
+    startedActivity: null,
+    startingActivity: false,
+    finishingActivity: false,
   },
 };
 
@@ -30,7 +30,7 @@ export const findAllShiftsByWorkerId = createAsyncThunk(
         },
       };
 
-      const url = API.shift.findAllByWorkerId + parameters.id;
+      const url = API.shift.findAllByWorkerId + parameters.id + "/shifts/assigned";
 
       const res = await fetch(url, requestOptions);
       const data = await res.json();
@@ -54,10 +54,7 @@ export const findStartedShiftByWorkerId = createAsyncThunk(
         },
       };
 
-      const url =
-        API.shift.findStartedShiftByWorkerId +
-        parameters.id +
-        "/status/started";
+      const url = API.shift.findStartedShiftByWorkerId + parameters.id + "/shifts/started";
 
       const res = await fetch(url, requestOptions);
       const data = await res.json();
@@ -69,53 +66,47 @@ export const findStartedShiftByWorkerId = createAsyncThunk(
   }
 );
 
-export const startWorkShift = createAsyncThunk(
-  "shifts/startWorkShift",
-  async (parameters, asyncThunk) => {
-    try {
-      const requestOptions = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          token: parameters.token,
-        },
-      };
+export const startWorkShift = createAsyncThunk("shifts/startWorkShift", async (parameters, asyncThunk) => {
+  try {
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        token: parameters.token,
+      },
+    };
 
-      const url = API.shift.startWorkShiftById + parameters.id + "/status/started";
+    const url = API.shift.startWorkShiftById + parameters.id + "/shifts/" + parameters.shiftId + "/status/started";
 
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
 
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
   }
-);
+});
 
-export const endWorkShift = createAsyncThunk(
-  "shifts/endWorkShift",
-  async (parameters, asyncThunk) => {
-    try {
-      const requestOptions = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          token: parameters.token,
-        },
-      };
+export const endWorkShift = createAsyncThunk("shifts/endWorkShift", async (parameters, asyncThunk) => {
+  try {
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        token: parameters.token,
+      },
+    };
 
-      const url = API.shift.endWorkShiftById + parameters.id + "/status/ended";
+    const url = API.shift.endWorkShiftById + parameters.id + "/shifts/" + parameters.shiftId +"/status/ended";
 
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
 
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
   }
-);
+});
 
 export const startActiviryFronting = createAsyncThunk(
   "shifts/startActiviryFronting",
@@ -129,7 +120,7 @@ export const startActiviryFronting = createAsyncThunk(
         },
       };
 
-      const url = API.shift.startActiviryFronting + parameters.id + "/status/fronting-started";
+      const url = API.shift.startActiviryFronting + parameters.id + "/shifts/"+parameters.shiftId + "/status/fronting-started";
 
       const res = await fetch(url, requestOptions);
       const data = await res.json();
@@ -141,29 +132,26 @@ export const startActiviryFronting = createAsyncThunk(
   }
 );
 
-export const endActiviryFronting = createAsyncThunk(
-  "shifts/endActiviryFronting",
-  async (parameters, asyncThunk) => {
-    try {
-      const requestOptions = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          token: parameters.token,
-        },
-      };
+export const endActiviryFronting = createAsyncThunk("shifts/endActiviryFronting", async (parameters, asyncThunk) => {
+  try {
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        token: parameters.token,
+      },
+    };
 
-      const url = API.shift.endActiviryFronting + parameters.id + "/status/fronting-ended";
+    const url = API.shift.endActiviryFronting + parameters.id + "/shifts/"+parameters.shiftId + "/status/fronting-ended";
 
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
 
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
   }
-);
+});
 
 export const shiftsSlice = createSlice({
   name: "shifts",
@@ -173,11 +161,11 @@ export const shiftsSlice = createSlice({
     setSelectedShift: (state, action) => {
       state.value.selectedShift = action.payload;
     },
-    
+
     setActualLocation: (state, action) => {
       state.value.actualLocation = action.payload;
     },
-    
+
     setIndoorLocationCode: (state, action) => {
       state.value.indoorLocationCode = action.payload;
     },
@@ -200,8 +188,8 @@ export const shiftsSlice = createSlice({
       state.value.error = true;
       if (payload) {
         state.value.errorMessage = payload.error.message;
-      }else{
-        state.value.errorMessage=i18n.t("error.connection");
+      } else {
+        state.value.errorMessage = i18n.t("error.connection");
       }
     },
 
@@ -226,6 +214,7 @@ export const shiftsSlice = createSlice({
       state.value.errorMessage = null;
     },
     [endWorkShift.fulfilled]: (state, { payload }) => {
+
       if (payload.error) {
         state.value.error = payload.error.message;
       }
@@ -236,8 +225,8 @@ export const shiftsSlice = createSlice({
       state.value.error = true;
       if (payload) {
         state.value.errorMessage = payload.error.message;
-      }else{
-        state.value.errorMessage=i18n.t("error.connection");
+      } else {
+        state.value.errorMessage = i18n.t("error.connection");
       }
     },
 
@@ -252,8 +241,7 @@ export const shiftsSlice = createSlice({
       if (payload?.error) {
         state.value.errorMessage = payload.message;
         state.value.error = true;
-      }
-      else{
+      } else {
         state.value.startedActivity = payload;
         state.value.errorMessage = null;
         state.value.error = false;
@@ -265,22 +253,22 @@ export const shiftsSlice = createSlice({
 
       if (payload) {
         state.value.errorMessage = payload.message;
-      }else{
-        state.value.errorMessage=i18n.t("error.connection");
+      } else {
+        state.value.errorMessage = i18n.t("error.connection");
       }
     },
 
     [endActiviryFronting.pending]: (state) => {
       state.value.error = false;
       state.value.errorMessage = null;
-      state.value.finishingActivity=true;
+      state.value.finishingActivity = true;
     },
     [endActiviryFronting.fulfilled]: (state, { payload }) => {
-      state.value.finishingActivity=false;
+      state.value.finishingActivity = false;
       if (payload.error) {
         state.value.errorMessage = payload.message;
         state.value.error = true;
-      }else{
+      } else {
         state.value.startedActivity = null;
         state.value.errorMessage = null;
         state.value.error = false;
@@ -289,11 +277,11 @@ export const shiftsSlice = createSlice({
     [endActiviryFronting.rejected]: (state, { payload }) => {
       state.value.loading = false;
       state.value.error = true;
-      state.value.finishingActivity=false;
+      state.value.finishingActivity = false;
       if (payload) {
         state.value.errorMessage = payload.message;
-      }else{
-        state.value.errorMessage=i18n.t("error.connection");
+      } else {
+        state.value.errorMessage = i18n.t("error.connection");
       }
     },
 
@@ -321,8 +309,8 @@ export const shiftsSlice = createSlice({
       state.value.error = true;
       if (payload) {
         state.value.errorMessage = payload.error.message;
-      }else{
-        state.value.errorMessage=i18n.t("error.connection");
+      } else {
+        state.value.errorMessage = i18n.t("error.connection");
       }
     },
   },

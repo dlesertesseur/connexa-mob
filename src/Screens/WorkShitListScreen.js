@@ -21,23 +21,10 @@ const WorkShitListScreen = ({ navigation }) => {
   const { actualLocation } = useSelector((state) => state.shifts.value);
   const [shiftProcess, setShiftProcess] = useState([]);
 
-  //let watchID = null;
-
   useFocusEffect(
     React.useCallback(() => {
       const params = { id: user.id, token: user.token };
       dispatch(findAllShiftsByWorkerId(params));
-  
-      // console.log("WorkShitListScreen <- start watchID");
-      // Location.watchPositionAsync({ accuracy: 6, timeInterval: 5000 }, (position) => {
-      //   dispatch(setActualLocation(position.coords));
-      // }).then((ret) => (watchID = ret));
-
-      // return () => {
-      //   console.log("WorkShitListScreen <-  watchID.remove()");
-      //   watchID.remove();
-      //   dispatch(setActualLocation(null));
-      // };
     }, [user])
   );
 
@@ -68,17 +55,19 @@ const WorkShitListScreen = ({ navigation }) => {
       }
 
       r.onTime = onTime(start, end);
-      if (actualLocation) {
-        r.onLocation = onLocation(
-          actualLocation?.latitude,
-          actualLocation?.longitude,
-          r.siteLatitude,
-          r.siteLongitude,
-          r.siteRadiusInMeters
-        );
-      } else {
-        r.onLocation = false;
-      }
+      // if (actualLocation) {
+      //   r.onLocation = onLocation(
+      //     actualLocation?.latitude,
+      //     actualLocation?.longitude,
+      //     r.siteLatitude,
+      //     r.siteLongitude,
+      //     r.siteRadiusInMeters
+      //   );
+      // } else {
+      //   r.onLocation = false;
+      // }
+
+      r.onLocation = true;
 
       r.disabled = !(r.onTime && r.onLocation);
 
@@ -175,7 +164,8 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
     alignItems: "flex-start",
-    justifyContent: "flex-start",
+    justifyContent: "flex-end",
+    padding:15
   },
 
   btPanel: {

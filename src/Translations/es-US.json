@@ -52,7 +52,8 @@
       "delete":"Eliminar",
       "finalizeWorkShift": "Terminar",
       "startActivity":"Iniciar actividad",
-      "scanLocation": "Escanear ubicación"
+      "scanLocation": "Escanear ubicación",
+      "back": "Volver a opciones"
     },
 
     "validation": {
@@ -75,7 +76,7 @@
         "alert": "Alerta",
         "alert-desc": "Crea una alert para notificar algun problema documentando el detalle y agregar fotos si es necesario.",
         "welcome": "Bienvenido",
-        "welcome-desc": "Conectate - Busca trabajo - Reservalo para vos - Administra tu tiempo - Gana dinero !!!",
+        "welcome-desc": "Plataforma de administracion de turnos de trabajo y gestion de actividades, para colaboradoes internos y externos", 
         "selectCountry": "¿En que pais vas a trabajar?",
         "selectCity": "¿En que ciudad vas a trabajar?",
         "personalData": "Datos personales",
@@ -116,7 +117,8 @@
       "timeAndAttendance": "Productividad",
       "user": "Perfil",
       "alert": "Alertas",
-      "indoorMap":"Planta"
+      "indoorMap":"Planta",
+      "map": "Mapa"
     },
 
     "message": {
@@ -164,6 +166,13 @@
       "10": "Octubre",
       "11": "Noviembre",
       "12": "Diciembre"
+    },
+
+    "modal":{
+      "confirmation":"Confirmación",
+      "confirmation-finishActivity":"¿Quiere terminar la actividad?",
+      "confirmation-startShift":"¿Quiere iniciar el turno?",
+      "confirmation-endShift":"¿Quiere finalizar el turno?"
     }
   }
 }

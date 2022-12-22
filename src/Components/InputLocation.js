@@ -22,7 +22,7 @@ const InputLocation = ({ disabled = false, onPress = undefined, placeholder = "N
             height: 48,
             width: "100%",
             color: colors.font,
-            paddingHorizontal: 10,
+            paddingHorizontal: 15,
             backgroundColor: colors.background,
             borderRadius: ui.borderRadius,
             borderWidth: 1,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   baseView: {
     width: "100%",
     //height: 180,
-    padding: 10,
+    padding: 15,
     justifyContent: "flex-start",
     alignItems: "center",
   },
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   centerPart: {
     width: "100%",
     //height: "100%",
-    padding: 10,
+    padding: 15,
     justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: colors.primaryLighter,

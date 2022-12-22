@@ -21,10 +21,10 @@ const NonWorkingTimeScreen = ({ navigation, route }) => {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [totalTime, setTotalTime] = useState(30);
 
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
-    return () => backHandler.remove()
-  }, [])
+  // useEffect(() => {
+  //   const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
+  //   return () => backHandler.remove()
+  // }, [])
 
   useEffect(() => {
     let timeout = null;

@@ -10,7 +10,9 @@ import { StyleSheet } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
 import { findStartedShiftByWorkerId, setActualLocation } from "../Features/Shifts";
+import IndoorMapScreen from "../Screens/IndoorMapScreen";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -53,7 +55,7 @@ const AppNavigator = () => {
                 tabBarIcon: ({ focused }) => {
                   return <CustomTabBarIcon focused={focused} text={i18n.t("tab.task")} iconName={"tasks"} />;
                 },
-                tabBarStyle: { display: "none" },
+                //tabBarStyle: { display: "none" },
               }}
             />
 
@@ -63,7 +65,7 @@ const AppNavigator = () => {
               options={{
                 tabBarIcon: ({ focused }) => {
                   return (
-                    <CustomTabBarIcon focused={focused} text={i18n.t("tab.timeAndAttendance")} iconName={"stopwatch"} />
+                    <CustomTabBarIcon focused={focused} text={i18n.t("tab.map")} iconName={"map"} />
                   );
                 },
               }}
@@ -74,7 +76,13 @@ const AppNavigator = () => {
               component={IndoorMapScreen}
               options={{
                 tabBarIcon: ({ focused }) => {
-                  return <CustomTabBarIcon focused={focused} text={i18n.t("tab.indoorMap")} iconName={"map"} />;
+                  return (
+                    <CustomTabBarIcon
+                      focused={focused}
+                      text={i18n.t("tab.indoorMap")}
+                      icon={<MaterialIcons name="track-changes" size={24} color={colors.secondary} />}
+                    />
+                  );
                 },
               }}
             /> */}

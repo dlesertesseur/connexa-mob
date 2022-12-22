@@ -34,12 +34,12 @@ export const API = {
     },
 
     shift: {
-      findAllByWorkerId: SERVER + ":" + PORT + API_BASE + "/workershifts/",
-      findStartedShiftByWorkerId: SERVER + ":" + PORT + API_BASE + "/workershifts/",
-      startWorkShiftById: SERVER + ":" + PORT + API_BASE + "/workershifts/",
-      endWorkShiftById: SERVER + ":" + PORT + API_BASE + "/workershifts/",
-      startActiviryFronting: SERVER + ":" + PORT + API_BASE + "/workershifts/",
-      endActiviryFronting: SERVER + ":" + PORT + API_BASE + "/workershifts/",
+      findAllByWorkerId: SERVER + ":" + PORT + API_BASE + "/workers/",
+      findStartedShiftByWorkerId: SERVER + ":" + PORT + API_BASE + "/workers/",
+      startWorkShiftById: SERVER + ":" + PORT + API_BASE + "/workers/",
+      endWorkShiftById: SERVER + ":" + PORT + API_BASE + "/workers/",
+      startActiviryFronting: SERVER + ":" + PORT + API_BASE + "/workers/",
+      endActiviryFronting: SERVER + ":" + PORT + API_BASE + "/workers/",
 
     },
     product: {
@@ -48,6 +48,10 @@ export const API = {
 
     location: {
       register: SERVER + ":" + PORT + API_BASE + "/workers/",
+    },
+
+    parameter: {
+      findById: SERVER + ":" + PORT + LOCAL_API_BASE + "/parameters/",
     },
 
 }  

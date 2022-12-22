@@ -6,7 +6,7 @@ import CustomImage from "../Components/CustomImage";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
 import CustomSecurityCodeInput from "../Components/CustomSecurityCodeInput";
 import { useForm } from "react-hook-form";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Alert, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../Features/Auth";

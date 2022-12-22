@@ -3,21 +3,15 @@ import { StyleSheet, View, Text } from "react-native";
 import { colors } from "../Styles/Colors";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-const CustomTabBarIcon = ({ text, focused = false, iconName }) => {
+const CustomTabBarIcon = ({ text, focused = false, iconName, icon = null }) => {
   return (
     <View style={styles.item}>
-      <FontAwesome5
-        name={iconName}
-        size={24}
-        color={focused ? colors.secondary : colors.primaryLighter}
-      />
-      {text ? (
-        <Text
-          style={[focused ? styles.textFocused : styles.text]}
-        >
-          {text}
-        </Text>
-      ) : null}
+      {icon ? (
+        icon
+      ) : (
+        <FontAwesome5 name={iconName} size={24} color={focused ? colors.secondary : colors.primaryLighter} />
+      )}
+      {text ? <Text style={[focused ? styles.textFocused : styles.text]}>{text}</Text> : null}
     </View>
   );
 };

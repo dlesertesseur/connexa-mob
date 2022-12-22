@@ -19,7 +19,7 @@ export default MainNavigator = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.value);
   const [userLogged, setUserLogged] = useState(false);
-  const [reportLocation, setReportLocation] = useState(false);
+  const [reportLocation, setReportLocation] = useState(true);
 
   useEffect(() => {
     if (userLogged && reportLocation) {

@@ -10,12 +10,15 @@ import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { startWorkShift } from "../Features/Shifts";
 import { useEffect } from "react";
+import ConfirmDialog from "../Components/ConfirmDialog";
+import { useState } from "react";
 
 const StartWorkShiftScreen = ({ navigation, route }) => {
   const workShift = route.params;
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.value);
   const { selectedShift } = useSelector((state) => state.shifts.value);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     if (selectedShift) {
@@ -37,12 +40,23 @@ const StartWorkShiftScreen = ({ navigation, route }) => {
       <View style={styles.panel}>
         <CustomButton
           text={i18n.t("button.startWorkShift")}
-          onPress={() => {
-            const params = { id: workShift.id, token: user.token };
-            dispatch(startWorkShift(params));
-          }}
+          onPress={() => {setModalVisible(true)}}
         />
       </View>
+
+      <ConfirmDialog
+        visible={modalVisible}
+        title={i18n.t("modal.confirmation")}
+        text={i18n.t("modal.confirmation-startShift")}
+        onAccept={() => {
+            const params = { id: user.id, shiftId: workShift.id, token: user.token };
+            dispatch(startWorkShift(params));
+            setModalVisible(false);
+          }}
+        onCancel={() => {
+          setModalVisible(false);
+        }}
+      />
     </View>
   );
 };

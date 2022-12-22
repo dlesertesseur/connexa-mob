@@ -1,8 +1,4 @@
 import React from "react";
-import { colors } from "../../../Styles/Colors";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import i18n from "../../../Config/i18n";
 import HorizontalSeparator from "../../../Components/HorizontalSeparator";
 import CustomLabel from "../../../Components/CustomLabel";
@@ -10,11 +6,15 @@ import CustomButton from "../../../Components/CustomButton";
 import CustomTitleBar from "../../../Components/CustomTitleBar";
 import InputLocation from "../../../Components/InputLocation";
 import Stopwatch from "../../../Components/Stopwatch";
+import CustomError from "../../../Components/CustomError";
+import ConfirmDialog from "../../../Components/ConfirmDialog";
+import { colors } from "../../../Styles/Colors";
+import { BackHandler, Dimensions, StyleSheet, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { ui } from "../../../Config/Constants";
 import { useEffect } from "react";
-import { useFocusEffect } from "@react-navigation/native";
-import { endActiviryFronting, startActiviryFronting } from "../../../Features/Shifts";
-import CustomError from "../../../Components/CustomError";
+import { endActiviryFronting, setIndoorLocationCode, startActiviryFronting } from "../../../Features/Shifts";
 
 const FrontingScreen = ({ navigation, route }) => {
   const {
@@ -33,24 +33,24 @@ const FrontingScreen = ({ navigation, route }) => {
 
   const windowHeight = Dimensions.get("window").height;
 
-  // const [modalVisible, setModalVisible] = useState(false);
-  const [stopwatchStart, setStopwatchStart] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [indoorLocation, setIndoorLocation] = useState(null);
   const [timeElapsed, setTimeElapsed] = useState(0);
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     return () => {
-  //       setStopwatchStart(false);
-  //       setIndoorLocation(null);
-  //       console.log("useFocusEffect -> lost");
-  //     };
-  //   }, [indoorLocation])
-  // );
+  // useEffect(() => {
+  //   if (startedActivity) {
+  //     const backHandler = BackHandler.addEventListener("hardwareBackPress", () => true);
+  //     return () => backHandler.remove();
+  //   }
+  // }, [startedActivity]);
 
   useEffect(() => {
-    stopwatchStart > 0 && setTimeout(() => setTimeElapsed(timeElapsed + 1), 1000);
-  }, [timeElapsed]);
+    dispatch(setIndoorLocationCode(null));
+  }, []);
+
+  useEffect(() => {
+    startedActivity && setTimeout(() => setTimeElapsed(timeElapsed + 1), 1000);
+  }, [timeElapsed, startedActivity]);
 
   useEffect(() => {
     setIndoorLocation(indoorLocationCode);
@@ -75,7 +75,7 @@ const FrontingScreen = ({ navigation, route }) => {
       <View style={{ flex: 1 }}>
         <View style={{ width: "100%" }}>
           <InputLocation
-            disabled={startedActivity ? true : false}
+            disabled={startingActivity || startedActivity ? true : false}
             placeholder={i18n.t("label.location")}
             value={indoorLocation}
             setValue={setIndoorLocation}
@@ -86,21 +86,21 @@ const FrontingScreen = ({ navigation, route }) => {
         <View
           style={{
             padding: 5,
-            marginHorizontal: 10,
+            marginHorizontal: 15,
             justifyContent: "center",
             alignContent: "center",
-            backgroundColor: stopwatchStart ? colors.primary : colors.inactive,
+            backgroundColor: startedActivity ? colors.primary : colors.inactive,
             borderRadius: ui.borderRadius,
           }}
         >
-          <Stopwatch disabled={stopwatchStart ? false : true} seconds={timeElapsed}/>
+          <Stopwatch disabled={startedActivity ? false : true} seconds={timeElapsed} />
         </View>
 
         <HorizontalSeparator />
 
         <View
           style={{
-            marginHorizontal: 10,
+            marginHorizontal: 15,
             justifyContent: "center",
             alignContent: "center",
           }}
@@ -110,13 +110,13 @@ const FrontingScreen = ({ navigation, route }) => {
             text={i18n.t("button.startActivity")}
             onPress={() => {
               const params = {
-                id: selectedShift.id,
+                id: user.id,
+                shiftId: selectedShift.id,
                 token: user.token,
               };
               dispatch(startActiviryFronting(params));
-              setStopwatchStart(true);
             }}
-            disabled={indoorLocation && startedActivity === null ? false : true}
+            disabled={(indoorLocation && startedActivity === null) || startingActivity ? false : true}
           />
         </View>
 
@@ -140,67 +140,42 @@ const FrontingScreen = ({ navigation, route }) => {
 
       <HorizontalSeparator />
       <View style={styles.panel}>
-        <CustomButton
-          loading={finishingActivity}
-          text={i18n.t("button.finish")}
-          onPress={() => {
-            const params = {
-              id: selectedShift.id,
-              token: user.token,
-            };
-            dispatch(endActiviryFronting(params));
-            navigation.goBack();
-          }}
-          disabled={startedActivity ? false : true}
-        />
+        {startedActivity ? (
+          <CustomButton
+            loading={finishingActivity}
+            text={i18n.t("button.finish")}
+            onPress={() => {
+              setModalVisible(true);
+            }}
+            disabled={startedActivity ? false : true}
+          />
+        ) : (
+          <CustomButton
+            text={i18n.t("button.back")}
+            onPress={() => {
+              navigation.navigate("OptionsMenu");
+            }}
+          />
+        )}
       </View>
-      {/* <View
-        style={{
-          width: "100%",
-          top: windowHeight - 180,
-          position: "absolute",
-          alignItems: "flex-end",
-          justifyContent: "flex-end",
-          padding: 15,
-        }}
-      ></View> */}
 
-      {/* <Modal
-        animationType="fade"
-        transparent={true}
+      <ConfirmDialog
         visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
+        title={i18n.t("modal.confirmation")}
+        text={i18n.t("modal.confirmation-finishActivity")}
+        onAccept={() => {
+          const params = {
+            id: user.id,
+            shiftId: selectedShift.id,
+            token: user.token,
+          };
+          dispatch(endActiviryFronting(params));
+          navigation.navigate("OptionsMenu");
         }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <HorizontalSeparator />
-            <CustomLabel title={i18n.t("title.screen.deleteItem")} text={i18n.t("title.screen.deleteItem-desc")} />
-            <HorizontalSeparator />
-
-            <View style={{width:"100%", paddingHorizontal:15}}>
-              <CustomButton
-                text={i18n.t("button.delete")}
-                onPress={() => {
-                  dispatch(deleteScannedProduct(itemSelected));
-                  setItemSelected(null);
-                  setModalVisible(false);
-                }}
-              />
-              <HorizontalSeparator />
-              <CustomButton
-                text={"Cancelar"}
-                onPress={() => {
-                  setModalVisible(false);
-                }}
-              />
-              <HorizontalSeparator />
-            </View>
-          </View>
-        </View>
-      </Modal> */}
+        onCancel={() => {
+          setModalVisible(false);
+        }}
+      />
     </View>
   );
 };
@@ -234,20 +209,5 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: "center",
     justifyContent: "center",
-  },
-
-  modalView: {
-    width: 260,
-    borderRadius: ui.borderRadius,
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: colors.primary,
-    backgroundColor: colors.background,
-  },
-
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });

@@ -44,7 +44,8 @@
     "react-native-swiper-flatlist": "^3.0.17",
     "react-native-user-avatar": "^1.0.8",
     "react-native-user-avatar-component": "0.0.4",
-    "react-redux": "^8.0.4"
+    "react-redux": "^8.0.4",
+    "react-native-webview": "11.23.0"
   },
   "private": true
 }

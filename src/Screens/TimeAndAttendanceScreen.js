@@ -13,10 +13,7 @@ const TimeAndAttendanceScreen = () => {
 
   return (
     <View style={styles.container}>
-      <CustomTitleBar
-        title={i18n.t("title.screen.location")}
-        marginBottom={0}
-      />
+      <CustomTitleBar title={i18n.t("title.screen.location")} marginBottom={0} />
       <MapView
         style={{ flex: 1 }}
         initialRegion={{
@@ -26,27 +23,31 @@ const TimeAndAttendanceScreen = () => {
           longitudeDelta: 0.0421,
         }}
       >
-        <Marker
-          key={1}
-          coordinate={{
-            latitude: actualLocation.latitude,
-            longitude: actualLocation.longitude,
-          }}
-          title={user.names + ", " + user.surnames}
-          description={user.phoneNumber}
-        />
+        {actualLocation ? (
+          <>
+            <Marker
+              key={1}
+              coordinate={{
+                latitude: actualLocation?.latitude,
+                longitude: actualLocation?.longitude,
+              }}
+              title={user.names + ", " + user.surnames}
+              description={user.phoneNumber}
+            />
 
-        <Circle
-          key={2}
-          center={{
-            latitude: actualLocation.latitude,
-            longitude: actualLocation.longitude,
-          }}
-          radius={500}
-          strokeWidth={1}
-          strokeColor={"#1a66ff"}
-          fillColor={"rgba(230,238,255,0.5)"}
-        />
+            <Circle
+              key={2}
+              center={{
+                latitude: actualLocation?.latitude,
+                longitude: actualLocation?.longitude,
+              }}
+              radius={500}
+              strokeWidth={1}
+              strokeColor={"#1a66ff"}
+              fillColor={"rgba(230,238,255,0.5)"}
+            />
+          </>
+        ) : null}
       </MapView>
     </View>
   );

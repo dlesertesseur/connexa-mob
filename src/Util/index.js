@@ -65,7 +65,6 @@ function onLocation(lat1, long1, lat2, long2, siteRadiusInMeters = 100) {
   const distance = haversine(a, b, { unit: "meter" });
 
   const ret = distance <= siteRadiusInMeters;
-
   return ret;
 }
 
