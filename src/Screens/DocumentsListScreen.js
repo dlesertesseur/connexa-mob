@@ -157,15 +157,12 @@ const DocumentsListScreen = ({ navigation }) => {
             marginBottom: 10,
             flex: 1,
             padding: 0,
-            // borderRadius: ui.borderRadius,
-            // borderWidth: ui.borderWidth,
             borderColor: colors.primary,
             justifyContent: "flex-start",
             alignItems: "center",
             backgroundColor: colors.background,
           }}
         >
-          {/* <Image source={item.url ? { uri: item.url } : noDocument} resizeMode={"cover"} style={styles.image} /> */}
           <Image source={item.url ? { uri: item.url } : null} resizeMode={"cover"} style={styles.image} />
 
           <View style={styles.dataView}>

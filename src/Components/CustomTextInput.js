@@ -17,21 +17,13 @@ const CustomTextInput = ({
     <Controller
       control={control}
       rules={rules}
-      render={({
-        field: { onChange, onBlur, value },
-        fieldState: { error },
-      }) => (
+      render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
         <View
           style={{
             flexDirection: "column",
           }}
         >
-          <View
-            style={[
-              styles.container,
-              { borderColor: error ? colors.error : colors.primary },
-            ]}
-          >
+          <View style={[styles.container, { borderColor: error ? colors.error : colors.primary }]}>
             <View
               style={{
                 flexDirection: "row",
@@ -40,7 +32,12 @@ const CustomTextInput = ({
             >
               <TextInput
                 editable={editable}
-                style={styles.inputText}
+                style={{
+                  flex: 1,
+                  marginRight: 5,
+                  color: editable ? colors.font : colors.fontDisabled,
+                  fontSize: 18,
+                }}
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
@@ -73,13 +70,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: ui.borderRadius,
     padding: 10,
-  },
-
-  inputText: {
-    flex: 1,
-    marginRight: 5,
-    color: colors.font,
-    fontSize: 18,
   },
 
   error: {

@@ -6,6 +6,7 @@ import CustomLabel from "../Components/CustomLabel";
 import CustomImage from "../Components/CustomImage";
 import CustomLink from "../Components/CustomLink";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
+import CustomError from "../Components/CustomError";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { useForm } from "react-hook-form";
@@ -13,7 +14,6 @@ import { ActivityIndicator, Alert, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../Features/Auth";
-import CustomError from "../Components/CustomError";
 
 const SignInScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -61,6 +61,8 @@ const SignInScreen = ({ navigation }) => {
           getIcon={(error) => {
             return <MaterialIcons name="email" size={24} color={error ? colors.error : colors.primary} />;
           }}
+
+          editable={!authenticating}
         />
         <HorizontalSeparator />
         <CustomTextInput
@@ -78,22 +80,18 @@ const SignInScreen = ({ navigation }) => {
             return <Octicons name="key-asterisk" size={24} color={error ? colors.error : colors.primary} />;
           }}
           password={true}
+          editable={!authenticating}
         />
 
-        <CustomLink text={i18n.t("label.forgotPassword")} style={styles.forgotPassword} />
+        <CustomLink text={i18n.t("label.forgotPassword")} style={styles.forgotPassword} disabled={authenticating}/>
       </View>
 
       <HorizontalSeparator />
 
-      {authenticating ? (
-        <View style={styles.loading}>
-          <ActivityIndicator size="large" color="#0000ff" />
-        </View>
-      ) : null}
       {error ? <CustomError title={i18n.t("title.error")} text={errorMessage} /> : null}
 
       <View style={{ flex: 1, margin: 15, justifyContent: "flex-end" }}>
-        <CustomButton text={i18n.t("button.login")} onPress={handleSubmit(onSubmit)} />
+        <CustomButton text={i18n.t("button.login")} onPress={handleSubmit(onSubmit)} loading={authenticating}/>
       </View>
     </View>
   );

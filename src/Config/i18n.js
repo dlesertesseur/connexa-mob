@@ -11,6 +11,7 @@ import { I18n } from "i18n-js";
 const i18n = new I18n({ ...en, ...es, ...es_AR, ...es_ES, ...es_US});
 
 i18n.fallbacks = true;
+i18n.defaultLocale="en";
 i18n.locale = Localization.locale;
 
 export default i18n;

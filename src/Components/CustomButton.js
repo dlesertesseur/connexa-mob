@@ -15,10 +15,10 @@ const CustomButton = ({ text, onPress, style, disabled = false, loading=false })
           justifyContent: "center",
           alignItems: "center",
           borderWidth: 0,
-          backgroundColor: disabled ? colors.inactive : colors.primary,
+          backgroundColor: disabled || loading ? colors.inactive : colors.primary,
         }}
         onPress={onPress}
-        disabled={disabled}
+        disabled={disabled || loading}
       >
         <Text style={styles.text}> {text} </Text>
         {loading ? 

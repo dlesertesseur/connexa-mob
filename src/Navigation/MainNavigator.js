@@ -22,21 +22,24 @@ export default MainNavigator = () => {
   const [reportLocation, setReportLocation] = useState(false);
 
   useEffect(() => {
-    if (userLogged && reportLocation) {
+    if (userLogged) {
       console.log("startLocationReport <- start watchID");
       Location.watchPositionAsync({ accuracy: 6, timeInterval: 5000 }, (position) => {
         dispatch(setActualLocation(position.coords));
 
-        const params = {
-          id: user.id,
-          token: user.token,
-          coords: position.coords,
-        };
-        registerLocation(params).then((rta) => {
-          if(rta.error){
-            console.log("registerLocation RTA -> ", rta);
-          }
-        });
+        if (reportLocation) {
+          const params = {
+            id: user.id,
+            token: user.token,
+            coords: position.coords,
+          };
+          registerLocation(params).then((rta) => {
+            if (rta.error) {
+              console.log("registerLocation RTA -> ", rta);
+            }
+          });
+        }
+        
       }).then((ret) => (watchID = ret));
     } else {
       if (watchID) {

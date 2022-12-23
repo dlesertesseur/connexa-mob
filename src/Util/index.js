@@ -78,7 +78,14 @@ function toHoursAndMinutes(totalSeconds) {
   return { h: hours, m: minutes, s: seconds };
 }
 
+const zeroPad = (num, places) => String(num).padStart(places, "0");
 
-const zeroPad = (num, places) => String(num).padStart(places, '0')
-
-export { showAlert, getDateFromStr, subtractMinutes, zeroPad, onTime, onLocation, toHoursAndMinutes};
+export {
+  showAlert,
+  getDateFromStr,
+  subtractMinutes,
+  zeroPad,
+  onTime,
+  onLocation,
+  toHoursAndMinutes,
+};

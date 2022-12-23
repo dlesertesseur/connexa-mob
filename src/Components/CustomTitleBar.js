@@ -12,7 +12,7 @@ const CustomTitleBar = ({
   fullWidth,
   color = colors.secondary,
   avatar = true,
-  marginBottom = 15
+  marginBottom = 15,
 }) => {
   const { user } = useSelector((state) => state.auth.value);
 
@@ -43,7 +43,27 @@ const CustomTitleBar = ({
         ) : null}
       </View>
       {avatar ? (
-        <View style={{ marginEnd: 15 }}>
+        <View style={{ marginEnd: 15, flexDirection: "row", alignItems: "center" }}>
+          <View style={{ marginHorizontal: 5, flexDirection: "column", alignItems: "flex-start" }}>
+            <Text
+              style={{
+                fontSize: 10,
+                color: colors.secondary,
+                fontWeight: "bold",
+              }}
+            >
+              {user.lastname + ", "}
+            </Text>
+            <Text
+              style={{
+                fontSize: 10,
+                color: colors.secondary,
+              }}
+            >
+              {user.firstname}
+            </Text>
+          </View>
+
           <CustomAvatar size={42} image={API.document.baseImageUrl + user.image} />
         </View>
       ) : null}

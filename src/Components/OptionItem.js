@@ -17,16 +17,16 @@ const OptionItem = ({ item, index, onPress }) => {
         style={{
           // marginRight: index % 4 === 0 ? 5 : 0,
           // marginLeft: index % 4 > 0 ? 5 : 0,
-          marginHorizontal: 5,
-          marginBottom: 10,
+          marginHorizontal: 4,
+          marginBottom: 8,
           flex: 1,
           padding: 0,
           borderColor: colors.primary,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: colors.primaryLighter,
+          backgroundColor: colors.background,
           borderRadius: ui.borderRadius,
-          borderWidth: 1,
+          borderWidth: 0,
         }}
       >
         <View

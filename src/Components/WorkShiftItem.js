@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   leftPart: {
     width: 100,
     height: "100%",
-    backgroundColor: "#e5e5e5",
+    backgroundColor: colors.cardBack,
     padding: 5,
     borderTopLeftRadius: ui.borderRadius,
     borderBottomLeftRadius: ui.borderRadius,

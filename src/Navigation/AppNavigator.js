@@ -23,8 +23,10 @@ const AppNavigator = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const params = { id: user.id, token: user.token };
-    dispatch(findStartedShiftByWorkerId(params));
+    if(user){
+      const params = { id: user.id, token: user.token };
+      dispatch(findStartedShiftByWorkerId(params));
+    }
   }, [user]);
 
   return (

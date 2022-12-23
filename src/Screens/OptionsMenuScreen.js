@@ -126,7 +126,7 @@ const OptionsMenuScreen = ({ navigation, route }) => {
 
       <CustomText
         title={i18n.t("title.screen.optionsMenu")}
-        fontSize={24}
+        fontSize={18}
         color={colors.primary}
         textAlign="flex-start"
       />
@@ -139,9 +139,13 @@ const OptionsMenuScreen = ({ navigation, route }) => {
       <View
         style={{
           flex: 1,
-          backgroundColor: colors.background,
+          backgroundColor: colors.cardBack,
+          borderRadius:ui.borderRadius,
+          paddingHorizontal: 6,
+          paddingVertical: 8,
           marginHorizontal: 15,
           marginBottom: ui.tabBar.height + ui.margin,
+
         }}
       >
         <FlatList

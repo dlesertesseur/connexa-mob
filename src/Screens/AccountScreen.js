@@ -5,6 +5,7 @@ import CustomTextInput from "../Components/CustomTextInput";
 import CustomPhoneInput from "../Components/CustomPhoneInput";
 import CustomDateInput from "../Components/CustomDateInput";
 import CustomButton from "../Components/CustomButton";
+import CustomTitleBar from "../Components/CustomTitleBar";
 import { colors } from "../Styles/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -15,7 +16,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetAuthData } from "../Features/Auth";
 import { useState } from "react";
 import { API } from "../Config/Api";
-import CustomTitleBar from "../Components/CustomTitleBar";
 import { ui } from "../Config/Constants";
 
 const AccountScreen = ({ navigation }) => {
@@ -142,7 +142,6 @@ const AccountScreen = ({ navigation }) => {
           <CustomButton
             text={i18n.t("button.logout")}
             onPress={() => {
-              // console.log("params -> ", props);
               dispatch(resetAuthData());
             }}
           />
