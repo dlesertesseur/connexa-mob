@@ -5,7 +5,22 @@ import i18n from "../../Config/i18n";
 const initialState = {
   value: {
     shifts: [],
-    selectedShift: null,
+    selectedShift: {
+      id: 1,
+      siteName: "Jumbo La Palmera",
+      latitude: -34.599180013768866,
+      longitude: -58.482890508401695,
+      organization: "Supermercados DIA",
+      branch: "Tienda 002",
+      address: "Corrientes 449, B1636 Vicente López, Provincia de Buenos Aires",
+      pause: true,
+      job: "Reposicion General",
+      remuneration: 6000,
+      startDateAndTime: "2022-12-22 20:00:00",
+      endDateAndTime: "2022-12-22 23:30:00",
+      pauseStartDateAndTime: "2022-12-22 22:00:00",
+      pauseEndDateAndTime: "2022-12-22 20:30:00",
+    },
     loading: false,
     error: false,
     errorMessage: null,
@@ -30,7 +45,8 @@ export const findAllShiftsByWorkerId = createAsyncThunk(
         },
       };
 
-      const url = API.shift.findAllByWorkerId + parameters.id + "/shifts/assigned";
+      const url =
+        API.shift.findAllByWorkerId + parameters.id + "/shifts/assigned";
 
       const res = await fetch(url, requestOptions);
       const data = await res.json();
@@ -54,7 +70,10 @@ export const findStartedShiftByWorkerId = createAsyncThunk(
         },
       };
 
-      const url = API.shift.findStartedShiftByWorkerId + parameters.id + "/shifts/started";
+      const url =
+        API.shift.findStartedShiftByWorkerId +
+        parameters.id +
+        "/shifts/started";
 
       const res = await fetch(url, requestOptions);
       const data = await res.json();
@@ -66,47 +85,63 @@ export const findStartedShiftByWorkerId = createAsyncThunk(
   }
 );
 
-export const startWorkShift = createAsyncThunk("shifts/startWorkShift", async (parameters, asyncThunk) => {
-  try {
-    const requestOptions = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        token: parameters.token,
-      },
-    };
+export const startWorkShift = createAsyncThunk(
+  "shifts/startWorkShift",
+  async (parameters, asyncThunk) => {
+    try {
+      const requestOptions = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          token: parameters.token,
+        },
+      };
 
-    const url = API.shift.startWorkShiftById + parameters.id + "/shifts/" + parameters.shiftId + "/status/started";
+      const url =
+        API.shift.startWorkShiftById +
+        parameters.id +
+        "/shifts/" +
+        parameters.shiftId +
+        "/status/started";
 
-    const res = await fetch(url, requestOptions);
-    const data = await res.json();
+      const res = await fetch(url, requestOptions);
+      const data = await res.json();
 
-    return data;
-  } catch (error) {
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
-export const endWorkShift = createAsyncThunk("shifts/endWorkShift", async (parameters, asyncThunk) => {
-  try {
-    const requestOptions = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        token: parameters.token,
-      },
-    };
+export const endWorkShift = createAsyncThunk(
+  "shifts/endWorkShift",
+  async (parameters, asyncThunk) => {
+    try {
+      const requestOptions = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          token: parameters.token,
+        },
+      };
 
-    const url = API.shift.endWorkShiftById + parameters.id + "/shifts/" + parameters.shiftId +"/status/ended";
+      const url =
+        API.shift.endWorkShiftById +
+        parameters.id +
+        "/shifts/" +
+        parameters.shiftId +
+        "/status/ended";
 
-    const res = await fetch(url, requestOptions);
-    const data = await res.json();
+      const res = await fetch(url, requestOptions);
+      const data = await res.json();
 
-    return data;
-  } catch (error) {
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
 export const startActiviryFronting = createAsyncThunk(
   "shifts/startActiviryFronting",
@@ -120,7 +155,12 @@ export const startActiviryFronting = createAsyncThunk(
         },
       };
 
-      const url = API.shift.startActiviryFronting + parameters.id + "/shifts/"+parameters.shiftId + "/status/fronting-started";
+      const url =
+        API.shift.startActiviryFronting +
+        parameters.id +
+        "/shifts/" +
+        parameters.shiftId +
+        "/status/fronting-started";
 
       const res = await fetch(url, requestOptions);
       const data = await res.json();
@@ -132,26 +172,34 @@ export const startActiviryFronting = createAsyncThunk(
   }
 );
 
-export const endActiviryFronting = createAsyncThunk("shifts/endActiviryFronting", async (parameters, asyncThunk) => {
-  try {
-    const requestOptions = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        token: parameters.token,
-      },
-    };
+export const endActiviryFronting = createAsyncThunk(
+  "shifts/endActiviryFronting",
+  async (parameters, asyncThunk) => {
+    try {
+      const requestOptions = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          token: parameters.token,
+        },
+      };
 
-    const url = API.shift.endActiviryFronting + parameters.id + "/shifts/"+parameters.shiftId + "/status/fronting-ended";
+      const url =
+        API.shift.endActiviryFronting +
+        parameters.id +
+        "/shifts/" +
+        parameters.shiftId +
+        "/status/fronting-ended";
 
-    const res = await fetch(url, requestOptions);
-    const data = await res.json();
+      const res = await fetch(url, requestOptions);
+      const data = await res.json();
 
-    return data;
-  } catch (error) {
-    return rejectWithValue(error);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
   }
-});
+);
 
 export const shiftsSlice = createSlice({
   name: "shifts",
@@ -214,7 +262,6 @@ export const shiftsSlice = createSlice({
       state.value.errorMessage = null;
     },
     [endWorkShift.fulfilled]: (state, { payload }) => {
-
       if (payload.error) {
         state.value.error = payload.error.message;
       }
@@ -316,6 +363,11 @@ export const shiftsSlice = createSlice({
   },
 });
 
-export const { resetShiftData, setSelectedShift, setActualLocation, setIndoorLocationCode } = shiftsSlice.actions;
+export const {
+  resetShiftData,
+  setSelectedShift,
+  setActualLocation,
+  setIndoorLocationCode,
+} = shiftsSlice.actions;
 
 export default shiftsSlice.reducer;

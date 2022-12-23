@@ -13,6 +13,7 @@ import { endWorkShift, setActualLocation } from "../Features/Shifts";
 import { useState } from "react";
 import { getDateFromStr, onTime, zeroPad, onLocation } from "../Util";
 import ConfirmDialog from "../Components/ConfirmDialog";
+import { ui } from "../Config/Constants";
 
 const FinalizeWorkShiftScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -48,12 +49,20 @@ const FinalizeWorkShiftScreen = ({ navigation }) => {
       r.startDate = start.getDate();
       r.startDayOfWeek = start.getDay();
 
-      r.startTime = zeroPad(start.getHours(), 2) + ":" + zeroPad(start.getMinutes(), 2);
-      r.endTime = zeroPad(end.getHours(), 2) + ":" + zeroPad(end.getMinutes(), 2);
+      r.startTime =
+        zeroPad(start.getHours(), 2) + ":" + zeroPad(start.getMinutes(), 2);
+      r.endTime =
+        zeroPad(end.getHours(), 2) + ":" + zeroPad(end.getMinutes(), 2);
 
       if (startPause) {
-        r.pauseStartTime = zeroPad(startPause.getHours(), 2) + ":" + zeroPad(startPause.getMinutes(), 2);
-        r.pauseEndTime = zeroPad(endPause?.getHours(), 2) + ":" + zeroPad(endPause?.getMinutes(), 2);
+        r.pauseStartTime =
+          zeroPad(startPause.getHours(), 2) +
+          ":" +
+          zeroPad(startPause.getMinutes(), 2);
+        r.pauseEndTime =
+          zeroPad(endPause?.getHours(), 2) +
+          ":" +
+          zeroPad(endPause?.getMinutes(), 2);
       }
 
       if (actualLocation) {
@@ -95,8 +104,17 @@ const FinalizeWorkShiftScreen = ({ navigation }) => {
       <View style={styles.panel}>
         <CustomButton
           text={i18n.t("button.finalizeWorkShift")}
-          onPress={() => {setModalVisible(true)}}
+          onPress={() => {
+            setModalVisible(true);
+          }}
           disabled={!activateButton}
+        />
+        <HorizontalSeparator/>
+        <CustomButton
+          text={i18n.t("button.back")}
+          onPress={() => {
+            navigation.goBack();
+          }}
         />
       </View>
 
@@ -105,10 +123,14 @@ const FinalizeWorkShiftScreen = ({ navigation }) => {
         title={i18n.t("modal.confirmation")}
         text={i18n.t("modal.confirmation-endShift")}
         onAccept={() => {
-            const params = { id:user.id, shiftId: selectedShift.id, token: user.token };
-            dispatch(endWorkShift(params));
-            setModalVisible(false);
-          }}
+          const params = {
+            id: user.id,
+            shiftId: selectedShift.id,
+            token: user.token,
+          };
+          dispatch(endWorkShift(params));
+          setModalVisible(false);
+        }}
         onCancel={() => {
           setModalVisible(false);
         }}
@@ -136,7 +158,7 @@ const styles = StyleSheet.create({
   panel: {
     margin: 15,
     justifyContent: "flex-end",
-    marginBottom: 15,
+    marginBottom: ui.tabBar.height + ui.margin,
   },
 
   centralPanel: {

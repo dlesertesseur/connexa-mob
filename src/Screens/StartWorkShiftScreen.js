@@ -12,6 +12,7 @@ import { startWorkShift } from "../Features/Shifts";
 import { useEffect } from "react";
 import ConfirmDialog from "../Components/ConfirmDialog";
 import { useState } from "react";
+import { ui } from "../Config/Constants";
 
 const StartWorkShiftScreen = ({ navigation, route }) => {
   const workShift = route.params;
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
   panel: {
     margin: 15,
     justifyContent: "flex-end",
-    marginBottom: 15,
+    marginBottom: ui.tabBar.height + ui.margin,
   },
 
   centralPanel: {

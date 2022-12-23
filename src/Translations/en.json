@@ -47,7 +47,8 @@
       "finalizeWorkShift": "Finish",
       "startActivity":"Start activity",
       "scanLocation": "Scan location",
-      "back": "Back"
+      "back": "Back",
+      "exit": "Exit"
     },
 
     "validation": {

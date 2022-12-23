@@ -4,11 +4,18 @@ import CustomText from "./CustomText";
 import CustomTextTime from "./CustomTextTime";
 import HorizontalSeparator from "./HorizontalSeparator";
 import CustomBadge from "./CustomBadge";
-import { TouchableOpacity, View, StyleSheet } from "react-native";
+import { TouchableOpacity, View, StyleSheet, Image } from "react-native";
 import { ui } from "../Config/Constants";
 import { colors } from "../Styles/Colors";
 
-const WorkShiftItem = ({ item, onPress = undefined, withLocationInfo = true }) => {
+const logo = require("../../assets/images/logos/cencosud.png");
+
+const WorkShiftItem = ({
+  item,
+  onPress = undefined,
+  withLocationInfo = true,
+}) => {
+
   return (
     <TouchableOpacity
       disabled={item?.disabled || onPress === undefined}
@@ -25,19 +32,58 @@ const WorkShiftItem = ({ item, onPress = undefined, withLocationInfo = true }) =
       <View style={styles.baseView}>
         <View style={styles.dataView}>
           <View style={styles.leftPart}>
-            <CustomText title={i18n.t("month." + item.startMonth)} marginHorizontal={0} fullWidth />
-            <CustomText title={item?.startDate} marginHorizontal={0} fontSize={48} />
-            <CustomText title={i18n.t("day." + item?.startDayOfWeek)} marginHorizontal={0} />
+            <View
+              style={{
+                height:64,
+                justifyContent: "center",
+                alignItems:"center",
+              }}
+            >
+              <Image
+                source={logo}
+                style={{
+                  resizeMode: "center",
+                }}
+              />
+            </View>
+
+            <CustomText
+              title={i18n.t("month." + item.startMonth)}
+              marginHorizontal={0}
+              fullWidth
+            />
+            <CustomText
+              title={item?.startDate}
+              marginHorizontal={0}
+              fontSize={48}
+            />
+            <CustomText
+              title={i18n.t("day." + item?.startDayOfWeek)}
+              marginHorizontal={0}
+            />
           </View>
           <View style={styles.rightPart}>
             <HorizontalSeparator height={5} />
-            <CustomText title={item.siteName} marginHorizontal={0} fontSize={18} />
-            <CustomText text={item.address} marginHorizontal={0} fontSize={14} />
+            <CustomText
+              title={item.siteName}
+              marginHorizontal={0}
+              fontSize={18}
+            />
+            <CustomText
+              text={item.address}
+              marginHorizontal={0}
+              fontSize={14}
+            />
 
             <HorizontalSeparator height={10} />
             <CustomText title={item.job} marginHorizontal={0} fontSize={18} />
             <HorizontalSeparator />
-            <CustomTextTime icon={"clock"} start={item.startTime} end={item.endTime} marginHorizontal={0} />
+            <CustomTextTime
+              icon={"clock"}
+              start={item.startTime}
+              end={item.endTime}
+              marginHorizontal={0}
+            />
             {item.pause ? (
               <>
                 <HorizontalSeparator height={5} />
@@ -52,7 +98,15 @@ const WorkShiftItem = ({ item, onPress = undefined, withLocationInfo = true }) =
 
             <HorizontalSeparator height={5} />
 
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                flex: 1,
+                width: "100%",
+                alignItems: "flex-end",
+                marginBottom: 5,
+              }}
+            >
               {item?.onTime ? (
                 <>
                   <CustomBadge

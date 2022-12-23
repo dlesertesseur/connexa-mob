@@ -55,19 +55,17 @@ const WorkShitListScreen = ({ navigation }) => {
       }
 
       r.onTime = onTime(start, end);
-      // if (actualLocation) {
-      //   r.onLocation = onLocation(
-      //     actualLocation?.latitude,
-      //     actualLocation?.longitude,
-      //     r.siteLatitude,
-      //     r.siteLongitude,
-      //     r.siteRadiusInMeters
-      //   );
-      // } else {
-      //   r.onLocation = false;
-      // }
-
-      r.onLocation = true;
+      if (actualLocation) {
+        r.onLocation = onLocation(
+          actualLocation?.latitude,
+          actualLocation?.longitude,
+          r.siteLatitude,
+          r.siteLongitude,
+          r.siteRadiusInMeters
+        );
+      } else {
+        r.onLocation = false;
+      }
 
       r.disabled = !(r.onTime && r.onLocation);
 

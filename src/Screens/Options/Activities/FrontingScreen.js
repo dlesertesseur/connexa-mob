@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     justifyContent: "flex-end",
     marginHorizontal: 15,
-    marginBottom: 15,
+    marginBottom: ui.tabBar.height + ui.margin,
   },
 
   loading: {

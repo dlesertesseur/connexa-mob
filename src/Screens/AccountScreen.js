@@ -16,6 +16,7 @@ import { resetAuthData } from "../Features/Auth";
 import { useState } from "react";
 import { API } from "../Config/Api";
 import CustomTitleBar from "../Components/CustomTitleBar";
+import { ui } from "../Config/Constants";
 
 const AccountScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -135,7 +136,9 @@ const AccountScreen = ({ navigation }) => {
             <HorizontalSeparator />
           </View>
         </KeyboardAvoidingView>
-        <View style={styles.btPanel}>
+      </ScrollView>
+
+      <View style={styles.btPanel}>
           <CustomButton
             text={i18n.t("button.logout")}
             onPress={() => {
@@ -144,7 +147,6 @@ const AccountScreen = ({ navigation }) => {
             }}
           />
         </View>
-      </ScrollView>
     </View>
   );
 };
@@ -168,7 +170,9 @@ const styles = StyleSheet.create({
   },
 
   btPanel: {
-    marginHorizontal: 15,
-    marginBottom: 15,
+    flex: 1,
+    justifyContent:"flex-end",
+    marginHorizontal: ui.margin,
+    marginBottom: ui.tabBar.height + ui.margin,
   },
 });

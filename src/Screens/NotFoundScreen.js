@@ -6,6 +6,7 @@ import HorizontalSeparator from "../Components/HorizontalSeparator";
 import CustomText from "../Components/CustomText";
 import { Image, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
+import { ui } from "../Config/Constants";
 
 const NotFoundScreen = ({ navigation }) => {
   const logo = require("../../assets/images/logo-banner.png");
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
   panel: {
     margin: 15,
     justifyContent: "flex-end",
-    marginBottom:15
+    marginBottom: ui.tabBar.height + ui.margin
   },
 
   imgPanel: {

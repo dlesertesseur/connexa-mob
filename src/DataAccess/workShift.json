@@ -1,17 +1,18 @@
 [
     {
       "id": 1,
+      "siteName":"Jumbo La Palmera",
       "latitude":-34.599180013768866,
       "longitude":-58.482890508401695,
       "organization": "Supermercados DIA",
       "branch": "Tienda 002",
-      "address": "Azcuenaga 1459",
+      "address": "Corrientes 449, B1636 Vicente López, Provincia de Buenos Aires" ,
       "pause":true,
       "job": "Reposicion General",
       "remuneration": 6000,
-      "startDateAndTime": "2022-12-17 14:11:00",
-      "endDateAndTime": "2022-12-18 17:00:00",
-      "pauseStartDateAndTime": "2022-12-18 12:00:00",
-      "pauseEndDateAndTime": "2022-12-18 12:30:00"
+      "startDateAndTime": "2022-12-22 20:00:00",
+      "endDateAndTime": "2022-12-22 23:30:00",
+      "pauseStartDateAndTime": "2022-12-22 22:00:00",
+      "pauseEndDateAndTime": "2022-12-22 20:30:00"
     }
   ]

@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { findStartedShiftByWorkerId, setActualLocation } from "../Features/Shifts";
 import IndoorMapScreen from "../Screens/IndoorMapScreen";
+import { ui } from "../Config/Constants";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -98,7 +99,7 @@ const AppNavigator = () => {
 const styles = StyleSheet.create({
   tabBar: {
     position: "absolute",
-    height: 70,
+    height: ui.tabBar.height,
     backgroundColor: colors.primary,
   },
   item: {

@@ -283,6 +283,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: ui.borderRadius,
     backgroundColor: colors.pending,
   },
+  
   panel: {
     width: "100%",
     flex: 1,

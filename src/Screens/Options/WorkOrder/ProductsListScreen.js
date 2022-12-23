@@ -1,6 +1,16 @@
 import React from "react";
 import { colors } from "../../../Styles/Colors";
-import { Alert, Dimensions, FlatList, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Dimensions,
+  FlatList,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -69,9 +79,17 @@ const ProductsListScreen = ({ navigation, route }) => {
         textAlign="flex-start"
       />
 
-      <CustomSearchInput placeholder={i18n.t("label.search")} value={searchText} setValue={setSearchText} />
+      <CustomSearchInput
+        placeholder={i18n.t("label.search")}
+        value={searchText}
+        setValue={setSearchText}
+      />
       <View style={{ flex: 1 }}>
-        <FlatList data={filteredProducts} renderItem={renderProduct} keyExtractor={(item) => item.id} />
+        <FlatList
+          data={filteredProducts}
+          renderItem={renderProduct}
+          keyExtractor={(item) => item.id}
+        />
       </View>
 
       <HorizontalSeparator />
@@ -82,11 +100,19 @@ const ProductsListScreen = ({ navigation, route }) => {
             navigation.goBack();
           }}
         />
+
+        <HorizontalSeparator />
+        <CustomButton
+          text={i18n.t("button.back")}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
       </View>
       <View
         style={{
           width: "100%",
-          top: windowHeight - 180,
+          top: windowHeight - (ui.tabBar.height + ui.margin + 240),
           position: "absolute",
           alignItems: "flex-end",
           justifyContent: "flex-end",
@@ -113,10 +139,13 @@ const ProductsListScreen = ({ navigation, route }) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <HorizontalSeparator />
-            <CustomLabel title={i18n.t("title.screen.deleteItem")} text={i18n.t("title.screen.deleteItem-desc")} />
+            <CustomLabel
+              title={i18n.t("title.screen.deleteItem")}
+              text={i18n.t("title.screen.deleteItem-desc")}
+            />
             <HorizontalSeparator />
 
-            <View style={{width:"100%", paddingHorizontal:15}}>
+            <View style={{ width: "100%", paddingHorizontal: 15 }}>
               <CustomButton
                 text={i18n.t("button.delete")}
                 onPress={() => {
@@ -161,7 +190,7 @@ const styles = StyleSheet.create({
   panel: {
     justifyContent: "flex-end",
     marginHorizontal: 15,
-    marginBottom: 15,
+    marginBottom: ui.tabBar.height + ui.margin,
   },
 
   loading: {

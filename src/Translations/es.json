@@ -43,7 +43,8 @@
       "finish":"Terminar",
       "delete":"Eliminar",
       "finalizeWorkShift": "Terminar",
-      "back": "Volver a opciones"
+      "back": "Volver a opciones",
+      "exit": "Salir"
     },
 
     "validation": {

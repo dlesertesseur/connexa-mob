@@ -8,6 +8,10 @@ export const ui = {
   borderRadius: 6,
   borderWidth:1,
   padding: 10,
+  margin:15,
+  tabBar:{
+    height:70
+  }
 }
 
 export const documentStatus = {

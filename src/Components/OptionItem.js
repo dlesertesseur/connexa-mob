@@ -1,55 +1,79 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { colors } from "../Styles/Colors";
-import { FontAwesome } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ui } from "../Config/Constants";
 
-const OptionItem = ({screenName, label, iconName, onPress}) => {;
-
-  const onPressLocal = () => {
-    onPress(screenName);
-  };
-
+const OptionItem = ({ item, index, onPress }) => {
   return (
-    <View style={{flex: 1}}>
-      <TouchableOpacity style={styles.row} onPress={onPressLocal}>
-        <View style={{marginBottom:15}}>
-          <FontAwesome
-            name={iconName}
-            size={48}
-            color={colors.secondary}
-          />
+    <TouchableOpacity
+      style={{
+        width: "25%",
+        height: 100,
+      }}
+      onPress={onPress}
+    >
+      <View
+        style={{
+          // marginRight: index % 4 === 0 ? 5 : 0,
+          // marginLeft: index % 4 > 0 ? 5 : 0,
+          marginHorizontal: 5,
+          marginBottom: 10,
+          flex: 1,
+          padding: 0,
+          borderColor: colors.primary,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: colors.primaryLighter,
+          borderRadius: ui.borderRadius,
+          borderWidth: 1,
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{
+              width: "100%",
+              flex: 0.5,
+              marginTop:5
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 10,
+                color: colors.primary,
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              {item.option}
+            </Text>
+          </View>
+          <View
+            style={{
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+              flex: 1,
+            }}
+          >
+            <MaterialCommunityIcons
+              name={item.iconName}
+              size={28}
+              color={colors.primary}
+            />
+          </View>
         </View>
-        <Text style={styles.text}>{label}</Text>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
 export default OptionItem;
 
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    height: 164,
-    //width: 164,
-    //borderWidth: 1,
-    borderRadius: ui.borderRadius,
-    margin: 10,
-    //borderColor:colors.primaryDarker,
-    backgroundColor: colors.primary,
-  },
-
-  text: {
-    alignItems: "center",
-    fontSize: 24,
-    color: colors.secondary,
-  },
-
-  image: {
-    width: 24,
-    height: 24,
-  },
-});
+const styles = StyleSheet.create({});

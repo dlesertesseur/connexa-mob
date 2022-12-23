@@ -15,6 +15,7 @@ import Speedometer, {
   Indicator,
 } from "react-native-cool-speedometer";
 import CustomTitleBar from "../../Components/CustomTitleBar";
+import { ui } from "../../Config/Constants";
 
 const NonWorkingTimeScreen = ({ navigation, route }) => {
   const option = route.params;
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
   panel: {
     margin: 15,
     justifyContent: "flex-end",
-    marginBottom: 15,
+    marginBottom: ui.tabBar.height + ui.margin
   },
 
   imgPanel: {

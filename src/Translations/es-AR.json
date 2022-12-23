@@ -53,7 +53,8 @@
       "finalizeWorkShift": "Terminar",
       "startActivity":"Iniciar actividad",
       "scanLocation": "Escanear ubicación",
-      "back": "Volver a opciones"
+      "back": "Volver a opciones",
+      "exit": "Salir"
     },
 
     "validation": {
