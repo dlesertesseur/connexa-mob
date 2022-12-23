@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     height: 150,
     borderTopLeftRadius: ui.borderRadius,
     borderTopRightRadius: ui.borderRadius,
-    backgroundColor: colors.pending,
+    backgroundColor: colors.cardBack,
   },
   
   panel: {

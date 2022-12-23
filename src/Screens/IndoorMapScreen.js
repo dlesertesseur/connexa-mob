@@ -10,14 +10,14 @@ import { useState } from "react";
 
 const IndoorMapScreen = () => {
 
-  const [url, setUrl] = useState(null);
+  const [url, setUrl] = useState("http://192.168.0.11:3000/platform/indoorMap");
 
-  useEffect(() => {
-    const parameters = {id:58}
-    findParameterById(parameters).then((ret) => {
-      setUrl(ret.value)
-    })
-  }, []);
+  // useEffect(() => {
+  //   const parameters = {id:58}
+  //   findParameterById(parameters).then((ret) => {
+  //     setUrl(ret.value)
+  //   })
+  // }, []);
 
   return (
     <View style={styles.container}>

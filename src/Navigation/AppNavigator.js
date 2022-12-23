@@ -74,7 +74,7 @@ const AppNavigator = () => {
               }}
             />
 
-            {/* <BottomTabs.Screen
+            <BottomTabs.Screen
               name="IndoorMapTab"
               component={IndoorMapScreen}
               options={{
@@ -88,7 +88,7 @@ const AppNavigator = () => {
                   );
                 },
               }}
-            /> */}
+            />
           </BottomTabs.Navigator>
         </>
       ) : (
