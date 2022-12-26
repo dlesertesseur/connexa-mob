@@ -122,7 +122,7 @@ const ProductsListScreen = ({ navigation, route }) => {
         <CustomFloatingButton
           diameter={64}
           onPress={() => {
-            navigation.navigate("ScanProduct");
+            navigation.navigate("ScanProduct", {backScreen:"ProductsList"});
           }}
         />
       </View>

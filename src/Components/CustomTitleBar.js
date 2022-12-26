@@ -52,7 +52,7 @@ const CustomTitleBar = ({
                 fontWeight: "bold",
               }}
             >
-              {user.lastname + ", "}
+              {user.lastname}
             </Text>
             <Text
               style={{

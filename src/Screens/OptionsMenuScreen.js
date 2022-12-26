@@ -22,6 +22,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { getDateFromStr, onTime, zeroPad } from "../Util";
 import CustomButton from "../Components/CustomButton";
 import OptionItem from "../Components/OptionItem";
+import OptionItem2 from "../Components/OptionItem2";
 
 const OptionsMenuScreen = ({ navigation, route }) => {
   const { selectedShift } = useSelector((state) => state.shifts.value);
@@ -108,7 +109,7 @@ const OptionsMenuScreen = ({ navigation, route }) => {
 
   const renderOption = ({ item, index }) => {
     return (
-      <OptionItem index={index} item={item} onPress={() => onSelect(item)}/>
+      <OptionItem2 index={index} item={item} onPress={() => onSelect(item)}/>
     );
   };
 
@@ -139,7 +140,7 @@ const OptionsMenuScreen = ({ navigation, route }) => {
       <View
         style={{
           flex: 1,
-          backgroundColor: colors.cardBack,
+          backgroundColor: colors.background,
           borderRadius:ui.borderRadius,
           paddingHorizontal: 6,
           paddingVertical: 8,

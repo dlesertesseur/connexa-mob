@@ -5,7 +5,7 @@ import i18n from "../../Config/i18n";
 const initialState = {
   value: {
     shifts: [],
-     selectedShift: null,
+    selectedShift: null,
     //{
     //   id: 1,
     //   siteName: "Jumbo La Palmera",
@@ -46,8 +46,7 @@ export const findAllShiftsByWorkerId = createAsyncThunk(
         },
       };
 
-      const url =
-        API.shift.findAllByWorkerId + parameters.id + "/shifts/assigned";
+      const url = API.shift.findAllByWorkerId + parameters.id + "/shifts/assigned";
 
       const res = await fetch(url, requestOptions);
       const data = await res.json();
@@ -71,10 +70,7 @@ export const findStartedShiftByWorkerId = createAsyncThunk(
         },
       };
 
-      const url =
-        API.shift.findStartedShiftByWorkerId +
-        parameters.id +
-        "/shifts/started";
+      const url = API.shift.findStartedShiftByWorkerId + parameters.id + "/shifts/started";
 
       const res = await fetch(url, requestOptions);
       const data = await res.json();
@@ -86,121 +82,69 @@ export const findStartedShiftByWorkerId = createAsyncThunk(
   }
 );
 
-export const startWorkShift = createAsyncThunk(
-  "shifts/startWorkShift",
-  async (parameters, asyncThunk) => {
-    try {
-      const requestOptions = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          token: parameters.token,
-        },
-      };
+export const startWorkShift = createAsyncThunk("shifts/startWorkShift", async (parameters, asyncThunk) => {
+  try {
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        token: parameters.token,
+      },
+    };
 
-      const url =
-        API.shift.startWorkShiftById +
-        parameters.id +
-        "/shifts/" +
-        parameters.shiftId +
-        "/status/started";
+    const url = API.shift.startWorkShiftById + parameters.id + "/shifts/" + parameters.shiftId + "/status/started";
 
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
 
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
   }
-);
+});
 
-export const endWorkShift = createAsyncThunk(
-  "shifts/endWorkShift",
-  async (parameters, asyncThunk) => {
-    try {
-      const requestOptions = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          token: parameters.token,
-        },
-      };
+export const endWorkShift = createAsyncThunk("shifts/endWorkShift", async (parameters, asyncThunk) => {
+  try {
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        token: parameters.token,
+      },
+    };
 
-      const url =
-        API.shift.endWorkShiftById +
-        parameters.id +
-        "/shifts/" +
-        parameters.shiftId +
-        "/status/ended";
+    const url = API.shift.endWorkShiftById + parameters.id + "/shifts/" + parameters.shiftId + "/status/ended";
 
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
 
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
   }
-);
+});
 
-export const startActiviryFronting = createAsyncThunk(
-  "shifts/startActiviryFronting",
-  async (parameters, asyncThunk) => {
-    try {
-      const requestOptions = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          token: parameters.token,
-        },
-      };
+export const logActivity = createAsyncThunk("shifts/logActivity", async (parameters, asyncThunk) => {
+  try {
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        token: parameters.token,
+      },
+    };
 
-      const url =
-        API.shift.startActiviryFronting +
-        parameters.id +
-        "/shifts/" +
-        parameters.shiftId +
-        "/status/fronting-started";
+    const url =
+      API.shift.logActivity + parameters.id + "/shifts/" + parameters.shiftId + "/status/" + parameters.activiryId;
 
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
 
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
   }
-);
-
-export const endActiviryFronting = createAsyncThunk(
-  "shifts/endActiviryFronting",
-  async (parameters, asyncThunk) => {
-    try {
-      const requestOptions = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          token: parameters.token,
-        },
-      };
-
-      const url =
-        API.shift.endActiviryFronting +
-        parameters.id +
-        "/shifts/" +
-        parameters.shiftId +
-        "/status/fronting-ended";
-
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
-
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  }
-);
+});
 
 export const shiftsSlice = createSlice({
   name: "shifts",
@@ -278,40 +222,12 @@ export const shiftsSlice = createSlice({
       }
     },
 
-    [startActiviryFronting.pending]: (state) => {
-      state.value.error = false;
-      state.value.errorMessage = null;
-      state.value.startingActivity = true;
-    },
-    [startActiviryFronting.fulfilled]: (state, { payload }) => {
-      state.value.startingActivity = false;
-
-      if (payload?.error) {
-        state.value.errorMessage = payload.message;
-        state.value.error = true;
-      } else {
-        state.value.startedActivity = payload;
-        state.value.errorMessage = null;
-        state.value.error = false;
-      }
-    },
-    [startActiviryFronting.rejected]: (state, { payload }) => {
-      state.value.loading = false;
-      state.value.startingActivity = false;
-
-      if (payload) {
-        state.value.errorMessage = payload.message;
-      } else {
-        state.value.errorMessage = i18n.t("error.connection");
-      }
-    },
-
-    [endActiviryFronting.pending]: (state) => {
+    [logActivity.pending]: (state) => {
       state.value.error = false;
       state.value.errorMessage = null;
       state.value.finishingActivity = true;
     },
-    [endActiviryFronting.fulfilled]: (state, { payload }) => {
+    [logActivity.fulfilled]: (state, { payload }) => {
       state.value.finishingActivity = false;
       if (payload.error) {
         state.value.errorMessage = payload.message;
@@ -322,7 +238,7 @@ export const shiftsSlice = createSlice({
         state.value.error = false;
       }
     },
-    [endActiviryFronting.rejected]: (state, { payload }) => {
+    [logActivity.rejected]: (state, { payload }) => {
       state.value.loading = false;
       state.value.error = true;
       state.value.finishingActivity = false;
@@ -364,11 +280,6 @@ export const shiftsSlice = createSlice({
   },
 });
 
-export const {
-  resetShiftData,
-  setSelectedShift,
-  setActualLocation,
-  setIndoorLocationCode,
-} = shiftsSlice.actions;
+export const { resetShiftData, setSelectedShift, setActualLocation, setIndoorLocationCode } = shiftsSlice.actions;
 
 export default shiftsSlice.reducer;

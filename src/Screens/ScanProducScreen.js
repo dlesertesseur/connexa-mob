@@ -10,33 +10,62 @@ import { addScannedProduct } from "../Features/Products";
 import { useDispatch } from "react-redux";
 import { ui } from "../Config/Constants";
 import { findProuctByEan } from "../DataAccess/ProductDao";
+import { FontAwesome } from "@expo/vector-icons";
 
-const ScanProducScreen = ({ barCode = true, qrCode = false }) => {
+const ScanProducScreen = ({ navigation, route, barCode = true, qrCode = false }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [scanActived, setScanActived] = useState(false);
   const [error, setError] = useState(null);
   const [sound, setSound] = useState();
+
+  const params = route.params;
+
   const dispatch = useDispatch();
 
   async function playSound(data) {
     const { sound } = await Audio.Sound.createAsync(require("./../../assets/sound/beep_2.mp3"));
     setSound(sound);
     sound.playAsync().then(() => {
-      findProuctByEan(data).then((itemData) => {
 
-        if (itemData.id) {
-          const obj = {
-            id: itemData.id,
-            code: itemData.code,
-            type: data.type,
-            ean: data.ean,
-            image: "https://picsum.photos/100/100", //itemData.urlImage,
-            name: itemData.description,
-          };
-          dispatch(addScannedProduct(obj));
-        }
-      });
+      const obj = {
+        id: Date.now().toString(),
+        code: "NO CODE",
+        type: data.type,
+        ean: data.ean,
+        image: "https://picsum.photos/100/100", //itemData.urlImage,
+        name: "NO DESCRIPTION",
+      };
+      dispatch(addScannedProduct(obj));
+
+      // findProuctByEan(data).then((itemData) => {
+      //   let obj = null;
+      //   if (itemData.id) {
+      //     obj = {
+      //       id: itemData.id,
+      //       code: itemData.code,
+      //       type: data.type,
+      //       ean: data.ean,
+      //       image: "https://picsum.photos/100/100", //itemData.urlImage,
+      //       name: itemData.description,
+      //     };
+      //   }else{
+      //     obj = {
+      //       id: Date.now().toString,
+      //       code: "NO CODE",
+      //       type: data.type,
+      //       ean: data.ean,
+      //       image: "https://picsum.photos/100/100", //itemData.urlImage,
+      //       name: "NO DESCRIPTION",
+      //     };
+      //   }
+
+      //   console.log("findProuctByEan -> ", obj);
+      //   dispatch(addScannedProduct(obj));
+      // }).catch((error) => {
+      //   console.log("findProuctByEan -> error", error);
+
+      // });
     });
   }
 
@@ -91,6 +120,24 @@ const ScanProducScreen = ({ barCode = true, qrCode = false }) => {
         )}
       </View>
       <View style={styles.control}>{actionButton()}</View>
+
+      <View
+        style={{
+          width: "100%",
+          alignItems: "flex-end",
+          justifyContent: "center",
+          position: "absolute",
+          padding: ui.margin,
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate(params.backScreen);
+          }}
+        >
+          <FontAwesome name="close" size={48} color={colors.secondary} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -134,7 +181,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
     borderRadius: ui.borderRadius,
-    margin: 15,
+    margin: ui.tabBar.height,
   },
 
   scanButtonActived: {

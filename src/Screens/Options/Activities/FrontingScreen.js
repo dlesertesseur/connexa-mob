@@ -9,12 +9,12 @@ import Stopwatch from "../../../Components/Stopwatch";
 import CustomError from "../../../Components/CustomError";
 import ConfirmDialog from "../../../Components/ConfirmDialog";
 import { colors } from "../../../Styles/Colors";
-import { BackHandler, Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { ui } from "../../../Config/Constants";
 import { useEffect } from "react";
-import { endActiviryFronting, setIndoorLocationCode, startActiviryFronting } from "../../../Features/Shifts";
+import { setIndoorLocationCode, logActivity} from "../../../Features/Shifts";
 
 const FrontingScreen = ({ navigation, route }) => {
   const {
@@ -114,7 +114,7 @@ const FrontingScreen = ({ navigation, route }) => {
                 shiftId: selectedShift.id,
                 token: user.token,
               };
-              dispatch(startActiviryFronting(params));
+              dispatch(logActivity(params));
             }}
             disabled={(indoorLocation && startedActivity === null) || startingActivity ? false : true}
           />
@@ -169,7 +169,7 @@ const FrontingScreen = ({ navigation, route }) => {
             shiftId: selectedShift.id,
             token: user.token,
           };
-          dispatch(endActiviryFronting(params));
+          dispatch(logActivity(params));
           navigation.navigate("OptionsMenu");
         }}
         onCancel={() => {

@@ -10,9 +10,7 @@ import { StyleSheet } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
-import { findStartedShiftByWorkerId, setActualLocation } from "../Features/Shifts";
-import IndoorMapScreen from "../Screens/IndoorMapScreen";
+import { findStartedShiftByWorkerId } from "../Features/Shifts";
 import { ui } from "../Config/Constants";
 
 const BottomTabs = createBottomTabNavigator();
@@ -74,7 +72,7 @@ const AppNavigator = () => {
               }}
             />
 
-            <BottomTabs.Screen
+            {/* <BottomTabs.Screen
               name="IndoorMapTab"
               component={IndoorMapScreen}
               options={{
@@ -88,7 +86,7 @@ const AppNavigator = () => {
                   );
                 },
               }}
-            />
+            /> */}
           </BottomTabs.Navigator>
         </>
       ) : (

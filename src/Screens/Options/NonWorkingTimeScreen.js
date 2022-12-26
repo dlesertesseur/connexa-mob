@@ -21,15 +21,11 @@ const NonWorkingTimeScreen = ({ navigation, route }) => {
   const option = route.params;
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [totalTime, setTotalTime] = useState(30);
-
-  // useEffect(() => {
-  //   const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
-  //   return () => backHandler.remove()
-  // }, [])
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     let timeout = null;
-    if (timeElapsed < totalTime) {
+    if (timeElapsed < totalTime && started) {
       timeout = setTimeout(() => {
         setTimeElapsed(timeElapsed + 1);
       }, 1000);
@@ -40,43 +36,21 @@ const NonWorkingTimeScreen = ({ navigation, route }) => {
         clearTimeout(timeout);
       }
     };
-  }, [timeElapsed]);
+  }, [timeElapsed, started]);
 
   return (
     <View style={styles.container}>
       <CustomTitleBar title={option.title} />
-      <CustomText
-        title={i18n.t("title.screen.nonWorkingTime")}
-        fontSize={28}
-        color={colors.primary}
-      />
+      <CustomText title={i18n.t("title.screen.nonWorkingTime")} fontSize={28} color={colors.primary} />
       <HorizontalSeparator />
-      <CustomText
-        text={i18n.t("title.screen.nonWorkingTime-desc")}
-        fontSize={18}
-        color={colors.primary}
-      />
-      <HorizontalSeparator height={30}/>
-      <CustomText
-        title={option.title}
-        fontSize={28}
-        
-      />
+      <CustomText text={i18n.t("title.screen.nonWorkingTime-desc")} fontSize={18} color={colors.primary} />
+      <HorizontalSeparator height={30} />
+      <CustomText title={option.title} fontSize={28} />
       <View style={styles.imgPanel}>
-        <Speedometer
-          value={timeElapsed}
-          max={totalTime}
-          rotation={-90}
-          fontFamily="squada-one"
-          width={300}
-        >
+        <Speedometer value={timeElapsed} max={totalTime} rotation={-90} fontFamily="squada-one" width={300}>
           <Background opacity={0.3} />
           <Arc arcWidth={4} />
-          <Needle
-            baseOffset={10}
-            circleRadius={20}
-            circleColor={colors.primary}
-          />
+          <Needle baseOffset={10} circleRadius={20} circleColor={colors.primary} />
           <DangerPath offset={10} angle={42.5} />
           <Progress arcWidth={12} color={colors.primary} />
           <Marks step={2.5} fontSize={20} />
@@ -98,7 +72,29 @@ const NonWorkingTimeScreen = ({ navigation, route }) => {
       </View>
 
       <View style={styles.panel}>
-        <CustomButton text={i18n.t("button.finish")} onPress={() => {navigation.goBack()}} />
+        <CustomButton
+          text={i18n.t("button.startWorkShift")}
+          onPress={() => {
+            setStarted(true);
+          }}
+          disabled={started}
+        />
+        <HorizontalSeparator />
+        <CustomButton
+          text={i18n.t("button.finish")}
+          onPress={() => {
+            setStarted(false);
+          }}
+          disabled={!started}
+        />
+        <HorizontalSeparator />
+        <CustomButton
+          text={i18n.t("button.back")}
+          onPress={() => {
+            navigation.goBack();
+          }}
+          disabled={started}
+        />
       </View>
     </View>
   );
@@ -123,7 +119,7 @@ const styles = StyleSheet.create({
   panel: {
     margin: 15,
     justifyContent: "flex-end",
-    marginBottom: ui.tabBar.height + ui.margin
+    marginBottom: ui.tabBar.height + ui.margin,
   },
 
   imgPanel: {

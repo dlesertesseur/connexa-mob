@@ -1,9 +1,8 @@
 import React from "react";
-import ScanProducScreen from "../../ScanProducScreen";
 import FrontingScreen from "./FrontingScreen";
 import ScanLocationScreen from "../../ScanLocationScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { colors } from "../../../Styles/Colors";
 
 

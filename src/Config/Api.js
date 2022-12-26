@@ -38,8 +38,7 @@ export const API = {
       findStartedShiftByWorkerId: SERVER + ":" + PORT + API_BASE + "/workers/",
       startWorkShiftById: SERVER + ":" + PORT + API_BASE + "/workers/",
       endWorkShiftById: SERVER + ":" + PORT + API_BASE + "/workers/",
-      startActiviryFronting: SERVER + ":" + PORT + API_BASE + "/workers/",
-      endActiviryFronting: SERVER + ":" + PORT + API_BASE + "/workers/",
+      logActivity: SERVER + ":" + PORT + API_BASE + "/workers/",
 
     },
     product: {
