@@ -5,13 +5,14 @@ import VerifyingStack from "./Stacks/VerifyingStack";
 import * as Location from "expo-location";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { status } from "../Config/Constants";
 import { registerLocation } from "../DataAccess/LocationDao";
-import { setActualLocation } from "../Features/Shifts";
+import { setActualLocation } from "../Features/Location";
+import NoPermissionScreen from "../Screens/NoPermissionScreen";
 
 let watchID = null;
 
@@ -19,7 +20,28 @@ export default MainNavigator = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.value);
   const [userLogged, setUserLogged] = useState(false);
-  const [reportLocation, setReportLocation] = useState(false);
+  const [reportLocation, setReportLocation] = useState(true);
+  const [hasLocationPermission, setHasLocationPermission] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      //const locationStatus = await Location.requestBackgroundPermissionsAsync();
+      const locationStatus = await Location.requestForegroundPermissionsAsync();
+      setHasLocationPermission(locationStatus.status === "granted");
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      if (user.token) {
+        setUserLogged(user.token.length > 0);
+      } else {
+        setUserLogged(false);
+      }
+    } else {
+      setUserLogged(false);
+    }
+  }, [user]);
 
   useEffect(() => {
     if (userLogged) {
@@ -39,7 +61,6 @@ export default MainNavigator = () => {
             }
           });
         }
-        
       }).then((ret) => (watchID = ret));
     } else {
       if (watchID) {
@@ -49,18 +70,6 @@ export default MainNavigator = () => {
       }
     }
   }, [userLogged]);
-
-  useEffect(() => {
-    if (user) {
-      if (user.token) {
-        setUserLogged(user.token.length > 0);
-      } else {
-        setUserLogged(false);
-      }
-    } else {
-      setUserLogged(false);
-    }
-  }, [user]);
 
   const determinateStack = () => {
     let ret = null;
@@ -84,11 +93,15 @@ export default MainNavigator = () => {
     return ret;
   };
 
-  return (
-    <NavigationContainer>
-      <SafeAreaView style={styles.container}>{!userLogged ? <AuthStack /> : determinateStack()}</SafeAreaView>
-    </NavigationContainer>
-  );
+  if (hasLocationPermission === false) {
+    return <NoPermissionScreen />;
+  } else {
+    return (
+      <NavigationContainer>
+        <SafeAreaView style={styles.container}>{!userLogged ? <AuthStack /> : determinateStack()}</SafeAreaView>
+      </NavigationContainer>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

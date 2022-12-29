@@ -13,7 +13,8 @@ import { useForm } from "react-hook-form";
 import { ActivityIndicator, Alert, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../Features/Auth";
+import { resetError, signIn } from "../Features/Auth";
+import ErrorDialog from "../Components/ErrorDialog";
 
 const SignInScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -88,11 +89,13 @@ const SignInScreen = ({ navigation }) => {
 
       <HorizontalSeparator />
 
-      {error ? <CustomError title={i18n.t("title.error")} text={errorMessage} /> : null}
-
       <View style={{ flex: 1, margin: 15, justifyContent: "flex-end" }}>
         <CustomButton text={i18n.t("button.login")} onPress={handleSubmit(onSubmit)} loading={authenticating}/>
       </View>
+
+      <ErrorDialog visible={error} title={i18n.t("title.error")} text={errorMessage} onAccept={() => {
+        dispatch(resetError())
+      }}/>
     </View>
   );
 };

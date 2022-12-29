@@ -44,15 +44,14 @@ const InputLocation = ({ disabled = false, onPress = undefined, placeholder = "N
 const styles = StyleSheet.create({
   baseView: {
     width: "100%",
-    //height: 180,
-    padding: 15,
+    paddingHorizontal: 15,
+    paddingBottom: 15,
     justifyContent: "flex-start",
     alignItems: "center",
   },
 
   centerPart: {
     width: "100%",
-    //height: "100%",
     padding: 15,
     justifyContent: "flex-start",
     alignItems: "center",

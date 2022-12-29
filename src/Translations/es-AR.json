@@ -111,8 +111,9 @@
         "location": "Ubicacion",
         "location-desc": "",
         "fronting":"Frenteo",
-        "fronting-desc":"Colocar los articulos al frente para cubrir los espacios."
-
+        "fronting-desc":"Colocar los articulos al frente para cubrir los espacios.",
+        "noPermission":"Sin permisos",
+        "noPermission-desc":"No tienes permisos para acceder al dispositivo."
       },
       "error": "ERROR",
       "noData": "Sin datos"

@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "PLATFORM_MOB",
-    "slug": "PLATFORM_MOB",
+    "name": "connexa",
+    "slug": "connexa",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,10 +22,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "platform.mob"
+      "package": "com.zeetrex.connexa"
     },
     "web": {
       "favicon": "./assets/favicon.png"

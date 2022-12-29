@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     borderRadius: ui.borderRadius,
     margin: 15,
+    marginBottom:ui.tabBar.height,
   },
 
   scanButtonActived: {

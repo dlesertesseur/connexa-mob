@@ -9,7 +9,7 @@ import { StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { endWorkShift, setActualLocation } from "../Features/Shifts";
+import { endWorkShift } from "../Features/Shifts";
 import { useState } from "react";
 import { getDateFromStr, onTime, zeroPad, onLocation } from "../Util";
 import ConfirmDialog from "../Components/ConfirmDialog";
@@ -19,7 +19,7 @@ const FinalizeWorkShiftScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.value);
   const { selectedShift } = useSelector((state) => state.shifts.value);
-  const { actualLocation } = useSelector((state) => state.shifts.value);
+  const { actualLocation } = useSelector((state) => state.location.value);
 
   const [shiftProcessed, setShiftProcessed] = useState();
   const [activateButton, setActivateButton] = useState(false);

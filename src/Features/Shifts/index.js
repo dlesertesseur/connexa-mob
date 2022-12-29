@@ -26,11 +26,11 @@ const initialState = {
     error: false,
     errorMessage: null,
     loadingProfile: false,
-    actualLocation: null,
     indoorLocationCode: null,
     startedActivity: null,
     startingActivity: false,
     finishingActivity: false,
+    finishedActivity: false,
   },
 };
 
@@ -124,7 +124,7 @@ export const endWorkShift = createAsyncThunk("shifts/endWorkShift", async (param
   }
 });
 
-export const logActivity = createAsyncThunk("shifts/logActivity", async (parameters, asyncThunk) => {
+export const logOut = createAsyncThunk("shifts/logOut", async (parameters, asyncThunk) => {
   try {
     const requestOptions = {
       method: "PATCH",
@@ -134,8 +134,49 @@ export const logActivity = createAsyncThunk("shifts/logActivity", async (paramet
       },
     };
 
-    const url =
-      API.shift.logActivity + parameters.id + "/shifts/" + parameters.shiftId + "/status/" + parameters.activiryId;
+    const url = API.shift.logActivity + parameters.id + "/shifts/" + parameters.shiftId + "/status/LOGOUT";
+
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
+  }
+});
+
+export const startActivity = createAsyncThunk("shifts/startActivity", async (parameters, asyncThunk) => {
+  try {
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        token: parameters.token,
+      },
+    };
+
+    const url = API.shift.logActivity + parameters.id + "/shifts/" + parameters.shiftId + "/status/START_" + parameters.activiryId;
+
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
+  }
+});
+
+export const endActivity = createAsyncThunk("shifts/endActivity", async (parameters, asyncThunk) => {
+  try {
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        token: parameters.token,
+      },
+    };
+
+    const url = API.shift.logActivity + parameters.id + "/shifts/" + parameters.shiftId + "/status/END_" + parameters.activiryId;
 
     const res = await fetch(url, requestOptions);
     const data = await res.json();
@@ -155,13 +196,14 @@ export const shiftsSlice = createSlice({
       state.value.selectedShift = action.payload;
     },
 
-    setActualLocation: (state, action) => {
-      state.value.actualLocation = action.payload;
-    },
-
     setIndoorLocationCode: (state, action) => {
       state.value.indoorLocationCode = action.payload;
     },
+
+    resetError: (state, action) => {
+      state.value.error = false,
+      state.value.errorMessage = null
+    }
   },
   extraReducers: {
     [findAllShiftsByWorkerId.pending]: (state) => {
@@ -222,23 +264,82 @@ export const shiftsSlice = createSlice({
       }
     },
 
-    [logActivity.pending]: (state) => {
+    [logOut.pending]: (state) => {
       state.value.error = false;
       state.value.errorMessage = null;
-      state.value.finishingActivity = true;
-    },
-    [logActivity.fulfilled]: (state, { payload }) => {
+      state.value.startingActivity = false;
+      state.value.startedActivity = false;
       state.value.finishingActivity = false;
+      state.value.finishedActivity = false;
+    },
+    [logOut.fulfilled]: (state, { payload }) => {
+      state.value.startingActivity = false;
+
       if (payload.error) {
         state.value.errorMessage = payload.message;
         state.value.error = true;
       } else {
-        state.value.startedActivity = null;
         state.value.errorMessage = null;
         state.value.error = false;
       }
     },
-    [logActivity.rejected]: (state, { payload }) => {
+    [logOut.rejected]: (state, { payload }) => {
+      if (payload) {
+        state.value.errorMessage = payload.message;
+      } else {
+        state.value.errorMessage = i18n.t("error.connection");
+      }
+    },
+
+    [startActivity.pending]: (state) => {
+      state.value.error = false;
+      state.value.errorMessage = null;
+      state.value.startingActivity = true;
+    },
+    [startActivity.fulfilled]: (state, { payload }) => {
+      state.value.startingActivity = false;
+      if (payload.error) {
+        state.value.errorMessage = payload.message ? payload.message : payload.error;
+        state.value.error = true;
+      } else {
+        state.value.startedActivity = true;
+        state.value.finishedActivity = null;
+        state.value.finishingActivity = null;
+        state.value.errorMessage = null;
+        state.value.error = false;
+      }
+    },
+    [startActivity.rejected]: (state, { payload }) => {
+      state.value.loading = false;
+      state.value.error = true;
+      state.value.startingActivity = false;
+      if (payload) {
+        state.value.errorMessage = payload.message;
+      } else {
+        state.value.errorMessage = i18n.t("error.connection");
+      }
+    },
+
+    [endActivity.pending]: (state) => {
+      state.value.error = false;
+      state.value.errorMessage = null;
+      state.value.finishingActivity = true;
+    },
+    [endActivity.fulfilled]: (state, { payload }) => {
+      state.value.finishingActivity = false;
+
+      if (payload.error) {
+        state.value.errorMessage = payload.message;
+        state.value.error = true;
+      } else {
+        state.value.finishedActivity = true;
+        state.value.startedActivity = null;
+        state.value.startingActivity = null;
+        state.value.errorMessage = null;
+        state.value.error = false;
+      }
+    },
+    [endActivity.rejected]: (state, { payload }) => {
       state.value.loading = false;
       state.value.error = true;
       state.value.finishingActivity = false;
@@ -280,6 +381,6 @@ export const shiftsSlice = createSlice({
   },
 });
 
-export const { resetShiftData, setSelectedShift, setActualLocation, setIndoorLocationCode } = shiftsSlice.actions;
+export const { resetShiftData, setSelectedShift, setIndoorLocationCode, resetError } = shiftsSlice.actions;
 
 export default shiftsSlice.reducer;

@@ -35,6 +35,7 @@
     "react-hook-form": "^7.36.1",
     "react-native": "0.69.6",
     "react-native-cool-speedometer": "^1.1.5",
+    "react-native-fetch-blob": "^0.10.8",
     "react-native-floating-action": "^1.22.0",
     "react-native-maps": "^1.3.2",
     "react-native-mask-input": "^1.2.2",
@@ -44,8 +45,8 @@
     "react-native-swiper-flatlist": "^3.0.17",
     "react-native-user-avatar": "^1.0.8",
     "react-native-user-avatar-component": "0.0.4",
-    "react-redux": "^8.0.4",
-    "react-native-webview": "11.23.0"
+    "react-native-webview": "11.23.0",
+    "react-redux": "^8.0.4"
   },
   "private": true
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import i18n from "../../../Config/i18n";
 import HorizontalSeparator from "../../../Components/HorizontalSeparator";
-import CustomLabel from "../../../Components/CustomLabel";
 import CustomButton from "../../../Components/CustomButton";
 import CustomTitleBar from "../../../Components/CustomTitleBar";
 import InputLocation from "../../../Components/InputLocation";
@@ -9,14 +8,14 @@ import Stopwatch from "../../../Components/Stopwatch";
 import CustomError from "../../../Components/CustomError";
 import ConfirmDialog from "../../../Components/ConfirmDialog";
 import { colors } from "../../../Styles/Colors";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { ui } from "../../../Config/Constants";
 import { useEffect } from "react";
-import { setIndoorLocationCode, logActivity} from "../../../Features/Shifts";
+import { setIndoorLocationCode, startActivity, endActivity } from "../../../Features/Shifts";
 
-const FrontingScreen = ({ navigation, route }) => {
+const ActivityWithLocationScreen = ({ navigation, route }) => {
   const {
     indoorLocationCode,
     error,
@@ -31,18 +30,9 @@ const FrontingScreen = ({ navigation, route }) => {
 
   const option = route.params;
 
-  const windowHeight = Dimensions.get("window").height;
-
   const [modalVisible, setModalVisible] = useState(false);
   const [indoorLocation, setIndoorLocation] = useState(null);
   const [timeElapsed, setTimeElapsed] = useState(0);
-
-  // useEffect(() => {
-  //   if (startedActivity) {
-  //     const backHandler = BackHandler.addEventListener("hardwareBackPress", () => true);
-  //     return () => backHandler.remove();
-  //   }
-  // }, [startedActivity]);
 
   useEffect(() => {
     dispatch(setIndoorLocationCode(null));
@@ -64,13 +54,12 @@ const FrontingScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <CustomTitleBar title={option.title} />
 
-      <CustomLabel
-        title={i18n.t("title.screen.fronting")}
-        text={i18n.t("title.screen.fronting-desc")}
+      {/* <CustomLabel
+        title={i18n.t("label.location")}
         fontSize={24}
         color={colors.primary}
         textAlign="flex-start"
-      />
+      /> */}
 
       <View style={{ flex: 1 }}>
         <View style={{ width: "100%" }}>
@@ -112,11 +101,12 @@ const FrontingScreen = ({ navigation, route }) => {
               const params = {
                 id: user.id,
                 shiftId: selectedShift.id,
+                activiryId: option.code,
                 token: user.token,
               };
-              dispatch(logActivity(params));
+              dispatch(startActivity(params));
             }}
-            disabled={(indoorLocation && startedActivity === null) || startingActivity ? false : true}
+            disabled={(indoorLocation && !startedActivity) || startingActivity ? false : true}
           />
         </View>
 
@@ -167,9 +157,10 @@ const FrontingScreen = ({ navigation, route }) => {
           const params = {
             id: user.id,
             shiftId: selectedShift.id,
+            activiryId: option.code,
             token: user.token,
           };
-          dispatch(logActivity(params));
+          dispatch(endActivity(params));
           navigation.navigate("OptionsMenu");
         }}
         onCancel={() => {
@@ -180,7 +171,7 @@ const FrontingScreen = ({ navigation, route }) => {
   );
 };
 
-export default FrontingScreen;
+export default ActivityWithLocationScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -196,7 +187,6 @@ const styles = StyleSheet.create({
   panel: {
     marginHorizontal: 15,
     justifyContent: "flex-end",
-    marginHorizontal: 15,
     marginBottom: ui.tabBar.height + ui.margin,
   },
 

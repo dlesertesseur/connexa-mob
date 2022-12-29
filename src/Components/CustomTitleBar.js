@@ -1,9 +1,9 @@
 import React from "react";
-import { Text, View } from "react-native";
-import { useSelector } from "react-redux";
-import { API } from "../Config/Api";
-import { colors } from "../Styles/Colors";
 import CustomAvatar from "./CustomAvatar";
+import { ActivityIndicator, Image, Text, View } from "react-native";
+import { useSelector } from "react-redux";
+import { colors } from "../Styles/Colors";
+import { API } from "../Config/Api";
 
 const CustomTitleBar = ({
   title,
@@ -14,7 +14,7 @@ const CustomTitleBar = ({
   avatar = true,
   marginBottom = 15,
 }) => {
-  const { user } = useSelector((state) => state.auth.value);
+  const { user, profileImage } = useSelector((state) => state.auth.value);
 
   return (
     <View
@@ -64,7 +64,25 @@ const CustomTitleBar = ({
             </Text>
           </View>
 
-          <CustomAvatar size={42} image={API.document.baseImageUrl + user.image} />
+          {/* <CustomAvatar size={42} image={API.document.baseImageUrl + user.image} /> */}
+          <View style={{justifyContent: "center", alignItems: "center" }}>
+            {profileImage ? (
+              <Image source={{ uri: profileImage }} style={{ width: 42, height: 42, borderRadius: 90 }} />
+            ) : (
+              <View
+                style={{
+                  width: 42,
+                  height: 42,
+                  borderRadius: 90,
+                  backgroundColor: colors.cardBack,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <ActivityIndicator color={colors.primary} size={12} />
+              </View>
+            )}
+          </View>
         </View>
       ) : null}
     </View>

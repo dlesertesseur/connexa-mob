@@ -18,7 +18,7 @@ const WorkShitListScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.value);
   const { shifts } = useSelector((state) => state.shifts.value);
-  const { actualLocation } = useSelector((state) => state.shifts.value);
+  const { actualLocation } = useSelector((state) => state.location.value);
   const [shiftProcess, setShiftProcess] = useState([]);
 
   useFocusEffect(

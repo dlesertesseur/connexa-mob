@@ -1,16 +1,6 @@
 import React from "react";
 import { colors } from "../../../Styles/Colors";
-import {
-  Alert,
-  Dimensions,
-  FlatList,
-  Modal,
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, Dimensions, FlatList, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -24,11 +14,15 @@ import CustomFloatingButton from "../../../Components/CustomFloatingButton";
 import CustomTitleBar from "../../../Components/CustomTitleBar";
 import { deleteScannedProduct } from "../../../Features/Products";
 import { ui } from "../../../Config/Constants";
+import { endActivity, startActivity } from "../../../Features/Shifts";
 
 const ProductsListScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const option = route.params;
+
   const { scannedList } = useSelector((state) => state.products.value);
+  const { selectedShift, startedActivity } = useSelector((state) => state.shifts.value);
+  const { user } = useSelector((state) => state.auth.value);
 
   const [searchText, setSearchText] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -79,27 +73,41 @@ const ProductsListScreen = ({ navigation, route }) => {
         textAlign="flex-start"
       />
 
-      <CustomSearchInput
-        placeholder={i18n.t("label.search")}
-        value={searchText}
-        setValue={setSearchText}
-      />
+      <CustomSearchInput placeholder={i18n.t("label.search")} value={searchText} setValue={setSearchText} />
       <View style={{ flex: 1 }}>
-        <FlatList
-          data={filteredProducts}
-          renderItem={renderProduct}
-          keyExtractor={(item) => item.id}
-        />
+        <FlatList data={filteredProducts} renderItem={renderProduct} keyExtractor={(item) => item.id} />
       </View>
 
       <HorizontalSeparator />
       <View style={styles.panel}>
-        <CustomButton
-          text={i18n.t("button.finish")}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
+        {startedActivity ? (
+          <CustomButton
+            text={i18n.t("button.finish")}
+            onPress={() => {
+              const params = {
+                id: user.id,
+                shiftId: selectedShift.id,
+                activiryId: option.code,
+                token: user.token,
+              };
+              dispatch(endActivity(params));
+            }}
+          />
+        ) : (
+          <CustomButton
+            text={i18n.t("button.startActivity")}
+            onPress={() => {
+              const params = {
+                id: user.id,
+                shiftId: selectedShift.id,
+                activiryId: option.code,
+                token: user.token,
+              };
+              dispatch(startActivity(params));
+              navigation.goBack();
+            }}
+          />
+        )}
 
         <HorizontalSeparator />
         <CustomButton
@@ -122,7 +130,7 @@ const ProductsListScreen = ({ navigation, route }) => {
         <CustomFloatingButton
           diameter={64}
           onPress={() => {
-            navigation.navigate("ScanProduct", {backScreen:"ProductsList"});
+            navigation.navigate("ScanProduct", { backScreen: "ProductsList" });
           }}
         />
       </View>
@@ -139,10 +147,7 @@ const ProductsListScreen = ({ navigation, route }) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <HorizontalSeparator />
-            <CustomLabel
-              title={i18n.t("title.screen.deleteItem")}
-              text={i18n.t("title.screen.deleteItem-desc")}
-            />
+            <CustomLabel title={i18n.t("title.screen.deleteItem")} text={i18n.t("title.screen.deleteItem-desc")} />
             <HorizontalSeparator />
 
             <View style={{ width: "100%", paddingHorizontal: 15 }}>

@@ -3,32 +3,35 @@ import i18n from "../../Config/i18n";
 import CustomText from "../../Components/CustomText";
 import HorizontalSeparator from "../../Components/HorizontalSeparator";
 import CustomButton from "../../Components/CustomButton";
-import { BackHandler, StyleSheet, Text, View } from "react-native";
-import { colors } from "../../Styles/Colors";
-import Speedometer, {
-  Background,
-  Arc,
-  Needle,
-  Progress,
-  Marks,
-  DangerPath,
-  Indicator,
-} from "react-native-cool-speedometer";
+import Speedometer, { Background, Arc, Needle, Progress, Marks, DangerPath } from "react-native-cool-speedometer";
 import CustomTitleBar from "../../Components/CustomTitleBar";
+import { StyleSheet, View } from "react-native";
+import { colors } from "../../Styles/Colors";
 import { ui } from "../../Config/Constants";
+import { endActivity, resetError, startActivity } from "../../Features/Shifts";
+import { useDispatch, useSelector } from "react-redux";
+import { calculateDiffInSeconds } from "../../Util";
+import ErrorDialog from "../../Components/ErrorDialog";
 
 const NonWorkingTimeScreen = ({ navigation, route }) => {
   const option = route.params;
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [totalTime, setTotalTime] = useState(30);
-  const [started, setStarted] = useState(false);
+  const { selectedShift, startedActivity, error, errorMessage } = useSelector((state) => state.shifts.value);
+  const { user } = useSelector((state) => state.auth.value);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const diff = calculateDiffInSeconds(selectedShift.pauseStartDateAndTime, selectedShift.pauseEndDateAndTime) / 60;
+    setTotalTime(diff);
+  },[selectedShift])
 
   useEffect(() => {
     let timeout = null;
-    if (timeElapsed < totalTime && started) {
+    if (timeElapsed < totalTime && startedActivity) {
       timeout = setTimeout(() => {
         setTimeElapsed(timeElapsed + 1);
-      }, 1000);
+      }, 1000 * 60);
     }
 
     return () => {
@@ -36,7 +39,7 @@ const NonWorkingTimeScreen = ({ navigation, route }) => {
         clearTimeout(timeout);
       }
     };
-  }, [timeElapsed, started]);
+  }, [timeElapsed, startedActivity]);
 
   return (
     <View style={styles.container}>
@@ -75,17 +78,30 @@ const NonWorkingTimeScreen = ({ navigation, route }) => {
         <CustomButton
           text={i18n.t("button.startWorkShift")}
           onPress={() => {
-            setStarted(true);
+            const params = {
+              id: user.id,
+              shiftId: selectedShift.id,
+              activiryId: option.code,
+              token: user.token,
+            };
+            dispatch(startActivity(params));
           }}
-          disabled={started}
+          disabled={startedActivity}
         />
         <HorizontalSeparator />
         <CustomButton
           text={i18n.t("button.finish")}
           onPress={() => {
-            setStarted(false);
+            const params = {
+              id: user.id,
+              shiftId: selectedShift.id,
+              activiryId: option.code,
+              token: user.token,
+            };
+            dispatch(endActivity(params));
+            navigation.goBack();
           }}
-          disabled={!started}
+          disabled={!startedActivity}
         />
         <HorizontalSeparator />
         <CustomButton
@@ -93,9 +109,13 @@ const NonWorkingTimeScreen = ({ navigation, route }) => {
           onPress={() => {
             navigation.goBack();
           }}
-          disabled={started}
+          disabled={startedActivity}
         />
       </View>
+
+      <ErrorDialog visible={error} title={i18n.t("title.error")} text={errorMessage} onAccept={() => {
+        dispatch(resetError())
+      }}/>
     </View>
   );
 };

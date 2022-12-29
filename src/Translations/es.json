@@ -6,20 +6,18 @@
       "checkPassword": "Validar clave",
       "confirmPassword": "Confirmar clave",
       "forgotPassword": "¿Olvido su contraseña?",
-      "notAccount": "¿No tiene una cuenta? Registrese",
       "names": "Nombres",
       "surnames": "Apellidos",
       "code": "Codigo",
-      "phoneNumber":"Numero de telefono (99) 9 99 9999-9999",
-      "profileImage":"Foto de perfil",
-      "address":"Dirección",
-      "dateOfBirth":"Fecha de nacimiento",
-      "chooseOne":"Seleccione uno, por favor",
+      "title": "Titulo",
+      "description": "Descripción",
+      "location": "Ubicacion",
+      "phoneNumber": "Numero de telefono (99) 9 99 9999-9999",
+      "address": "Dirección",
+      "dateOfBirth": "Fecha de nacimiento",
+      "chooseOne": "Seleccione uno, por favor",
+      "search": "Buscar",
       "months": "Meses",
-      "save":"Guardar",
-      "logout":"Cerrar sesión",
-      "startValidationProcess":"Iniciar proceso de validación",
-      "startWorkShift":"Iniciar",
       "hours": "Horas",
       "minutes": "Minutos",
       "seconds": "Segundos",
@@ -27,22 +25,34 @@
       "loadingProfile": "Obteniendo datos de perfil",
       "waiting": "Espere, por favor",
       "available":"Disponible",
-      "gpsLocation":"En ubicación",
-      "startActivity":"Iniciar actividad",
-      "scanLocation": "Escanear ubicación"
+      "gpsLocation":"En ubicación"
     },
 
     "button": {
-      "login": "Ingrear",
+      "login": "Ingresar",
       "signUp": "Registrarse",
       "alreadyHaveUser": "¿Ya tiene un usuario?",
       "notAccount": "¿No tiene una cuenta? Registrese",
       "accept": "Aceptar",
       "cancel": "Cancelar",
-      "scan":"Escanear",
-      "finish":"Terminar",
+      "scan": "Escanear",
+      "addPicture": "Adjuntar imagen",
+      "takePicture": "Tomar foto",
+      "send": "Enviar",
+      "profileImage": "Foto de perfil",
+      "close": "Cerrar",
+      "welcome-signIn": "Ya tengo una cuenta",
+      "welcome-signUp": "Crear una cuenta",
+      "continue": "Continuar",
+      "save": "Guardar",
+      "logout": "Cerrar sesión",
+      "startValidationProcess": "Iniciar proceso de validación",
+      "startWorkShift": "Iniciar",
+      "finish": "Terminar",
       "delete":"Eliminar",
       "finalizeWorkShift": "Terminar",
+      "startActivity":"Iniciar actividad",
+      "scanLocation": "Escanear ubicación",
       "back": "Volver a opciones",
       "exit": "Salir"
     },
@@ -52,7 +62,7 @@
       "email": {
         "invalid": "Email invalido"
       },
-        "password": {
+      "password": {
         "minLength": "La clave es demasiado corta",
         "distinct": "Las claves son distintas"
       }
@@ -60,32 +70,38 @@
 
     "title": {
       "screen": {
-        "login": "Bienvenido",
+        "login": "Ingresar",
         "login-desc": "Estamos muy felices de verlo, continue con el ingreso y administre sus aplicaciones",
         "signUp": "Registracion",
         "signUp-desc": "Crea una cuenta y empieza a gestionar todos tus recursos de forma centralizada y organizada",
-        "selectCountry":"¿En que pais vas a trabajar?",
-        "selectCity":"¿En que ciudad vas a trabajar?",
+        "alert": "Alerta",
+        "alert-desc": "Crea una alert para notificar algun problema documentando el detalle y agregar fotos si es necesario.",
         "welcome": "Bienvenido",
         "welcome-desc": "Plataforma de administracion de turnos de trabajo y gestion de actividades, para colaboradoes internos y externos", 
+        "selectCountry": "¿En que pais vas a trabajar?",
+        "selectCity": "¿En que ciudad vas a trabajar?",
         "personalData": "Datos personales",
         "personalData-desc": "Ingresa tus datos personales (tal y como figuran en tu documento)",
-        "documents":"Documentos requeridos",
-        "documents-desc":"Completa la siguiente lista de documentos requeridos para poder empezar a trabajar.",
-        "account":"Mi cuenta",
-        "verifyingData":"Verificando datos",
-        "verifyingData-desc":"Estamos verificando tus documentos.",
-        "workshiftList":"Turnos de trabajo",
+        "checkCode": "Código de seguridad",
+        "checkCode-desc": "Por favor, ingrese el código de seguridad que le enviamos por e-mail",
+        "accountCreatedSuccessfully": "Felicitaciones",
+        "accountCreatedSuccessfully-desc": "Tu cuenta ha sido creada con éxito.\nPor favor ingresa a la aplicación para terminar de configurar tu perfil.",
+        "documents": "Documentos requeridos",
+        "documents-desc": "Completa la siguiente lista de documentos requeridos para poder empezar a trabajar.",
+        "account": "Mi cuenta",
+        "verifyingData": "Verificando datos",
+        "verifyingData-desc": "Estamos verificando tus documentos.",
+        "workshiftList": "Turnos de trabajo",
         "startWorkShift": "Iniciar turno",
-        "startWorkShift-desc":"Recuerda que cuando inicias el turno debes terminarlo, de lo contrario quedarás calificado negativamente.",
-        "optionsMenu":"Menu de opciones",
-        "activityLog":"Registro de actividades",
+        "startWorkShift-desc": "Recuerda que cuando inicias el turno debes terminarlo, de lo contrario quedarás calificado negativamente.",
+        "optionsMenu": "Menu de opciones",
+        "activityLog": "Registro de actividades",
         "notFound": "Opción no encontrada",
-        "notFound-desc":"la opción del menú aún no fue implementada.",
-        "nonWorkingTime":"Tiempo no trabajado",
-        "nonWorkingTime-desc":"Registra el tiempo no trabajado por el operador a cargo de la empresa.",
-        "productsList":"Lista de productos",
-        "productsList-desc":"Crea la lista de productos que necesitas suministrar.",
+        "notFound-desc": "la opción del menú aún no fue implementada.",
+        "nonWorkingTime": "Tiempo no trabajado",
+        "nonWorkingTime-desc": "Registra el tiempo no trabajado por el operador a cargo de la empresa.",
+        "productsList": "Lista de productos",
+        "productsList-desc": "Crea la lista de productos que necesitas suministrar.",
         "numberOfUnits":"Cantidad de unidades",
         "numberOfUnits-desc":"Indique la cantidad de unidades (en bultos) que necesita abastecer",
         "deleteItem":"Eliminar item",
@@ -95,7 +111,9 @@
         "location": "Ubicacion",
         "location-desc": "",
         "fronting":"Frenteo",
-        "fronting-desc":"Colocar los articulos al frente para cubrir los espacios."
+        "fronting-desc":"Colocar los articulos al frente para cubrir los espacios.",
+        "noPermission":"Sin permisos",
+        "noPermission-desc":"No tienes permisos para acceder al dispositivo."
       },
       "error": "ERROR",
       "noData": "Sin datos"
@@ -105,39 +123,40 @@
       "task": "Tareas",
       "timeAndAttendance": "Productividad",
       "user": "Perfil",
+      "alert": "Alertas",
       "indoorMap":"Planta",
       "map": "Mapa"
     },
-    
+
     "message": {
       "camera": {
         "noAccess": "Sin acceso a la cámara",
-        "permission": "Solicitando permiso de acceso a la cámara"
+        "permission": "Solicitando permiso de acceso a la cámara",
+        "grantPermission": "Conceder permiso."
       },
       "data":{
         "shift": "No existen turnos asignados para el operario"
       }
     },
-
     "documents": {
       "ids": {
         "PROFILE_IMAGE": "Foto de perfil",
         "NDI_FRONT_IMAGE": "DNI (Frente)",
         "NDI_REVERSE_IMAGE": "DNI (Reverso)"
       },
-      "desc":{
-        "PROFILE_IMAGE":"Esta imagen debe mostrar tu cara nítidamente.",
-        "NDI_FRONT_IMAGE":"Esta imagen corresponde al frente de tu documento de identidad.",
-        "NDI_REVERSE_IMAGE":"Esta imagen corresponde al frente de tu documento de identidad."
+      "desc": {
+        "PROFILE_IMAGE": "Esta imagen debe mostrar tu cara nítidamente.",
+        "NDI_FRONT_IMAGE": "Esta imagen corresponde al frente de tu documento de identidad.",
+        "NDI_REVERSE_IMAGE": "Esta imagen corresponde al frente de tu documento de identidad."
       },
       "status": {
-        "active":"Activo",
-        "expired":"Expirado",
-        "pending":"Pendiente"
+        "active": "Activo",
+        "expired": "Expirado",
+        "pending": "Pendiente"
       }
     },
-    "errors":{
-      "savePhoto":"Error guardando foto",
+    "errors": {
+      "savePhoto": "Error guardando foto",
       "connection":"Error de conexion"
     },
 
@@ -156,12 +175,21 @@
       "12": "Diciembre"
     },
 
+    "day": {
+      "0": "Domingo",
+      "1": "Lunes",
+      "2": "Martes",
+      "3": "Miércoles",
+      "4": "Jueves",
+      "5": "Viernes",
+      "6": "Sábado"
+    },
+
     "modal":{
       "confirmation":"Confirmación",
       "confirmation-finishActivity":"¿Quiere terminar la actividad?",
       "confirmation-startShift":"¿Quiere iniciar el turno?",
       "confirmation-endShift":"¿Quiere finalizar el turno?"
     }
-
   }
 }

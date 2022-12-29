@@ -1,11 +1,45 @@
 [
-  {"id": 1,"option": "ALMUERZO", "title": "CORTE POR ALMUERZO", "type": "NonWorkingTime", "iconName":"food-fork-drink"},
-  {"id": 2,"option": "ORDEN DE TRABAJO", "title": "ORDEN DE TRABAJO", "type": "WorkOrder", "iconName":"clipboard-list"},
-  {"id": 3,"option": "PICKING EN DEPOSITO", "type": "NotFound", "iconName":"hand-back-right"},
-  {"id": 4,"option": "FRENTEO", "title": "FRENTEO DE ESTANTE", "type": "Activities", "iconName":"library-shelves"},
-  {"id": 5,"option": "REPOSICION", "type": "NotFound", "iconName":"barcode"},
-  {"id": 6,"option": "CONTROL DE VENCIMIENTOS", "type": "NotFound", "iconName":"calendar-check"},
-  {"id": 7,"option": "CAMBIO DE PRECIOS", "type": "NotFound", "iconName":"tab"},
-  {"id": 8,"option": "FINALIZAR\nTURNO", "type": "FinalizeWorkShift", "iconName":"clock-end"}
-
+  {
+    "id": 1,
+    "code": "PAUSE",
+    "title": "CORTE POR ALMUERZO",
+    "type": "NonWorkingTime",
+    "iconName": "food-fork-drink"
+  },
+  {
+    "id": 2,
+    "code": "WORK_ORDER",
+    "title": "ORDEN DE TRABAJO",
+    "type": "WorkOrder",
+    "iconName": "clipboard-list"
+  },
+  {
+    "id": 3,
+    "code": "WAREHOUSE_PICKING",
+    "title": "PICKING EN DEPOSITO",
+    "type": "NotFound",
+    "iconName": "hand-back-right"
+  },
+  { "id": 4, "code": "FRONTING", "title": "FRENTEO DE ESTANTE", "type": "Activities", "iconName": "library-shelves" },
+  { "id": 5, "code": "REFILL", "title": "REPOSICION", "type": "NotFound", "iconName": "barcode" },
+  {
+    "id": 6,
+    "code": "EXPIRATION_CONTROL",
+    "title": "CONTROL DE VENCIMIENTOS",
+    "type": "Activities",
+    "iconName": "calendar-check"
+  },
+  { 
+    "id": 7, 
+    "code": "PRICE_CHANGE", 
+    "title": "CAMBIO DE PRECIOS", 
+    "type": "Activities", 
+    "iconName": "label" },
+  { 
+    "id": 8, 
+    "code": 
+    "END_SHIFT", 
+    "title": "FINALIZAR\nTURNO", 
+    "type": "FinalizeWorkShift", 
+    "iconName": "clock-end" }
 ]

@@ -63,7 +63,6 @@ function onLocation(lat1, long1, lat2, long2, siteRadiusInMeters = 100) {
   const a = { latitude: lat1, longitude: long1 };
   const b = { latitude: lat2, longitude: long2 };
   const distance = haversine(a, b, { unit: "meter" });
-
   const ret = distance <= siteRadiusInMeters;
   return ret;
 }
@@ -80,6 +79,15 @@ function toHoursAndMinutes(totalSeconds) {
 
 const zeroPad = (num, places) => String(num).padStart(places, "0");
 
+const calculateDiffInSeconds = (di, df) => {
+  const dateI = getDateFromStr(di);
+  const dateF = getDateFromStr(df);
+  const diffInMs = dateI.getTime() - dateF.getTime();
+  const diffInSec = diffInMs / 1000;
+  const ret = Math.abs(diffInSec);
+  return ret;
+};
+
 export {
   showAlert,
   getDateFromStr,
@@ -88,4 +96,5 @@ export {
   onTime,
   onLocation,
   toHoursAndMinutes,
+  calculateDiffInSeconds,
 };

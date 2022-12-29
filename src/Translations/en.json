@@ -103,7 +103,9 @@
         "location": "Location",
         "location-desc": "",
         "fronting":"Fronting",
-        "fronting-desc":"Place items in front to cover gaps"
+        "fronting-desc":"Place items in front to cover gaps",
+        "noPermission":"No permissions",
+        "noPermission-desc":"You do not have permissions to access the device"
       },
       "error": "ERROR",
       "noData": "No data found"

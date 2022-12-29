@@ -70,7 +70,7 @@ const OptionItem2 = ({ item, index, onPress }) => {
                 textAlign: "center",
               }}
             >
-              {item.option}
+              {item.title}
             </Text>
           </View>
         </View>

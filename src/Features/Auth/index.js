@@ -41,6 +41,7 @@ const initialState = {
     document: null,
     signupData: null,
     updatedDocument: null,
+    profileImage:null
   },
 };
 
@@ -58,7 +59,6 @@ export const signIn = createAsyncThunk("auth/signIn", async (parameters, asyncTh
     };
 
     const url = API.auth.signIn;
-
     const res = await fetch(url, requestOptions);
     const data = await res.json();
 
@@ -124,16 +124,40 @@ export const updateWorker = createAsyncThunk("auth/updateWorker", async (paramet
   }
 });
 
+export const findProfileImage = createAsyncThunk(
+  "shifts/findProfileImage",
+  async (parameters, asyncThunk) => {
+    try {
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: parameters.token,
+        },
+      };
+
+      const url = API.worker.findImageByType + parameters.id + "/images/PROFILE_IMAGE";
+      const res = await fetch(url, requestOptions);
+      const data = await res.json();
+      const img = "data:image/jpg;base64," + data.imageData;
+      return(img);
+
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     resetAuthData: () => initialState,
-    
+
     updatedDocument: (state, action) => {
       state.value.updatedDocument = Date.now();
     },
-    
+
     setDocument: (state, action) => {
       state.value.document = action.payload;
     },
@@ -149,6 +173,15 @@ export const authSlice = createSlice({
     setSignupData: (state, action) => {
       state.value.signupData = action.payload;
     },
+
+    resetError: (state, action) => {
+      state.value.error = false;
+      state.value.errorMessage = null;
+    },
+
+    setProfileImage: (state, action) => {
+      state.value.user.photo = action.payload;
+    },
   },
   extraReducers: {
     [signIn.pending]: (state) => {
@@ -157,7 +190,6 @@ export const authSlice = createSlice({
       state.value.errorMessage = null;
     },
     [signIn.fulfilled]: (state, { payload }) => {
-      
       if (payload.error) {
         state.value.error = true;
         state.value.errorMessage = payload.message;
@@ -166,14 +198,13 @@ export const authSlice = createSlice({
         state.value.user.token = payload.token;
         state.value.error = true;
         state.value.errorMessage = payload.message;
-
       }
       state.value.authenticating = false;
     },
     [signIn.rejected]: (state, { payload }) => {
       state.value.authenticating = false;
       state.value.error = true;
-      state.value.errorMessage = payload.error.message;
+      state.value.errorMessage = payload ? payload.error.message : "NO ERROR DESCRIPTION";
     },
 
     [signUp.pending]: (state) => {
@@ -212,10 +243,27 @@ export const authSlice = createSlice({
       state.value.error = true;
       state.value.errorMessage = payload.error.message;
     },
+
+    [findProfileImage.pending]: (state) => {
+      state.value.loading = false;
+      state.value.error = false;
+      state.value.errorMessage = null;
+    },
+    [findProfileImage.fulfilled]: (state, { payload }) => {
+      if (payload.error) {
+        state.value.error = payload.error.message;
+      }
+      state.value.profileImage = payload;
+    },
+    [findProfileImage.rejected]: (state, { payload }) => {
+      state.value.loading = false;
+      state.value.error = true;
+      state.value.errorMessage = payload?.error.message;
+    },
   },
 });
 
-export const { resetAuthData, setSelectedCountry, setSeletedCity, setDocument, setSignupData, updatedDocument } =
+export const { resetAuthData, setSelectedCountry, setSeletedCity, setDocument, setSignupData, updatedDocument, resetError } =
   authSlice.actions;
 
 export default authSlice.reducer;

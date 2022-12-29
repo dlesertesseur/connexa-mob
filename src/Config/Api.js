@@ -1,7 +1,11 @@
 //const SERVER = "http://192.168.0.15";
-const SERVER = "http://192.168.0.12";
+//const SERVER = "http://192.168.0.12"; //DEV
+const SERVER = "http://181.169.145.169"; //PROD
+//const SERVER = "http://192.168.0.18"; //LOCAL LINUX
+
 const PORT = "8080";
-const API_BASE = "/workers/api/v1";
+const API_BASE = "/connexa/workers/api/v1"; //PROD
+//const API_BASE = "/workers/api/v1"; //DEV
 
 
 const LOCAL_SERVER = "http://192.168.0.11";
@@ -24,6 +28,7 @@ export const API = {
 
     worker: {
       update: SERVER + ":" + PORT + API_BASE + "/workers/",
+      findImageByType: SERVER + ":" + PORT + API_BASE + "/workers/",
     },
 
     document:{
