@@ -10,12 +10,15 @@ import { ui } from "../Config/Constants";
 import { uploadWorkerImage } from "../DataAccess/DocumentsDao";
 import { useDispatch, useSelector } from "react-redux";
 import { updatedDocument } from "../Features/Auth";
+import { useState } from "react";
 
 const ShowImageScreen = ({ navigation }) => {
   const logo = require("../../assets/images/logo-banner.png");
   const noData = require("../../assets/images/noData.png");
   const dispatch = useDispatch();
   const { user, document } = useSelector((state) => state.auth.value);
+
+  const [uploading, setUploading] = useState(false);
 
   const saveDocument = () => {
     const params = {
@@ -24,7 +27,9 @@ const ShowImageScreen = ({ navigation }) => {
       type: document.name,
       file: document.url,
     };
-
+    
+    setUploading(true);
+    
     uploadWorkerImage(params).then((ret) => {
       if (ret.error) {
         Alert.alert(i18n.t("title.error"), i18n.t("errors.savePhoto"), [
@@ -34,9 +39,9 @@ const ShowImageScreen = ({ navigation }) => {
           },
         ]);
       } else {
-
         dispatch(updatedDocument());
         navigation.navigate("DocumentsList");
+        setUploading(false);
       }
     });
   };
@@ -61,7 +66,7 @@ const ShowImageScreen = ({ navigation }) => {
 
         <HorizontalSeparator />
 
-        <CustomButton text={i18n.t("button.save")} onPress={saveDocument} />
+        <CustomButton text={i18n.t("button.save")} onPress={saveDocument} disabled={!document.url} loading={uploading}/>
       </View>
     </View>
   );

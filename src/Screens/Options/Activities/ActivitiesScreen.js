@@ -17,7 +17,7 @@ const ActivitiesScreen = ({ route }) => {
       }}
     >
       <Stack.Screen name="ActivityWithLocation" component={ActivityWithLocationScreen} initialParams={param} />
-      <Stack.Screen name="ScanLocation" component={ScanLocationScreen}></Stack.Screen>
+      <Stack.Screen name="ScanLocation" component={ScanLocationScreen} initialParams={{backScreen:"ActivityWithLocation"}}></Stack.Screen>
 
     </Stack.Navigator>
   );

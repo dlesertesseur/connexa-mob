@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { endWorkShift } from "../Features/Shifts";
 import { useState } from "react";
-import { getDateFromStr, onTime, zeroPad, onLocation } from "../Util";
+import { getDateFromStr, onTime, zeroPad, getDistanceInMeters } from "../Util";
 import ConfirmDialog from "../Components/ConfirmDialog";
 import { ui } from "../Config/Constants";
 
@@ -66,15 +66,16 @@ const FinalizeWorkShiftScreen = ({ navigation }) => {
       }
 
       if (actualLocation) {
-        const ret = onLocation(
+        const ret = getDistanceInMeters(
           actualLocation?.latitude,
           actualLocation?.longitude,
           r.siteLatitude,
-          r.siteLongitude,
-          r.siteRadiusInMeters
+          r.siteLongitude
         );
-        r.onLocation = ret;
-        setActivateButton(ret);
+        r.onLocation = ret <= r.siteRadiusInMeters;
+        r.distanceToTarget = ret;
+        
+        setActivateButton(r.onLocation);
       } else {
         r.onLocation = false;
         setActivateButton(false);

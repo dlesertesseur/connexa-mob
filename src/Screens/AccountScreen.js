@@ -12,8 +12,8 @@ import { Entypo } from "@expo/vector-icons";
 import { ActivityIndicator, Image, KeyboardAvoidingView, ScrollView, StyleSheet, View } from "react-native";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { findProfileImage, resetAuthData } from "../Features/Auth";
-import { useEffect, useState } from "react";
+import { resetAuthData } from "../Features/Auth";
+import { useState } from "react";
 import { ui } from "../Config/Constants";
 import { logOut } from "../Features/Shifts";
 
@@ -37,31 +37,6 @@ const AccountScreen = ({ navigation }) => {
       phoneNumber: user.phone,
     },
   });
-
-  useEffect(() => {
-    // const requestOptions = {
-    //   method: "GET",
-    //   mode: "cors",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     token: user.token,
-    //   },
-    // };
-
-    // const url = API.worker.findImageByType + user.id + "/images/PROFILE_IMAGE";
-    // fetch(url, requestOptions)
-    //   .then((res) => {
-    //     return res.json();
-    //   })
-    //   .then((data) => {
-    //     const img = "data:image/jpg;base64," + data.imageData;
-    //     setProfileImage(img);
-    //     dispatch(setProfileImage(img));
-    //   });
-
-      const params=({id: user.id, token:user.token});
-      dispatch(findProfileImage(params))
-  }, [user]);
 
   return (
     <View style={styles.container}>

@@ -1,28 +1,22 @@
 import i18n from "../Config/i18n";
 import React from "react";
 import CustomText from "../Components/CustomText";
-import HorizontalSeparator from "../Components/HorizontalSeparator";
 import CustomSearchInput from "../Components/CustomSearchInput";
 import WorkShiftItem from "../Components/WorkShiftItem";
 import CustomTitleBar from "../Components/CustomTitleBar";
+import OptionItem2 from "../Components/OptionItem2";
 import {
   BackHandler,
   FlatList,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { colors } from "../Styles/Colors";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import { ui } from "../Config/Constants";
-import { MaterialIcons } from "@expo/vector-icons";
 import { getDateFromStr, onTime, zeroPad } from "../Util";
-import CustomButton from "../Components/CustomButton";
-import OptionItem from "../Components/OptionItem";
-import OptionItem2 from "../Components/OptionItem2";
 
 const OptionsMenuScreen = ({ navigation, route }) => {
   const { selectedShift } = useSelector((state) => state.shifts.value);
@@ -87,25 +81,12 @@ const OptionsMenuScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     if (searchText) {
-      const filtered = options.filter((c) => c.option.startsWith(searchText));
+      const filtered = options.filter((c) => c.title.startsWith(searchText.toUpperCase()));
       setFilteredOptions(filtered);
     } else {
       setFilteredOptions(options);
     }
   }, [searchText]);
-
-  // const renderOption = ({ item }) => {
-  //   return (
-  //     <TouchableOpacity style={styles.row} onPress={() => onSelect(item)}>
-  //       <Text style={styles.text}>{item.option}</Text>
-  //       <MaterialIcons
-  //         name="navigate-next"
-  //         size={24}
-  //         color={colors.secondary}
-  //       />
-  //     </TouchableOpacity>
-  //   );
-  // };
 
   const renderOption = ({ item, index }) => {
     return (

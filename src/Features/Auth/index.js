@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API } from "../../Config/Api";
-import { status } from "../../Config/Constants";
+import { NO_IMAGE } from "../../Config/Constants";
 
 const initialState = {
   value: {
@@ -41,7 +41,7 @@ const initialState = {
     document: null,
     signupData: null,
     updatedDocument: null,
-    profileImage:null
+    profileImage: null,
   },
 };
 
@@ -99,23 +99,18 @@ export const signUp = createAsyncThunk("auth/signUp", async (parameters) => {
   }
 });
 
-export const updateWorker = createAsyncThunk("auth/updateWorker", async (parameters) => {
+export const updateWorkerStatus = createAsyncThunk("auth/updateWorkerStatus", async (parameters) => {
   try {
-    const body = JSON.stringify(parameters.data);
-
     const requestOptions = {
-      method: "PUT",
+      method: "PATCH",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
         token: parameters.token,
       },
-      body: body,
     };
 
-    console.log("updateWorker -> ", parameters);
-
-    const url = API.worker.update;
+    const url = API.worker.updateStatus + parameters.id + "/status/" + parameters.status;
     const res = await fetch(url, requestOptions);
     const data = await res.json();
     return data;
@@ -124,29 +119,25 @@ export const updateWorker = createAsyncThunk("auth/updateWorker", async (paramet
   }
 });
 
-export const findProfileImage = createAsyncThunk(
-  "shifts/findProfileImage",
-  async (parameters, asyncThunk) => {
-    try {
-      const requestOptions = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          token: parameters.token,
-        },
-      };
+export const findProfileImage = createAsyncThunk("auth/findProfileImage", async (parameters, asyncThunk) => {
+  try {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: parameters.token,
+      },
+    };
 
-      const url = API.worker.findImageByType + parameters.id + "/images/PROFILE_IMAGE";
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
-      const img = "data:image/jpg;base64," + data.imageData;
-      return(img);
-
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+    const url = API.worker.findImageByType + parameters.id + "/images/PROFILE_IMAGE";
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
+    const img = data.url;
+    return img;
+  } catch (error) {
+    return rejectWithValue(error);
   }
-);
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -190,6 +181,7 @@ export const authSlice = createSlice({
       state.value.errorMessage = null;
     },
     [signIn.fulfilled]: (state, { payload }) => {
+
       if (payload.error) {
         state.value.error = true;
         state.value.errorMessage = payload.message;
@@ -198,6 +190,7 @@ export const authSlice = createSlice({
         state.value.user.token = payload.token;
         state.value.error = true;
         state.value.errorMessage = payload.message;
+        state.value.profileImage = API.baseImageUrl + payload.worker.image;
       }
       state.value.authenticating = false;
     },
@@ -215,11 +208,12 @@ export const authSlice = createSlice({
     },
     [signUp.fulfilled]: (state, { payload }) => {
       if (payload.error) {
-        state.value.error = payload.error.message;
+        state.value.error = true;
+        state.value.errorMessage = payload.message;
+      } else {
+        state.value.creating = false;
+        state.value.created = Date.now();
       }
-      state.value.creating = false;
-
-      state.value.created = Date.now();
     },
     [signUp.rejected]: (state, { payload }) => {
       state.value.creating = false;
@@ -227,19 +221,19 @@ export const authSlice = createSlice({
       state.value.errorMessage = payload.error.message;
     },
 
-    [updateWorker.pending]: (state) => {
-      state.value.loading = false;
+    [updateWorkerStatus.pending]: (state) => {
+      state.value.updating = true;
       state.value.error = false;
       state.value.errorMessage = null;
     },
-    [updateWorker.fulfilled]: (state, { payload }) => {
-      if (payload.error) {
+    [updateWorkerStatus.fulfilled]: (state, { payload }) => {
+      if (payload?.error) {
         state.value.error = payload.error.message;
       }
-      state.value.creating = false;
+      state.value.updating = false;
     },
-    [updateWorker.rejected]: (state, { payload }) => {
-      state.value.loading = false;
+    [updateWorkerStatus.rejected]: (state, { payload }) => {
+      state.value.updating = false;
       state.value.error = true;
       state.value.errorMessage = payload.error.message;
     },
@@ -250,10 +244,19 @@ export const authSlice = createSlice({
       state.value.errorMessage = null;
     },
     [findProfileImage.fulfilled]: (state, { payload }) => {
-      if (payload.error) {
-        state.value.error = payload.error.message;
+      console.log("[findProfileImage.fulfilled]", payload);
+
+      if (payload) {
+        if (payload?.error) {
+          state.value.error = true;
+          state.value.errorMessage = payload.message;
+          state.value.profileImage = NO_IMAGE;
+        } else {
+          state.value.profileImage = payload;
+        }
+      }else{
+        state.value.profileImage = NO_IMAGE;
       }
-      state.value.profileImage = payload;
     },
     [findProfileImage.rejected]: (state, { payload }) => {
       state.value.loading = false;
@@ -263,7 +266,14 @@ export const authSlice = createSlice({
   },
 });
 
-export const { resetAuthData, setSelectedCountry, setSeletedCity, setDocument, setSignupData, updatedDocument, resetError } =
-  authSlice.actions;
+export const {
+  resetAuthData,
+  setSelectedCountry,
+  setSeletedCity,
+  setDocument,
+  setSignupData,
+  updatedDocument,
+  resetError,
+} = authSlice.actions;
 
 export default authSlice.reducer;

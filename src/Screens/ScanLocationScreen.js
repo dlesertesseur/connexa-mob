@@ -9,8 +9,11 @@ import { Audio } from "expo-av";
 import { useDispatch } from "react-redux";
 import { ui } from "../Config/Constants";
 import { setIndoorLocationCode } from "../Features/Shifts";
+import { FontAwesome } from "@expo/vector-icons";
 
 const ScanLocationScreen = ({ navigation, route }) => {
+  const params = route.params;
+
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [scanActived, setScanActived] = useState(false);
@@ -68,7 +71,7 @@ const ScanLocationScreen = ({ navigation, route }) => {
         {!error ? (
           <BarCodeScanner
             onBarCodeScanned={!scanned && scanActived ? handleCodeScanned : undefined}
-            style={StyleSheet.absoluteFillObject}
+            style={StyleSheet.absoluteFill}
             //barCodeTypes={[BarCodeScanner.Constants.BarCodeType.e]}
           />
         ) : (
@@ -76,6 +79,24 @@ const ScanLocationScreen = ({ navigation, route }) => {
         )}
       </View>
       <View style={styles.control}>{actionButton()}</View>
+
+      <View
+        style={{
+          width: "100%",
+          alignItems: "flex-end",
+          justifyContent: "center",
+          position: "absolute",
+          padding: ui.margin,
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate(params.backScreen);
+          }}
+        >
+          <FontAwesome name="close" size={48} color={colors.secondary} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -120,7 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     borderRadius: ui.borderRadius,
     margin: 15,
-    marginBottom:ui.tabBar.height,
+    marginBottom: ui.tabBar.height,
   },
 
   scanButtonActived: {

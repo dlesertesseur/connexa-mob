@@ -31,3 +31,5 @@ export const workShiftStatus = {
   "ENDED": "ENDED",
   "FINALIZED":"FINALIZED"
 }
+
+export const NO_IMAGE = "https://picsum.photos/200/300"

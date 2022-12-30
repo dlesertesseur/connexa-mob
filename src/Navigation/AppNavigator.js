@@ -1,6 +1,5 @@
 import React from "react";
 import i18n from "../Config/i18n";
-import TimeAndAttendanceScreen from "../Screens/TimeAndAttendanceScreen";
 import TaskStack from "./Stacks/TaskStack";
 import AccountScreen from "../Screens/AccountScreen";
 import CustomTabBarIcon from "../Components/CustomTabBarIcon";
@@ -60,9 +59,9 @@ const AppNavigator = () => {
               }}
             />
 
-            <BottomTabs.Screen
-              name="TimeAndAttendanceTab"
-              component={TimeAndAttendanceScreen}
+            {/* <BottomTabs.Screen
+              name="MapTab"
+              component={MapScreen}
               options={{
                 tabBarIcon: ({ focused }) => {
                   return (
@@ -70,7 +69,7 @@ const AppNavigator = () => {
                   );
                 },
               }}
-            />
+            /> */}
 
             {/* <BottomTabs.Screen
               name="IndoorMapTab"

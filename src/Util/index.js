@@ -67,6 +67,13 @@ function onLocation(lat1, long1, lat2, long2, siteRadiusInMeters = 100) {
   return ret;
 }
 
+function getDistanceInMeters(lat1, long1, lat2, long2) {
+  const a = { latitude: lat1, longitude: long1 };
+  const b = { latitude: lat2, longitude: long2 };
+  const distance = haversine(a, b, { unit: "meter" });
+  return distance;
+}
+
 function toHoursAndMinutes(totalSeconds) {
   const totalMinutes = Math.floor(totalSeconds / 60);
 
@@ -95,6 +102,7 @@ export {
   zeroPad,
   onTime,
   onLocation,
+  getDistanceInMeters,
   toHoursAndMinutes,
   calculateDiffInSeconds,
 };

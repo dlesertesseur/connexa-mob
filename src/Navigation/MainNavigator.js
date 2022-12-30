@@ -20,8 +20,9 @@ export default MainNavigator = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.value);
   const [userLogged, setUserLogged] = useState(false);
-  const [reportLocation, setReportLocation] = useState(true);
+  const [reportLocation, setReportLocation] = useState(false);
   const [hasLocationPermission, setHasLocationPermission] = useState(null);
+  const [activateLocation, setActivateLocation] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -44,8 +45,8 @@ export default MainNavigator = () => {
   }, [user]);
 
   useEffect(() => {
-    if (userLogged) {
-      console.log("startLocationReport <- start watchID");
+    if (userLogged && user.status === status.ACTIVED) {
+      console.log("startLocationReport -> start watchID");
       Location.watchPositionAsync({ accuracy: 6, timeInterval: 5000 }, (position) => {
         dispatch(setActualLocation(position.coords));
 
@@ -67,6 +68,7 @@ export default MainNavigator = () => {
         console.log("stopLocationReport <-  watchID.remove()");
         watchID.remove();
         dispatch(setActualLocation(null));
+        watchID = null;
       }
     }
   }, [userLogged]);

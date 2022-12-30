@@ -126,7 +126,7 @@ const WorkShiftItem = ({
                         />
                       ) : (
                         <CustomBadge
-                          text={i18n.t("label.gpsLocation")}
+                          text={item.distanceToTarget ? (Math.round(item.distanceToTarget * 100) / 100).toFixed(2) + " " + i18n.t("label.meters") : i18n.t("label.gpsLocation")}
                           bgColor={colors.inactive}
                           color={colors.inactiveDarck}
                           iconName={"location-off"}

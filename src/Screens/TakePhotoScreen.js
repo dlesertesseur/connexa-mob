@@ -67,7 +67,6 @@ export default function TakePhotoScreen({ navigation }) {
           />
 
           <ActionButton iconName={"camera"} onPress={takePicture} />
-
           <ActionButton iconName={"crop"} onPress={() => {}} />
         </View>
       </CameraFullScreen>

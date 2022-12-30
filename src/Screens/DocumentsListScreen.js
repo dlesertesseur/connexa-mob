@@ -5,6 +5,7 @@ import HorizontalSeparator from "../Components/HorizontalSeparator";
 import CustomSearchInput from "../Components/CustomSearchInput";
 import CustomLabel from "../Components/CustomLabel";
 import DocumentsList from "../Components/DocumentsList";
+import CustomButton from "../Components/CustomButton";
 import { FontAwesome } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../Styles/Colors";
@@ -12,25 +13,21 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { documentStatus, status, ui } from "../Config/Constants";
-import { setDocument, updateWorker } from "../Features/Auth";
+import { setDocument, updateWorkerStatus } from "../Features/Auth";
 import { findAllImagesByWorkerId, findDocumentsTemplateByCountry } from "../DataAccess/DocumentsDao";
-import { API } from "../Config/Api";
-import CustomButton from "../Components/CustomButton";
 
 const DocumentsListScreen = ({ navigation }) => {
+  const logo = require("../../assets/images/logo-banner.png");
+
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.value);
+  const { updatedDocument } = useSelector((state) => state.auth.value);
 
   const [searchText, setSearchText] = useState(null);
   const [templates, setTemplates] = useState([]);
-
   const [documents, setDocuments] = useState([]);
+
   const [filteredDocuments, setFilteredDocuments] = useState([]);
-
-  const logo = require("../../assets/images/logo-banner.png");
-  const noDocument = require("../../assets/images/noPhoto.png");
-
-  const { updatedDocument } = useSelector((state) => state.auth.value);
 
   useEffect(() => {
     const params = {
@@ -59,13 +56,12 @@ const DocumentsListScreen = ({ navigation }) => {
           doc.labelText = i18n.t("documents.ids." + t.name);
           doc.description = i18n.t("documents.desc." + t.name);
           if (img) {
-            doc.url = API.document.baseImageUrl + img.path;
+            doc.url = img.url;
             doc.status = documentStatus.ACTIVE;
           } else {
             doc.url = null;
             doc.status = documentStatus.PENDING;
           }
-
           return doc;
         });
 
@@ -85,17 +81,13 @@ const DocumentsListScreen = ({ navigation }) => {
   }, [searchText]);
 
   const startValidationProcess = () => {
-    const u = {...user}
-    u.status = status.VERIFYING_IDENTITY;
-    u.toke = "";
-
     const params = {
       id:user.id,
       token:user.token,
-      data:u
+      status:status.VERIFYING_IDENTITY
     }
 
-    dispatch(updateWorker(params)).then((ret) => {
+    dispatch(updateWorkerStatus(params)).then((ret) => {
       navigation.navigate("VerifyingData");
     });
   };
@@ -203,6 +195,13 @@ const DocumentsListScreen = ({ navigation }) => {
     );
   };
 
+  const allDocumentsActives = () => {
+    const ret = documents.every((doc) => {
+      return(doc.status === documentStatus.ACTIVE);
+    })
+    return(ret);
+  }
+
   return (
     <View style={styles.container}>
       <CustomImage source={logo} style={styles.logo} />
@@ -220,7 +219,7 @@ const DocumentsListScreen = ({ navigation }) => {
       <DocumentsList data={filteredDocuments} renderItem={renderItem} />
       <HorizontalSeparator />
       <View style={styles.btPanel}>
-        <CustomButton text={i18n.t("button.startValidationProcess")} onPress={startValidationProcess} />
+        <CustomButton text={i18n.t("button.startValidationProcess")} onPress={startValidationProcess} disabled={(!allDocumentsActives())}/>
       </View>
     </View>
   );

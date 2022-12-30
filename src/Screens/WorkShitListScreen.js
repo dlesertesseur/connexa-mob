@@ -3,7 +3,6 @@ import React from "react";
 import WorkShiftItem from "../Components/WorkShiftItem";
 import CustomTitleBar from "../Components/CustomTitleBar";
 import CustomText from "../Components/CustomText";
-import * as Location from "expo-location";
 import { FlatList, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +10,7 @@ import { useEffect } from "react";
 import { ui } from "../Config/Constants";
 import { findAllShiftsByWorkerId, setActualLocation } from "../Features/Shifts";
 import { useState } from "react";
-import { getDateFromStr, onLocation, onTime, zeroPad } from "../Util";
+import { getDateFromStr, getDistanceInMeters, onLocation, onTime, zeroPad } from "../Util";
 import { useFocusEffect } from "@react-navigation/native";
 
 const WorkShitListScreen = ({ navigation }) => {
@@ -56,13 +55,14 @@ const WorkShitListScreen = ({ navigation }) => {
 
       r.onTime = onTime(start, end);
       if (actualLocation) {
-        r.onLocation = onLocation(
+        const ret = getDistanceInMeters(
           actualLocation?.latitude,
           actualLocation?.longitude,
           r.siteLatitude,
-          r.siteLongitude,
-          r.siteRadiusInMeters
+          r.siteLongitude
         );
+        r.onLocation = ret <= r.siteRadiusInMeters;
+        r.distanceToTarget = ret;
       } else {
         r.onLocation = false;
       }

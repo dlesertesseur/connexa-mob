@@ -8,7 +8,7 @@ import Store from "./src/Store";
 
 export default function App() {
   const [loaded] = useFonts({
-    Montserrat: require("./assets/fonts/Montserrat-Regular.ttf"),
+    Montserrat: require("./assets/fonts/Roboto-Regular.ttf"),
   });
 
   return (
