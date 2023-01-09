@@ -7,7 +7,8 @@ import { colors } from "../Styles/Colors";
 import { Octicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useState } from "react";
-
+import CustomLabel from "./CustomLabel";
+import { API } from "../Config/Api";
 
 const ProductItem = ({ item, onPress, onLongPress }) => {
   const [quantity, setQuantity] = useState(1);
@@ -27,7 +28,7 @@ const ProductItem = ({ item, onPress, onLongPress }) => {
       disabled={!onPress}
       style={{
         width: "100%",
-        height: 124,
+        height: 150,
       }}
       onPress={() => {
         if (onPress) {
@@ -45,7 +46,7 @@ const ProductItem = ({ item, onPress, onLongPress }) => {
         <View style={styles.dataView}>
           <View style={styles.leftPart}>
             <Image
-              source={{ uri: item.image }}
+              source={{ uri: API.baseImageUrl + item.image }}
               style={{
                 width: "100%",
                 height: "100%",
@@ -56,24 +57,7 @@ const ProductItem = ({ item, onPress, onLongPress }) => {
             />
           </View>
           <View style={styles.rightPart}>
-            <Text
-              style={{
-                fontSize: 18,
-                color: colors.primary,
-                fontWeight: "bold",
-              }}
-            >
-              {item.name}
-            </Text>
-
-            <Text
-              style={{
-                fontSize: 16,
-                color: colors.primary,
-              }}
-            >
-              {item.ean}
-            </Text>
+          <CustomLabel title={item.ean} text={item.description} titleFont={20}/>
             <HorizontalSeparator height={10} />
 
             <View
@@ -84,7 +68,7 @@ const ProductItem = ({ item, onPress, onLongPress }) => {
                 width: "100%",
               }}
             >
-              <View style={{ flexDirection: "row" }}>
+              <View style={{ flexDirection: "row", marginHorizontal:ui.margin }}>
                 <Octicons name="package" size={22} color={colors.primary} />
                 <Text
                   style={{
@@ -109,7 +93,7 @@ const ProductItem = ({ item, onPress, onLongPress }) => {
                 </Text>
               </View>
 
-              <View style={{ flexDirection: "row" }}>
+              {/* <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity
                   style={{ marginLeft: 15 }}
                   onPress={() => {
@@ -127,7 +111,7 @@ const ProductItem = ({ item, onPress, onLongPress }) => {
                 >
                   <FontAwesome5 name="minus-circle" size={22} color={colors.primary} />
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
           </View>
         </View>
@@ -144,6 +128,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: colors.background,
+    borderWidth:1,
+    borderColor:colors.primary,
+    borderRadius:ui.borderRadius
   },
 
   leftPart: {
@@ -158,7 +145,7 @@ const styles = StyleSheet.create({
   rightPart: {
     height: "100%",
     flex: 1,
-    padding: 5,
+    paddingVertical: 5,
     justifyContent: "flex-start",
     alignItems: "flex-start",
     backgroundColor: colors.primaryLighter,

@@ -55,7 +55,8 @@
       "startActivity":"Iniciar actividad",
       "scanLocation": "Escanear ubicación",
       "back": "Volver a opciones",
-      "exit": "Salir"
+      "exit": "Salir",
+      "addProduct":"Agregar producto"
     },
 
     "validation": {
@@ -114,7 +115,11 @@
         "fronting":"Frenteo",
         "fronting-desc":"Colocar los articulos al frente para cubrir los espacios.",
         "noPermission":"Sin permisos",
-        "noPermission-desc":"No tienes permisos para acceder al dispositivo."
+        "noPermission-desc":"No tienes permisos para acceder al dispositivo.",
+        "scanProduct":"Escanear producto",
+        "scanProduct-desc":"",
+        "productDetail":"Detalle de producto",
+        "productDetail-desc":""
       },
       "error": "ERROR",
       "noData": "Sin datos"

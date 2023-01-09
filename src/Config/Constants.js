@@ -9,6 +9,7 @@ export const ui = {
   borderWidth:1,
   padding: 10,
   margin:15,
+  controlButtonHeight:90,
   tabBar:{
     height:70
   }

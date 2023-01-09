@@ -5,6 +5,7 @@ import NumberOfUnitsScreen from "./NumberOfUnitsScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet, View } from "react-native";
 import { colors } from "../../../Styles/Colors";
+import ProducDetailScreen from "../../ProducDetailScreen";
 
 const Stack = createNativeStackNavigator();
 const WorkOrderScreen = ({ route }) => {
@@ -19,6 +20,7 @@ const WorkOrderScreen = ({ route }) => {
       <Stack.Screen name="ProductsList" component={ProductsListScreen} initialParams={param} />
       <Stack.Screen name="ScanProduct" component={ScanProducScreen} />
       <Stack.Screen name="NumberOfUnits" component={NumberOfUnitsScreen} initialParams={param} />
+      <Stack.Screen name="ProductDetail" component={ProducDetailScreen} initialParams={param} />
     </Stack.Navigator>
   );
 };

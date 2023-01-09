@@ -23,7 +23,7 @@ const initialState = {
     //   pauseEndDateAndTime: "2022-12-22 20:30:00",
     // },
     loading: false,
-    error: false,
+    error: null,
     errorMessage: null,
     loadingProfile: false,
     indoorLocationCode: null,
@@ -201,19 +201,22 @@ export const shiftsSlice = createSlice({
     },
 
     resetError: (state, action) => {
-      state.value.error = false,
-      state.value.errorMessage = null
+      state.value.error = null;
+      state.value.errorMessage = null;
+      state.value.errorStatus = null;
     }
   },
   extraReducers: {
     [findAllShiftsByWorkerId.pending]: (state) => {
-      state.value.error = false;
+      state.value.error = null;
       state.value.errorMessage = null;
+      state.value.errorStatus = null;
     },
     [findAllShiftsByWorkerId.fulfilled]: (state, { payload }) => {
       if (payload.error) {
         state.value.error = true;
         state.value.errorMessage = payload.message;
+        state.value.errorStatus = payload.status;
       } else {
         state.value.shifts = payload;
       }
@@ -222,50 +225,73 @@ export const shiftsSlice = createSlice({
       state.value.loading = false;
       state.value.error = true;
       if (payload) {
-        state.value.errorMessage = payload.error.message;
+        state.value.errorMessage = payload.message;
+        state.value.errorStatus = payload.status;
+        state.value.error = payload.error;
       } else {
         state.value.errorMessage = i18n.t("error.connection");
       }
     },
 
     [startWorkShift.pending]: (state) => {
-      state.value.error = false;
+      state.value.error = null;
       state.value.errorMessage = null;
+      state.value.errorStatus = null;
+      state.value.loading = true;
     },
     [startWorkShift.fulfilled]: (state, { payload }) => {
+
+      console.log("[startWorkShift.fulfilled]", payload);
+
       if (payload?.error) {
-        state.value.error = payload.error.message;
+        state.value.error = payload.error;
+        state.value.errorMessage = payload.message;
+        state.value.errorStatus = payload.status;
       }
-      state.value.selectedShift = payload;
+      else{
+        state.value.selectedShift = payload;
+      }
+      state.value.loading = false;
     },
     [startWorkShift.rejected]: (state, { payload }) => {
       state.value.loading = false;
-      state.value.error = true;
-      state.value.errorMessage = payload.error.message;
+      state.value.error = payload.error;
+      state.value.errorMessage = payload.message;
+      state.value.errorStatus = payload.status;
     },
 
     [endWorkShift.pending]: (state) => {
-      state.value.error = false;
+      state.value.error = null;
       state.value.errorMessage = null;
+      state.value.errorStatus = null;
+      state.value.loading = true;
     },
+    
     [endWorkShift.fulfilled]: (state, { payload }) => {
       if (payload.error) {
-        state.value.error = payload.error.message;
+        state.value.error = payload.error;
+        state.value.errorMessage = payload.message;
+        state.value.errorStatus = payload.status;
+      }else{
+        state.value.selectedShift = null;
       }
-      state.value.selectedShift = null;
     },
+
     [endWorkShift.rejected]: (state, { payload }) => {
       state.value.loading = false;
       state.value.error = true;
       if (payload) {
-        state.value.errorMessage = payload.error.message;
+        state.value.error = payload.error;
+        state.value.errorStatus = payload.status;
+        state.value.errorMessage = payload.message;
       } else {
         state.value.errorMessage = i18n.t("error.connection");
       }
+      state.value.loading = true;
     },
 
     [logOut.pending]: (state) => {
-      state.value.error = false;
+      state.value.error = null;
       state.value.errorMessage = null;
       state.value.startingActivity = false;
       state.value.startedActivity = false;
@@ -280,7 +306,7 @@ export const shiftsSlice = createSlice({
         state.value.error = true;
       } else {
         state.value.errorMessage = null;
-        state.value.error = false;
+        state.value.error = null;
       }
     },
     [logOut.rejected]: (state, { payload }) => {
@@ -292,7 +318,7 @@ export const shiftsSlice = createSlice({
     },
 
     [startActivity.pending]: (state) => {
-      state.value.error = false;
+      state.value.error = null;
       state.value.errorMessage = null;
       state.value.startingActivity = true;
     },
@@ -306,7 +332,7 @@ export const shiftsSlice = createSlice({
         state.value.finishedActivity = null;
         state.value.finishingActivity = null;
         state.value.errorMessage = null;
-        state.value.error = false;
+        state.value.error = null;
       }
     },
     [startActivity.rejected]: (state, { payload }) => {
@@ -321,7 +347,7 @@ export const shiftsSlice = createSlice({
     },
 
     [endActivity.pending]: (state) => {
-      state.value.error = false;
+      state.value.error = null;
       state.value.errorMessage = null;
       state.value.finishingActivity = true;
     },
@@ -336,7 +362,7 @@ export const shiftsSlice = createSlice({
         state.value.startedActivity = null;
         state.value.startingActivity = null;
         state.value.errorMessage = null;
-        state.value.error = false;
+        state.value.error = null;
       }
     },
     [endActivity.rejected]: (state, { payload }) => {
@@ -351,7 +377,7 @@ export const shiftsSlice = createSlice({
     },
 
     [findStartedShiftByWorkerId.pending]: (state) => {
-      state.value.error = false;
+      state.value.error = null;
       state.value.errorMessage = null;
       state.value.loadingProfile = true;
     },

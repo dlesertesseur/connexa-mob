@@ -49,7 +49,8 @@
       "startActivity":"Start activity",
       "scanLocation": "Scan location",
       "back": "Back",
-      "exit": "Exit"
+      "exit": "Exit",
+      "addProduct":"Add product"
     },
 
     "validation": {
@@ -106,7 +107,11 @@
         "fronting":"Fronting",
         "fronting-desc":"Place items in front to cover gaps",
         "noPermission":"No permissions",
-        "noPermission-desc":"You do not have permissions to access the device"
+        "noPermission-desc":"You do not have permissions to access the device",
+        "scanProduct":"Scan product",
+        "scanProduct-desc":"",
+        "productDetail":"Product detail",
+        "productDetail-desc":""
       },
       "error": "ERROR",
       "noData": "No data found"

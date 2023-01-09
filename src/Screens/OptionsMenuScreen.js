@@ -5,25 +5,20 @@ import CustomSearchInput from "../Components/CustomSearchInput";
 import WorkShiftItem from "../Components/WorkShiftItem";
 import CustomTitleBar from "../Components/CustomTitleBar";
 import OptionItem2 from "../Components/OptionItem2";
-import {
-  BackHandler,
-  FlatList,
-  StyleSheet,
-  View,
-} from "react-native";
+import ErrorDialog from "../Components/ErrorDialog";
+import { BackHandler, FlatList, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import { ui } from "../Config/Constants";
 import { getDateFromStr, onTime, zeroPad } from "../Util";
+import { resetError } from "../Features/Shifts";
 
-const OptionsMenuScreen = ({ navigation, route }) => {
-  const { selectedShift } = useSelector((state) => state.shifts.value);
+const OptionsMenuScreen = ({ navigation }) => {
+  const { selectedShift, error, errorMessage } = useSelector((state) => state.shifts.value);
 
-  const [options, setOptions] = useState(
-    require("../DataAccess/optionsMenu.json")
-  );
+  const [options, setOptions] = useState(require("../DataAccess/optionsMenu.json"));
   const [searchText, setSearchText] = useState(null);
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [shiftProcessed, setShiftProcessed] = useState();
@@ -33,10 +28,7 @@ const OptionsMenuScreen = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      () => true
-    );
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => true);
     return () => backHandler.remove();
   }, []);
 
@@ -58,20 +50,12 @@ const OptionsMenuScreen = ({ navigation, route }) => {
       r.startDate = start.getDate();
       r.startDayOfWeek = start.getDay();
 
-      r.startTime =
-        zeroPad(start.getHours(), 2) + ":" + zeroPad(start.getMinutes(), 2);
-      r.endTime =
-        zeroPad(end.getHours(), 2) + ":" + zeroPad(end.getMinutes(), 2);
+      r.startTime = zeroPad(start.getHours(), 2) + ":" + zeroPad(start.getMinutes(), 2);
+      r.endTime = zeroPad(end.getHours(), 2) + ":" + zeroPad(end.getMinutes(), 2);
 
       if (startPause) {
-        r.pauseStartTime =
-          zeroPad(startPause.getHours(), 2) +
-          ":" +
-          zeroPad(startPause.getMinutes(), 2);
-        r.pauseEndTime =
-          zeroPad(endPause?.getHours(), 2) +
-          ":" +
-          zeroPad(endPause?.getMinutes(), 2);
+        r.pauseStartTime = zeroPad(startPause.getHours(), 2) + ":" + zeroPad(startPause.getMinutes(), 2);
+        r.pauseEndTime = zeroPad(endPause?.getHours(), 2) + ":" + zeroPad(endPause?.getMinutes(), 2);
       }
 
       r.onTime = onTime(start, end);
@@ -89,20 +73,25 @@ const OptionsMenuScreen = ({ navigation, route }) => {
   }, [searchText]);
 
   const renderOption = ({ item, index }) => {
-    return (
-      <OptionItem2 index={index} item={item} onPress={() => onSelect(item)}/>
-    );
+    return <OptionItem2 index={index} item={item} onPress={() => onSelect(item)} />;
   };
 
   return (
     <View style={styles.container}>
       <CustomTitleBar title={i18n.t("title.screen.activityLog")} />
 
+      <ErrorDialog
+        visible={error ? true : false}
+        title={i18n.t("title.error")}
+        text={errorMessage}
+        onAccept={() => {
+          dispatch(resetError());
+        }}
+      />
+
       <View style={styles.centralPanel}>
         <View style={{ width: "100%" }}>
-          {shiftProcessed ? (
-            <WorkShiftItem item={shiftProcessed} withLocationInfo={false} />
-          ) : null}
+          {shiftProcessed ? <WorkShiftItem item={shiftProcessed} withLocationInfo={false} /> : null}
         </View>
       </View>
 
@@ -113,29 +102,19 @@ const OptionsMenuScreen = ({ navigation, route }) => {
         textAlign="flex-start"
       />
 
-      <CustomSearchInput
-        placeholder={i18n.t("label.search")}
-        value={searchText}
-        setValue={setSearchText}
-      />
+      <CustomSearchInput placeholder={i18n.t("label.search")} value={searchText} setValue={setSearchText} />
       <View
         style={{
           flex: 1,
           backgroundColor: colors.background,
-          borderRadius:ui.borderRadius,
+          borderRadius: ui.borderRadius,
           paddingHorizontal: 6,
           paddingVertical: 8,
           marginHorizontal: 15,
           marginBottom: ui.tabBar.height + ui.margin,
-
         }}
       >
-        <FlatList
-          numColumns={4}
-          data={filteredOptions}
-          renderItem={renderOption}
-          keyExtractor={(item) => item.id}
-        />
+        <FlatList numColumns={4} data={filteredOptions} renderItem={renderOption} keyExtractor={(item) => item.id} />
 
         {/* <View
           style={{

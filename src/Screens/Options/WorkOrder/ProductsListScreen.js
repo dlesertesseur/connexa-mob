@@ -4,6 +4,9 @@ import { Alert, Dimensions, FlatList, Modal, Pressable, StyleSheet, Text, Toucha
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
+import { deleteScannedProduct } from "../../../Features/Products";
+import { ui } from "../../../Config/Constants";
+import { endActivity, startActivity } from "../../../Features/Shifts";
 import i18n from "../../../Config/i18n";
 import HorizontalSeparator from "../../../Components/HorizontalSeparator";
 import CustomSearchInput from "../../../Components/CustomSearchInput";
@@ -12,9 +15,6 @@ import ProductItem from "../../../Components/ProductItem";
 import CustomButton from "../../../Components/CustomButton";
 import CustomFloatingButton from "../../../Components/CustomFloatingButton";
 import CustomTitleBar from "../../../Components/CustomTitleBar";
-import { deleteScannedProduct } from "../../../Features/Products";
-import { ui } from "../../../Config/Constants";
-import { endActivity, startActivity } from "../../../Features/Shifts";
 
 const ProductsListScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();

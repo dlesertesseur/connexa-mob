@@ -2,13 +2,13 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { colors } from "../Styles/Colors";
 
-const CustomLabel = ({ title, text, style}) => {
+const CustomLabel = ({ title, text, titleFont=24, style}) => {
   return (
     <View style={[styles.container, style]}>
       <View style={{marginHorizontal:15}}>
         <Text
           style={{
-            fontSize: 24,
+            fontSize: titleFont,
             color: colors.primary,
             fontWeight: "bold",
           }}

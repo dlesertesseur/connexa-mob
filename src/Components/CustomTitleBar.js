@@ -13,6 +13,7 @@ const CustomTitleBar = ({
   color = colors.secondary,
   avatar = true,
   marginBottom = 15,
+  position="relative"
 }) => {
   const { user, profileImage } = useSelector((state) => state.auth.value);
 
@@ -23,10 +24,11 @@ const CustomTitleBar = ({
         backgroundColor: colors.primary,
         width: fullWidth ? "100%" : null,
         height: 64,
-        marginTop: 15,
+        //marginTop: 15,
         marginBottom: marginBottom,
         flexDirection: "row",
         justifyContent: "space-between",
+        position: position
       }}
     >
       <View style={{ marginHorizontal: marginHorizontal }}>

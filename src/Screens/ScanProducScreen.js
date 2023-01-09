@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import i18n from "../Config/i18n";
 import CustomError from "../Components/CustomError";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, View, TouchableOpacity, useWindowDimensions } from "react-native";
 import { colors } from "../Styles/Colors";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
-import { addScannedProduct } from "../Features/Products";
+import { addScannedProduct, findProductByEan } from "../Features/Products";
 import { useDispatch } from "react-redux";
 import { ui } from "../Config/Constants";
 import { findProuctByEan } from "../DataAccess/ProductDao";
 import { FontAwesome } from "@expo/vector-icons";
+import CustomTitleBar from "../Components/CustomTitleBar";
+import UserAvatar from "react-native-user-avatar-component";
 
 const ScanProducScreen = ({ navigation, route, barCode = true, qrCode = false }) => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -20,52 +22,25 @@ const ScanProducScreen = ({ navigation, route, barCode = true, qrCode = false })
   const [sound, setSound] = useState();
 
   const params = route.params;
-
   const dispatch = useDispatch();
+  const { height, width } = useWindowDimensions();
 
   async function playSound(data) {
     const { sound } = await Audio.Sound.createAsync(require("./../../assets/sound/beep_2.mp3"));
     setSound(sound);
     sound.playAsync().then(() => {
+      // const obj = {
+      //   id: Date.now().toString(),
+      //   code: "NO CODE",
+      //   type: data.type,
+      //   ean: data.ean,
+      //   image: "https://picsum.photos/100/100", //itemData.urlImage,
+      //   name: "NO DESCRIPTION",
+      // };
+      // dispatch(addScannedProduct(obj));
 
-      const obj = {
-        id: Date.now().toString(),
-        code: "NO CODE",
-        type: data.type,
-        ean: data.ean,
-        image: "https://picsum.photos/100/100", //itemData.urlImage,
-        name: "NO DESCRIPTION",
-      };
-      dispatch(addScannedProduct(obj));
-
-      // findProuctByEan(data).then((itemData) => {
-      //   let obj = null;
-      //   if (itemData.id) {
-      //     obj = {
-      //       id: itemData.id,
-      //       code: itemData.code,
-      //       type: data.type,
-      //       ean: data.ean,
-      //       image: "https://picsum.photos/100/100", //itemData.urlImage,
-      //       name: itemData.description,
-      //     };
-      //   }else{
-      //     obj = {
-      //       id: Date.now().toString,
-      //       code: "NO CODE",
-      //       type: data.type,
-      //       ean: data.ean,
-      //       image: "https://picsum.photos/100/100", //itemData.urlImage,
-      //       name: "NO DESCRIPTION",
-      //     };
-      //   }
-
-      //   console.log("findProuctByEan -> ", obj);
-      //   dispatch(addScannedProduct(obj));
-      // }).catch((error) => {
-      //   console.log("findProuctByEan -> error", error);
-
-      // });
+      const params = {ean: data.ean};
+      navigation.navigate("ProductDetail", params);
     });
   }
 
@@ -108,7 +83,7 @@ const ScanProducScreen = ({ navigation, route, barCode = true, qrCode = false })
 
   return (
     <View style={styles.container}>
-      <View style={styles.panel}>
+      <View style={[StyleSheet.absoluteFillObject, { backgroundColor: "#ff0000" }]}>
         {!error ? (
           <BarCodeScanner
             onBarCodeScanned={!scanned && scanActived ? handleBarCodeScanned : undefined}
@@ -119,24 +94,41 @@ const ScanProducScreen = ({ navigation, route, barCode = true, qrCode = false })
           <CustomError title={i18n.t("title.error")} text={error} />
         )}
       </View>
-      <View style={styles.control}>{actionButton()}</View>
-
-      <View
-        style={{
-          width: "100%",
-          alignItems: "flex-end",
-          justifyContent: "center",
-          position: "absolute",
-          padding: ui.margin,
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate(params.backScreen);
+      <View>
+        <CustomTitleBar title={i18n.t("title.screen.scanProduct")} marginBottom={0} />
+        <View
+          style={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: "transparent",
+            top: height - ui.tabBar.height,
+            position: "absolute",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            padding: 15,
           }}
         >
-          <FontAwesome name="close" size={48} color={colors.secondary} />
-        </TouchableOpacity>
+          {actionButton()}
+        </View>
+
+        <View
+          style={{
+            top: 60,
+            width: "100%",
+            alignItems: "flex-end",
+            justifyContent: "center",
+            position: "absolute",
+            padding: ui.margin,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(params.backScreen);
+            }}
+          >
+            <FontAwesome name="close" size={48} color={colors.secondary} />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -154,18 +146,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000000",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    borderColor: "#ff0000",
+    borderWidth: 2,
   },
 
-  control: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "transparent",
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: 15,
-  },
+  // control: {
+  //   width: "100%",
+  //   height: "100%",
+  //   backgroundColor: "transparent",
+  //   position: "absolute",
+  //   alignItems: "center",
+  //   justifyContent: "flex-end",
+  //   padding: 15,
+  // },
 
   text: {
     color: "#ffffff",
@@ -177,7 +171,7 @@ const styles = StyleSheet.create({
 
   scanButton: {
     width: "100%",
-    height: 90,
+    height: ui.controlButtonHeight,
     alignItems: "center",
     justifyContent: "space-evenly",
     borderRadius: ui.borderRadius,
@@ -199,5 +193,16 @@ const styles = StyleSheet.create({
     margin: 15,
     padding: 15,
     backgroundColor: colors.primary,
+  },
+
+  cameraContainer: {
+    marginHorizontal: 0,
+    marginLeft: 0,
+    marginStart: 0,
+    paddingHorizontal: 0,
+    paddingLeft: 0,
+    paddingStart: 0,
+    height: "100%",
+    padding: 0,
   },
 });

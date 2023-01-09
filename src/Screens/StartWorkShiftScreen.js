@@ -5,12 +5,13 @@ import HorizontalSeparator from "../Components/HorizontalSeparator";
 import WorkShiftItem from "../Components/WorkShiftItem";
 import CustomLabel from "../Components/CustomLabel";
 import CustomTitleBar from "../Components/CustomTitleBar";
+import ConfirmDialog from "../Components/ConfirmDialog";
+import ErrorDialog from "../Components/ErrorDialog";
 import { StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
-import { startWorkShift } from "../Features/Shifts";
+import { resetError, startWorkShift } from "../Features/Shifts";
 import { useEffect } from "react";
-import ConfirmDialog from "../Components/ConfirmDialog";
 import { useState } from "react";
 import { ui } from "../Config/Constants";
 
@@ -18,7 +19,7 @@ const StartWorkShiftScreen = ({ navigation, route }) => {
   const workShift = route.params;
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.value);
-  const { selectedShift } = useSelector((state) => state.shifts.value);
+  const { selectedShift, error, errorMessage } = useSelector((state) => state.shifts.value);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -41,7 +42,9 @@ const StartWorkShiftScreen = ({ navigation, route }) => {
       <View style={styles.panel}>
         <CustomButton
           text={i18n.t("button.startWorkShift")}
-          onPress={() => {setModalVisible(true)}}
+          onPress={() => {
+            setModalVisible(true);
+          }}
         />
       </View>
 
@@ -50,12 +53,21 @@ const StartWorkShiftScreen = ({ navigation, route }) => {
         title={i18n.t("modal.confirmation")}
         text={i18n.t("modal.confirmation-startShift")}
         onAccept={() => {
-            const params = { id: user.id, shiftId: workShift.id, token: user.token };
-            dispatch(startWorkShift(params));
-            setModalVisible(false);
-          }}
+          const params = { id: user.id, shiftId: workShift.id, token: user.token };
+          dispatch(startWorkShift(params));
+          setModalVisible(false);
+        }}
         onCancel={() => {
           setModalVisible(false);
+        }}
+      />
+
+      <ErrorDialog
+        visible={error ? true : false}
+        title={i18n.t("title.error")}
+        text={errorMessage}
+        onAccept={() => {
+          dispatch(resetError());
         }}
       />
     </View>

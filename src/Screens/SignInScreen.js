@@ -6,15 +6,14 @@ import CustomLabel from "../Components/CustomLabel";
 import CustomImage from "../Components/CustomImage";
 import CustomLink from "../Components/CustomLink";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
-import CustomError from "../Components/CustomError";
+import ErrorDialog from "../Components/ErrorDialog";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { useForm } from "react-hook-form";
-import { ActivityIndicator, Alert, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { resetError, signIn } from "../Features/Auth";
-import ErrorDialog from "../Components/ErrorDialog";
 
 const SignInScreen = ({ navigation }) => {
   const dispatch = useDispatch();
