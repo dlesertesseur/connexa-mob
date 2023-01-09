@@ -8,7 +8,7 @@ import OptionItem2 from "../Components/OptionItem2";
 import ErrorDialog from "../Components/ErrorDialog";
 import { BackHandler, FlatList, StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import { ui } from "../Config/Constants";
@@ -22,6 +22,8 @@ const OptionsMenuScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState(null);
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [shiftProcessed, setShiftProcessed] = useState();
+
+  const dispatch = useDispatch(dispatch);
 
   const onSelect = (item) => {
     navigation.navigate(item.type, item);

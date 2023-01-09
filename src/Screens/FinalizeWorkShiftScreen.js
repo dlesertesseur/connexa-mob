@@ -5,6 +5,7 @@ import HorizontalSeparator from "../Components/HorizontalSeparator";
 import WorkShiftItem from "../Components/WorkShiftItem";
 import CustomLabel from "../Components/CustomLabel";
 import CustomTitleBar from "../Components/CustomTitleBar";
+import ConfirmDialog from "../Components/ConfirmDialog";
 import { StyleSheet, View } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +13,6 @@ import { useEffect } from "react";
 import { endWorkShift } from "../Features/Shifts";
 import { useState } from "react";
 import { getDateFromStr, onTime, zeroPad, getDistanceInMeters } from "../Util";
-import ConfirmDialog from "../Components/ConfirmDialog";
 import { ui } from "../Config/Constants";
 
 const FinalizeWorkShiftScreen = ({ navigation }) => {
