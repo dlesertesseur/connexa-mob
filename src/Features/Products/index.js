@@ -7,6 +7,9 @@ const initialState = {
     products: [],
     productsByCategory: [],
     product: null,
+    error: null,
+    errorMessage: null,
+    errorStatus: null,
   },
 };
 
@@ -44,21 +47,44 @@ export const findProductByEan = createAsyncThunk(
   }
 )
 
-
 export const productsSlice = createSlice({
   name: "products",
   initialState: initialState,
   reducers: {
     addScannedProduct: (state, action) => {
+
       let found = state.value.scannedList.find((item) => item.id === action.payload.id);
       if (!found) {
         state.value.scannedList.push(action.payload);
         state.value.product=null;
       }
     },
+
+    editProduct: (state, action) => {
+      let found = state.value.scannedList.find((item) => item.id === action.payload.id);
+      if (found) {
+        found.logisticVariable = action.payload.logisticVariable;
+        found.amount = action.payload.amount;
+        state.value.product=null;
+      }else{
+        console.log("editProduct NOT FOUND");
+      }
+    },
+
+
     deleteScannedProduct: (state, action) => {
       const filtered = state.value.scannedList.filter((item) => item.id !== action.payload.id);
       state.value.scannedList = filtered;
+    },
+
+    resetError: (state, action) => {
+      state.value.error = null;
+      state.value.errorMessage = null;
+      state.value.errorStatus = null;
+    },
+
+    resetProduct: (state, action) => {
+      state.value.product = null;
     },
   },
 
@@ -87,9 +113,11 @@ export const productsSlice = createSlice({
         state.value.error = payload.error;
         state.value.errorMessage = payload.message;
         state.value.errorStatus = payload.status;
+        state.value.product = null;
       }else{
         state.value.product = payload;
       }
+      state.value.loading = false;
     },
 
     [findProductByEan.rejected]: (state, { payload }) => {
@@ -102,11 +130,11 @@ export const productsSlice = createSlice({
       } else {
         state.value.errorMessage = i18n.t("error.connection");
       }
-      state.value.loading = true;
+      state.value.loading = false;
     },
   },
 });
 
-export const { addScannedProduct, deleteScannedProduct } = productsSlice.actions;
+export const { addScannedProduct, deleteScannedProduct, resetError, resetProduct, editProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;

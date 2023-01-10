@@ -18,7 +18,7 @@ import { ui } from "../Config/Constants";
 const FinalizeWorkShiftScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.value);
-  const { selectedShift } = useSelector((state) => state.shifts.value);
+  const { selectedShift, finishingWorkShift } = useSelector((state) => state.shifts.value);
   const { actualLocation } = useSelector((state) => state.location.value);
 
   const [shiftProcessed, setShiftProcessed] = useState();
@@ -104,6 +104,7 @@ const FinalizeWorkShiftScreen = ({ navigation }) => {
 
       <View style={styles.panel}>
         <CustomButton
+          loading={finishingWorkShift}
           text={i18n.t("button.finalizeWorkShift")}
           onPress={() => {
             setModalVisible(true);

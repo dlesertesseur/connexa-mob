@@ -1,12 +1,11 @@
 import React from "react";
 import { colors } from "../../../Styles/Colors";
-import { Alert, Dimensions, FlatList, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Dimensions, FlatList, Modal, StyleSheet, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import { deleteScannedProduct } from "../../../Features/Products";
 import { ui } from "../../../Config/Constants";
-import { endActivity, startActivity } from "../../../Features/Shifts";
 import i18n from "../../../Config/i18n";
 import HorizontalSeparator from "../../../Components/HorizontalSeparator";
 import CustomSearchInput from "../../../Components/CustomSearchInput";
@@ -80,36 +79,6 @@ const ProductsListScreen = ({ navigation, route }) => {
 
       <HorizontalSeparator />
       <View style={styles.panel}>
-        {/* {startedActivity ? (
-          <CustomButton
-            text={i18n.t("button.finish")}
-            onPress={() => {
-              const params = {
-                id: user.id,
-                shiftId: selectedShift.id,
-                activiryId: option.code,
-                token: user.token,
-              };
-              dispatch(endActivity(params));
-            }}
-          />
-        ) : (
-          <CustomButton
-            text={i18n.t("button.startActivity")}
-            onPress={() => {
-              const params = {
-                id: user.id,
-                shiftId: selectedShift.id,
-                activiryId: option.code,
-                token: user.token,
-              };
-              dispatch(startActivity(params));
-              navigation.goBack();
-            }}
-          />
-        )}
-
-        <HorizontalSeparator /> */}
         <CustomButton
           text={i18n.t("button.back")}
           onPress={() => {
@@ -117,24 +86,7 @@ const ProductsListScreen = ({ navigation, route }) => {
           }}
         />
       </View>
-      <View
-        style={{
-          width: "100%",
-          top: windowHeight - (ui.tabBar.height + ui.margin + 240),
-          position: "absolute",
-          alignItems: "flex-end",
-          justifyContent: "flex-end",
-          padding: 15,
-        }}
-      >
-        <CustomFloatingButton
-          diameter={64}
-          onPress={() => {
-            navigation.navigate("ScanProduct", { backScreen: "ProductsList" });
-          }}
-        />
-      </View>
-
+      
       <Modal
         animationType="fade"
         transparent={true}

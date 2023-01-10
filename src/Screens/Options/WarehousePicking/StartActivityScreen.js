@@ -3,7 +3,6 @@ import i18n from "../../../Config/i18n";
 import HorizontalSeparator from "../../../Components/HorizontalSeparator";
 import CustomButton from "../../../Components/CustomButton";
 import CustomTitleBar from "../../../Components/CustomTitleBar";
-import InputLocation from "../../../Components/InputLocation";
 import Stopwatch from "../../../Components/Stopwatch";
 import CustomError from "../../../Components/CustomError";
 import ConfirmDialog from "../../../Components/ConfirmDialog";
@@ -13,58 +12,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { ui } from "../../../Config/Constants";
 import { useEffect } from "react";
-import { setIndoorLocationCode, startActivity, endActivity } from "../../../Features/Shifts";
+import { startActivity, endActivity } from "../../../Features/Shifts";
 
-const ActivityWithLocationScreen = ({ navigation, route }) => {
-  const {
-    indoorLocationCode,
-    error,
-    errorMessage,
-    selectedShift,
-    startedActivity,
-    startingActivity,
-    finishingActivity,
-  } = useSelector((state) => state.shifts.value);
+const StartActivityScreen = ({ navigation, route }) => {
+  const { error, errorMessage, selectedShift, startedActivity, startingActivity, finishingActivity } = useSelector(
+    (state) => state.shifts.value
+  );
   const { user } = useSelector((state) => state.auth.value);
   const dispatch = useDispatch();
 
   const option = route.params;
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [indoorLocation, setIndoorLocation] = useState(null);
   const [timeElapsed, setTimeElapsed] = useState(0);
-
-  useEffect(() => {
-    dispatch(setIndoorLocationCode(null));
-  }, []);
 
   useEffect(() => {
     startedActivity && setTimeout(() => setTimeElapsed(timeElapsed + 1), 1000);
   }, [timeElapsed, startedActivity]);
-
-  useEffect(() => {
-    setIndoorLocation(indoorLocationCode);
-  }, [indoorLocationCode]);
-
-  const scanIndorLocation = () => {
-    navigation.navigate("ScanLocation");
-  };
 
   return (
     <View style={styles.container}>
       <CustomTitleBar title={option.title} />
 
       <View style={{ flex: 1 }}>
-        <View style={{ width: "100%" }}>
-          <InputLocation
-            disabled={startingActivity || startedActivity ? true : false}
-            placeholder={i18n.t("label.location")}
-            value={indoorLocation}
-            setValue={setIndoorLocation}
-            onPress={scanIndorLocation}
-          />
-        </View>
-
         <View
           style={{
             padding: 5,
@@ -98,8 +68,18 @@ const ActivityWithLocationScreen = ({ navigation, route }) => {
                 token: user.token,
               };
               dispatch(startActivity(params));
+              navigation.navigate("ProductsList");
             }}
-            disabled={(indoorLocation && !startedActivity) || startingActivity ? false : true}
+            disabled={!startedActivity || startingActivity ? false : true}
+          />
+
+          <HorizontalSeparator />
+          <CustomButton
+            text={i18n.t("button.toProductsList")}
+            disabled={startedActivity ? false : true}
+            onPress={() => {
+              navigation.navigate("ProductsList");
+            }}
           />
         </View>
 
@@ -164,7 +144,7 @@ const ActivityWithLocationScreen = ({ navigation, route }) => {
   );
 };
 
-export default ActivityWithLocationScreen;
+export default StartActivityScreen;
 
 const styles = StyleSheet.create({
   container: {

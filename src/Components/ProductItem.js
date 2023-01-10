@@ -1,28 +1,12 @@
 import React from "react";
-import HorizontalSeparator from "./HorizontalSeparator";
-import i18n from "../Config/i18n";
+import CustomLabel from "./CustomLabel";
 import { TouchableOpacity, View, StyleSheet, Image, Text } from "react-native";
 import { ui } from "../Config/Constants";
 import { colors } from "../Styles/Colors";
 import { Octicons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { useState } from "react";
-import CustomLabel from "./CustomLabel";
 import { API } from "../Config/Api";
 
 const ProductItem = ({ item, onPress, onLongPress }) => {
-  const [quantity, setQuantity] = useState(1);
-
-  const increasePackages = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const decreasesPackages = () => {
-    if (quantity - 1 > 0) {
-      setQuantity(quantity - 1);
-    }
-  };
-
   return (
     <TouchableOpacity
       disabled={!onPress}
@@ -35,7 +19,6 @@ const ProductItem = ({ item, onPress, onLongPress }) => {
           onPress(item);
         }
       }}
-
       onLongPress={() => {
         if (onLongPress) {
           onLongPress(item);
@@ -57,18 +40,12 @@ const ProductItem = ({ item, onPress, onLongPress }) => {
             />
           </View>
           <View style={styles.rightPart}>
-          <CustomLabel title={item.ean} text={item.description} titleFont={20}/>
-            <HorizontalSeparator height={10} />
+            <View style={styles.detailPart}>
+              <View style={styles.topPart}>
+                <CustomLabel title={item.ean} text={item.description} titleFont={20} marginHorizontal={0}/>
+              </View>
 
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "100%",
-              }}
-            >
-              <View style={{ flexDirection: "row", marginHorizontal:ui.margin }}>
+              <View style={styles.bottomPart}>
                 <Octicons name="package" size={22} color={colors.primary} />
                 <Text
                   style={{
@@ -78,7 +55,7 @@ const ProductItem = ({ item, onPress, onLongPress }) => {
                     fontWeight: "bold",
                   }}
                 >
-                  {i18n.t("label.packages")}
+                  {item.logisticVariable}
                 </Text>
 
                 <Text
@@ -89,29 +66,9 @@ const ProductItem = ({ item, onPress, onLongPress }) => {
                     fontWeight: "bold",
                   }}
                 >
-                  {quantity}
+                  {item.amount}
                 </Text>
               </View>
-
-              {/* <View style={{ flexDirection: "row" }}>
-                <TouchableOpacity
-                  style={{ marginLeft: 15 }}
-                  onPress={() => {
-                    increasePackages();
-                  }}
-                >
-                  <FontAwesome5 name="plus-circle" size={22} color={colors.primary} />
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={{ marginHorizontal: 15 }}
-                  onPress={() => {
-                    decreasesPackages();
-                  }}
-                >
-                  <FontAwesome5 name="minus-circle" size={22} color={colors.primary} />
-                </TouchableOpacity>
-              </View> */}
             </View>
           </View>
         </View>
@@ -128,9 +85,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: colors.background,
-    borderWidth:1,
-    borderColor:colors.primary,
-    borderRadius:ui.borderRadius
+    borderWidth: 1,
+    borderColor: colors.primary,
+    borderRadius: ui.borderRadius,
   },
 
   leftPart: {
@@ -145,7 +102,6 @@ const styles = StyleSheet.create({
   rightPart: {
     height: "100%",
     flex: 1,
-    paddingVertical: 5,
     justifyContent: "flex-start",
     alignItems: "flex-start",
     backgroundColor: colors.primaryLighter,
@@ -157,6 +113,32 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-start",
+  },
+
+  topPart: {
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    width: "100%",
+    padding:5
+    // borderColor: "#0000ff",
+    // borderWidth: 2,
+  },
+
+  bottomPart: {
+    flexDirection:"row",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    width: "100%",
+    padding:5
+    // borderColor: "#ff0000",
+    // borderWidth: 2,
+  },
+
+  detailPart: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    flex: 1,
   },
 });
 export default ProductItem;

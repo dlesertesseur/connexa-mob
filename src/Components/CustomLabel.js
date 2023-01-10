@@ -2,10 +2,10 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { colors } from "../Styles/Colors";
 
-const CustomLabel = ({ title, text, titleFont=24, style}) => {
+const CustomLabel = ({ title, text, titleFont=24, style, marginHorizontal=15}) => {
   return (
     <View style={[styles.container, style]}>
-      <View style={{marginHorizontal:15}}>
+      <View style={{marginHorizontal:marginHorizontal}}>
         <Text
           style={{
             fontSize: titleFont,

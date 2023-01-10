@@ -10,6 +10,7 @@ import FinalizeWorkShiftScreen from "../../Screens/FinalizeWorkShiftScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useSelector } from "react-redux";
 import ActivitiesScreen from "../../Screens/Options/Activities/ActivitiesScreen";
+import WarehousePickingScreen from "../../Screens/Options/WarehousePicking/WarehousePickingScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,7 @@ const TaskStack = () => {
       <Stack.Screen name="OptionsMenu" component={OptionsMenuScreen}></Stack.Screen>
       <Stack.Screen name="NonWorkingTime" component={NonWorkingTimeScreen}></Stack.Screen>
       <Stack.Screen name="WorkOrder" component={WorkOrderScreen}></Stack.Screen>
+      <Stack.Screen name="WarehousePicking" component={WarehousePickingScreen}></Stack.Screen>
       <Stack.Screen name="Activities" component={ActivitiesScreen}></Stack.Screen>
       <Stack.Screen name="NotFound" component={NotFoundScreen}></Stack.Screen>
       <Stack.Screen name="FinalizeWorkShift" component={FinalizeWorkShiftScreen}></Stack.Screen>

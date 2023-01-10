@@ -31,6 +31,8 @@ const initialState = {
     startingActivity: false,
     finishingActivity: false,
     finishedActivity: false,
+    startingWorkShift: false,
+    finishingWorkShift: false,
   },
 };
 
@@ -237,7 +239,7 @@ export const shiftsSlice = createSlice({
       state.value.error = null;
       state.value.errorMessage = null;
       state.value.errorStatus = null;
-      state.value.loading = true;
+      state.value.startingWorkShift = true;
     },
     [startWorkShift.fulfilled]: (state, { payload }) => {
 
@@ -251,10 +253,10 @@ export const shiftsSlice = createSlice({
       else{
         state.value.selectedShift = payload;
       }
-      state.value.loading = false;
+      state.value.startingWorkShift = false;
     },
     [startWorkShift.rejected]: (state, { payload }) => {
-      state.value.loading = false;
+      state.value.startingWorkShift = false;
       state.value.error = payload.error;
       state.value.errorMessage = payload.message;
       state.value.errorStatus = payload.status;
@@ -264,7 +266,7 @@ export const shiftsSlice = createSlice({
       state.value.error = null;
       state.value.errorMessage = null;
       state.value.errorStatus = null;
-      state.value.loading = true;
+      state.value.finishingWorkShift = true;
     },
     
     [endWorkShift.fulfilled]: (state, { payload }) => {
@@ -275,6 +277,7 @@ export const shiftsSlice = createSlice({
       }else{
         state.value.selectedShift = null;
       }
+      state.value.finishingWorkShift = false;
     },
 
     [endWorkShift.rejected]: (state, { payload }) => {
@@ -287,7 +290,7 @@ export const shiftsSlice = createSlice({
       } else {
         state.value.errorMessage = i18n.t("error.connection");
       }
-      state.value.loading = true;
+      state.value.finishingWorkShift = false;
     },
 
     [logOut.pending]: (state) => {

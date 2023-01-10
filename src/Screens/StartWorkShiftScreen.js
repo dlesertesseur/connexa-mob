@@ -19,7 +19,7 @@ const StartWorkShiftScreen = ({ navigation, route }) => {
   const workShift = route.params;
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.value);
-  const { selectedShift, error, errorMessage } = useSelector((state) => state.shifts.value);
+  const { selectedShift, startingWorkShift, error, errorMessage } = useSelector((state) => state.shifts.value);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -41,6 +41,7 @@ const StartWorkShiftScreen = ({ navigation, route }) => {
 
       <View style={styles.panel}>
         <CustomButton
+          loading={startingWorkShift}
           text={i18n.t("button.startWorkShift")}
           onPress={() => {
             setModalVisible(true);

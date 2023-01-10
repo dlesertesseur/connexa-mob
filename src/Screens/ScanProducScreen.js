@@ -29,16 +29,6 @@ const ScanProducScreen = ({ navigation, route, barCode = true, qrCode = false })
     const { sound } = await Audio.Sound.createAsync(require("./../../assets/sound/beep_2.mp3"));
     setSound(sound);
     sound.playAsync().then(() => {
-      // const obj = {
-      //   id: Date.now().toString(),
-      //   code: "NO CODE",
-      //   type: data.type,
-      //   ean: data.ean,
-      //   image: "https://picsum.photos/100/100", //itemData.urlImage,
-      //   name: "NO DESCRIPTION",
-      // };
-      // dispatch(addScannedProduct(obj));
-
       const params = {ean: data.ean};
       navigation.navigate("ProductDetail", params);
     });

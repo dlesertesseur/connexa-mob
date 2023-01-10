@@ -4,27 +4,26 @@ import CustomTitleBar from "../Components/CustomTitleBar";
 import CustomLabel from "../Components/CustomLabel";
 import HorizontalSeparator from "../Components/HorizontalSeparator";
 import CustomButton from "../Components/CustomButton";
-import {
-  StyleSheet,
-  View,
-  useWindowDimensions,
-  ActivityIndicator,
-  Image,
-  TouchableWithoutFeedback,
-  Text,
-} from "react-native";
+import CustomButtonGroup from "../Components/CustomButtonGroup";
+import ErrorDialog from "../Components/ErrorDialog";
+import { StyleSheet, View, useWindowDimensions, ActivityIndicator, Image } from "react-native";
 import { colors } from "../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { ui } from "../Config/Constants";
-import { addScannedProduct, findProductByEan } from "../Features/Products";
+import { addScannedProduct, editProduct, findProductByEan, resetError, resetProduct } from "../Features/Products";
 import { API } from "../Config/Api";
-import CustomButtonGroup from "../Components/CustomButtonGroup";
 
-const ProducDetailScreen = ({ navigation, route }) => {
+const ProductDetailScreen = ({ navigation, route }) => {
   const { user } = useSelector((state) => state.auth.value);
-  const { product } = useSelector((state) => state.products.value);
+  const { product, error, errorMessage, loading } = useSelector((state) => state.products.value);
   const { height, width } = useWindowDimensions();
   const params = route.params;
+
+  const logisticVariable = Object.values(i18n.t("logisticVariable"));
+  const amounts = ["1", "2", "3", "4", "5"];
+
+  const [logisticVariableSelected, setLogisticVariableSelected] = useState(params.logisticVariable ? params.logisticVariable : logisticVariable[0]);
+  const [amountSelected, setAmountSelected] = useState(params.amount ? params.amount: amounts[0]);
 
   const dispatch = useDispatch();
 
@@ -42,6 +41,15 @@ const ProducDetailScreen = ({ navigation, route }) => {
       <View style={{ flex: 1 }}>
         <CustomTitleBar title={i18n.t("title.screen.productDetail")} marginBottom={0} />
 
+        <ErrorDialog
+          visible={error ? true : false}
+          title={i18n.t("title.error")}
+          text={errorMessage}
+          onAccept={() => {
+            dispatch(resetError());
+          }}
+        />
+
         {product ? (
           <>
             <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginVertical: ui.margin }}>
@@ -55,13 +63,18 @@ const ProducDetailScreen = ({ navigation, route }) => {
                 alignContent: "center",
               }}
             >
-              <CustomLabel title={"Ean"} text={product.ean}></CustomLabel>
+              <CustomLabel title={i18n.t("label.ean")} text={product.ean}></CustomLabel>
               <HorizontalSeparator />
-              <CustomLabel title={"Descripcion"} text={product.description}></CustomLabel>
+              <CustomLabel title={i18n.t("label.description")} text={product.description}></CustomLabel>
               <HorizontalSeparator />
 
-              <CustomButtonGroup actions={["Bultos", "Pallet"]}/>
-              <CustomButtonGroup actions={["#1", "#2", "#3", "#4", "#5"]}/>
+              <CustomButtonGroup
+                actions={logisticVariable}
+                value={logisticVariableSelected}
+                setValue={setLogisticVariableSelected}
+              />
+              <HorizontalSeparator height={10} />
+              <CustomButtonGroup actions={amounts} value={amountSelected} setValue={setAmountSelected} />
             </View>
           </>
         ) : (
@@ -72,7 +85,7 @@ const ProducDetailScreen = ({ navigation, route }) => {
               justifyContent: "center",
             }}
           >
-            <ActivityIndicator color={colors.primary} size={26} />
+            {loading ? <ActivityIndicator color={colors.primary} size={26} /> : null}
           </View>
         )}
 
@@ -87,9 +100,18 @@ const ProducDetailScreen = ({ navigation, route }) => {
         >
           <CustomButton
             disabled={product ? false : true}
-            text={i18n.t("button.addProduct")}
+            text={params.edit ? i18n.t("button.editProduct") : i18n.t("button.addProduct")}
             onPress={() => {
-              dispatch(addScannedProduct(product));
+              const local = { ...product };
+              local["logisticVariable"] = logisticVariableSelected;
+              local["amount"] = amountSelected;
+
+              if(params.edit){
+                dispatch(editProduct(local));
+              }else{
+                dispatch(addScannedProduct(local));
+              }
+
               navigation.navigate("ProductsList");
             }}
           />
@@ -97,6 +119,7 @@ const ProducDetailScreen = ({ navigation, route }) => {
           <CustomButton
             text={i18n.t("button.cancel")}
             onPress={() => {
+              dispatch(resetProduct());
               navigation.navigate("ProductsList");
             }}
           />
@@ -106,7 +129,7 @@ const ProducDetailScreen = ({ navigation, route }) => {
   );
 };
 
-export default ProducDetailScreen;
+export default ProductDetailScreen;
 
 const styles = StyleSheet.create({
   container: {

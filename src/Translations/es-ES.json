@@ -26,7 +26,8 @@
       "waiting": "Espere, por favor",
       "available":"Disponible",
       "gpsLocation":"En ubicación",
-      "meters":"mts."
+      "meters":"mts.",
+      "ean":"Ean"
     },
 
     "button": {
@@ -56,7 +57,10 @@
       "scanLocation": "Escanear ubicación",
       "back": "Volver a opciones",
       "exit": "Salir",
-      "addProduct":"Agregar producto"
+      "addProduct":"Agregar producto",
+      "editProduct":"Editar producto",
+      "edit":"Editar",
+      "toProductsList":"Lista de productos"
     },
 
     "validation": {
@@ -119,7 +123,9 @@
         "scanProduct":"Escanear producto",
         "scanProduct-desc":"",
         "productDetail":"Detalle de producto",
-        "productDetail-desc":""
+        "productDetail-desc":"",
+        "itemOptions":"Opciones",
+        "itemOptions-desc":""
       },
       "error": "ERROR",
       "noData": "Sin datos"
@@ -196,6 +202,12 @@
       "confirmation-finishActivity":"¿Quiere terminar la actividad?",
       "confirmation-startShift":"¿Quiere iniciar el turno?",
       "confirmation-endShift":"¿Quiere finalizar el turno?"
+    },
+
+    "logisticVariable": {
+      "box": "Bultos",
+      "pallet": "Pallets"
     }
+
   }
 }

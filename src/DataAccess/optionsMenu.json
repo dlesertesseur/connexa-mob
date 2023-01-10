@@ -17,7 +17,7 @@
     "id": 3,
     "code": "WAREHOUSE_PICKING",
     "title": "PICKING EN DEPOSITO",
-    "type": "NotFound",
+    "type": "WarehousePicking",
     "iconName": "hand-back-right"
   },
   { "id": 4, "code": "FRONTING", "title": "FRENTEO DE ESTANTE", "type": "Activities", "iconName": "library-shelves" },
